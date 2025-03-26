@@ -1,0 +1,9 @@
+{
+  "HatMagicianMod:SpecHat": {
+    "NAME": "奇怪的帽子",
+    "FLAVOR": "奇怪的帽子，里面似乎藏着什么。",
+    "DESCRIPTIONS": [
+      "每场战斗开始时，将1张 [#F9D22B]小恶作剧[] 加入手中。"
+    ]
+  }
+}
