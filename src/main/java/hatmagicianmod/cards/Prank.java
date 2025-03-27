@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import hatmagicianmod.actions.BrandEvokeAllAction;
 import hatmagicianmod.effects.AtkAllLightningEffect;
 import hatmagicianmod.helpers.ModHelper;
 
@@ -31,6 +32,7 @@ public class Prank extends CustomCard {
         this.baseDamage = 2;
         this.magicNumber = this.baseMagicNumber = 2;
         this.selfRetain = true;
+        this.exhaust = true;
     }
 
     @Override
@@ -43,6 +45,7 @@ public class Prank extends CustomCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
+        this.addToBot(new BrandEvokeAllAction());
         for (int i = 0; i < this.magicNumber; i++) {
             this.addToBot(new VFXAction(new AtkAllLightningEffect()));
             this.addToBot(new DamageAllEnemiesAction(p, this.damage, this.damageTypeForTurn, AttackEffect.NONE));

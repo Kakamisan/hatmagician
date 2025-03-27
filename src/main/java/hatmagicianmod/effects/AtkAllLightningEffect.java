@@ -14,13 +14,13 @@ public class AtkAllLightningEffect extends AbstractGameEffect {
 
     public void update() {
 
+        AbstractDungeon.actionManager.addToTop(new SFXAction("ORB_LIGHTNING_EVOKE"));
+
         for(AbstractMonster m3 : AbstractDungeon.getMonsters().monsters) {
             if (!m3.isDeadOrEscaped()) {
                 AbstractDungeon.actionManager.addToTop(new VFXAction(new LightningEffect(m3.drawX, m3.drawY), 0.0F));
             }
         }
-
-        AbstractDungeon.actionManager.addToTop(new SFXAction("ORB_LIGHTNING_EVOKE"));
 
         this.isDone = true;
     }

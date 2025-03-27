@@ -1,6 +1,8 @@
 package hatmagicianmod.helpers;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 import static hatmagicianmod.characters.MyCharacter.PlayerColorEnum.HAT_MAGICIAN_YELLOW;
 
@@ -35,5 +37,11 @@ public class ModHelper {
 
     public static AbstractCard.CardColor color() {
         return HAT_MAGICIAN_YELLOW;
+    }
+
+    public static final Logger logger = LogManager.getLogger(ModHelper.class);
+
+    public static void log(String str) {
+        logger.info(str);
     }
 }

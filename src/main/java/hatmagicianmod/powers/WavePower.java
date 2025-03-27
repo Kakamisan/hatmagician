@@ -6,7 +6,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import hatmagicianmod.actions.BrandPassiveAllAction;
+import hatmagicianmod.actions.BrandUsePassiveAllAction;
 import hatmagicianmod.helpers.ModHelper;
 
 public class WavePower extends AbstractPower {
@@ -51,7 +51,7 @@ public class WavePower extends AbstractPower {
             this.flash();
 
             for (int i = 0; i < this.amount; ++i) {
-                this.addToBot(new BrandPassiveAllAction());
+                this.addToBot(new BrandUsePassiveAllAction());
             }
         }
     }

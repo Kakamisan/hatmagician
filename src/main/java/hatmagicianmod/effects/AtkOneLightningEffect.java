@@ -20,8 +20,8 @@ public class AtkOneLightningEffect extends AbstractGameEffect {
     public void update() {
 
         if (!this.target.isDeadOrEscaped()) {
-            AbstractDungeon.actionManager.addToTop(new VFXAction(new LightningEffect(this.target.drawX, this.target.drawY), 0.0F));
             AbstractDungeon.actionManager.addToTop(new SFXAction("ORB_LIGHTNING_EVOKE"));
+            AbstractDungeon.actionManager.addToTop(new VFXAction(new LightningEffect(this.target.drawX, this.target.drawY), 0.0F));
         }
 
         this.isDone = true;
