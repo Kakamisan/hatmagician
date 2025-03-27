@@ -18,6 +18,7 @@ import com.megacrit.cardcrawl.helpers.ScreenShake;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import hatmagicianmod.cards.Block;
+import hatmagicianmod.cards.Fire;
 import hatmagicianmod.cards.Lightning;
 import hatmagicianmod.cards.Strike;
 import hatmagicianmod.helpers.ModHelper;
@@ -30,24 +31,24 @@ import java.util.ArrayList;
 public class MyCharacter extends CustomPlayer {
     public static final String ID = ModHelper.makeID("MyCharacter");
     // 火堆的人物立绘（行动前）
-    private static final String MY_CHARACTER_SHOULDER_1 = "ExampleModResources/img/char/shoulder1.png";
+    private static final String MY_CHARACTER_SHOULDER_1 = "HatMagicianModRes/img/char/shoulder1.png";
     // 火堆的人物立绘（行动后）
-    private static final String MY_CHARACTER_SHOULDER_2 = "ExampleModResources/img/char/shoulder2.png";
+    private static final String MY_CHARACTER_SHOULDER_2 = "HatMagicianModRes/img/char/shoulder2.png";
     // 人物死亡图像
-    private static final String CORPSE_IMAGE = "ExampleModResources/img/char/corpse.png";
+    private static final String CORPSE_IMAGE = "HatMagicianModRes/img/char/corpse.png";
     // 战斗界面左下角能量图标的每个图层
     private static final String[] ORB_TEXTURES = new String[]{
-            "ExampleModResources/img/UI/orb/layer5.png",
-            "ExampleModResources/img/UI/orb/layer4.png",
-            "ExampleModResources/img/UI/orb/layer3.png",
-            "ExampleModResources/img/UI/orb/layer2.png",
-            "ExampleModResources/img/UI/orb/layer1.png",
-            "ExampleModResources/img/UI/orb/layer6.png",
-            "ExampleModResources/img/UI/orb/layer5d.png",
-            "ExampleModResources/img/UI/orb/layer4d.png",
-            "ExampleModResources/img/UI/orb/layer3d.png",
-            "ExampleModResources/img/UI/orb/layer2d.png",
-            "ExampleModResources/img/UI/orb/layer1d.png"
+            "HatMagicianModRes/img/UI/orb/layer5.png",
+            "HatMagicianModRes/img/UI/orb/layer4.png",
+            "HatMagicianModRes/img/UI/orb/layer3.png",
+            "HatMagicianModRes/img/UI/orb/layer2.png",
+            "HatMagicianModRes/img/UI/orb/layer1.png",
+            "HatMagicianModRes/img/UI/orb/layer6.png",
+            "HatMagicianModRes/img/UI/orb/layer5d.png",
+            "HatMagicianModRes/img/UI/orb/layer4d.png",
+            "HatMagicianModRes/img/UI/orb/layer3d.png",
+            "HatMagicianModRes/img/UI/orb/layer2d.png",
+            "HatMagicianModRes/img/UI/orb/layer1d.png"
     };
     // 每个图层的旋转速度
     private static final float[] LAYER_SPEED = new float[]{-40.0F, -32.0F, 20.0F, -20.0F, 0.0F, -10.0F, -8.0F, 5.0F, -5.0F, 0.0F};
@@ -55,7 +56,7 @@ public class MyCharacter extends CustomPlayer {
     private static final CharacterStrings characterStrings = CardCrawlGame.languagePack.getCharacterString(ID);
 
     public MyCharacter(String name) {
-        super(name, PlayerColorEnum.CHARACTER_HAT_MAGICIAN, ORB_TEXTURES, "ExampleModResources/img/UI/orb/vfx.png", LAYER_SPEED, null, null);
+        super(name, PlayerColorEnum.CHARACTER_HAT_MAGICIAN, ORB_TEXTURES, "HatMagicianModRes/img/UI/orb/vfx.png", LAYER_SPEED, null, null);
 
 
         // 人物对话气泡的大小，如果游戏中尺寸不对在这里修改（libgdx的坐标轴左下为原点）
@@ -65,7 +66,7 @@ public class MyCharacter extends CustomPlayer {
 
         // 初始化你的人物，如果你的人物只有一张图，那么第一个参数填写你人物图片的路径。
         this.initializeClass(
-                "ExampleModResources/img/char/character.png", // 人物图片
+                "HatMagicianModRes/img/char/character.png", // 人物图片
                 MY_CHARACTER_SHOULDER_2, MY_CHARACTER_SHOULDER_1,
                 CORPSE_IMAGE, // 人物死亡图像
                 this.getLoadout(),
@@ -76,7 +77,7 @@ public class MyCharacter extends CustomPlayer {
 
 
         // 如果你的人物没有动画，那么这些不需要写
-        // this.loadAnimation("ExampleModResources/img/char/character.atlas", "ExampleModResources/img/char/character.json", 1.8F);
+        // this.loadAnimation("HatMagicianModRes/img/char/character.atlas", "HatMagicianModRes/img/char/character.json", 1.8F);
         // AnimationState.TrackEntry e = this.state.setAnimation(0, "Idle", true);
         // e.setTime(e.getEndTime() * MathUtils.random());
         // e.setTimeScale(1.2F);
@@ -94,6 +95,7 @@ public class MyCharacter extends CustomPlayer {
             retVal.add(Block.ID);
         }
         retVal.add(Lightning.ID);
+        retVal.add(Fire.ID);
         return retVal;
     }
 
@@ -167,9 +169,9 @@ public class MyCharacter extends CustomPlayer {
     public ArrayList<CutscenePanel> getCutscenePanels() {
         ArrayList<CutscenePanel> panels = new ArrayList<>();
         // 有两个参数的，第二个参数表示出现图片时播放的音效
-        panels.add(new CutscenePanel("ExampleModResources/img/char/Victory1.png", "ATTACK_MAGIC_FAST_1"));
-        panels.add(new CutscenePanel("ExampleModResources/img/char/Victory2.png"));
-        panels.add(new CutscenePanel("ExampleModResources/img/char/Victory3.png"));
+        panels.add(new CutscenePanel("HatMagicianModRes/img/char/Victory1.png", "ATTACK_MAGIC_FAST_1"));
+        panels.add(new CutscenePanel("HatMagicianModRes/img/char/Victory2.png"));
+        panels.add(new CutscenePanel("HatMagicianModRes/img/char/Victory3.png"));
         return panels;
     }
 

@@ -1,35 +1,39 @@
 package hatmagicianmod.powers;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.PowerStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import hatmagicianmod.actions.BrandUsePassiveAllAction;
 import hatmagicianmod.helpers.ModHelper;
 
-public class WavePower extends AbstractPower {
+public class BrandBurnPower extends AbstractPower {
     public static final String POWER_ID;
     private static final PowerStrings powerStrings;
     public static final String NAME;
     public static final String[] DESCRIPTIONS;
 
     static {
-        POWER_ID = ModHelper.makeID("WavePower");
+        POWER_ID = ModHelper.makeID("BrandBurnPower");
         powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
         NAME = powerStrings.NAME;
         DESCRIPTIONS = powerStrings.DESCRIPTIONS;
     }
 
-    public WavePower(AbstractCreature owner, int Amount) {
+    public BrandBurnPower(AbstractCreature owner, int Amount) {
         this.name = NAME;
         this.ID = POWER_ID;
         this.owner = owner;
-        this.type = PowerType.BUFF;
+        this.type = PowerType.DEBUFF;
 
         // 如果需要不能叠加的能力，只需将上面的Amount参数删掉，并把下面的Amount改成-1就行
         this.amount = Amount;
+
+        this.priority = 4;
 
         // 添加一大一小两张能力图
         String path128 = "HatMagicianModRes/img/powers/Example84.png";
@@ -46,14 +50,18 @@ public class WavePower extends AbstractPower {
         this.description = String.format(DESCRIPTIONS[0], this.amount);
     }
 
-    public void atEndOfTurnPreEndTurnCards(boolean isPlayer) {
-        if (BrandPower.hasAnyMonstersBrand()) {
-            this.flash();
-
-            for (int i = 0; i < this.amount; ++i) {
-                this.addToBot(new BrandUsePassiveAllAction());
+    // 火印记激活时，受到伤害增加对应数值
+    public float atDamageReceive(float damage, DamageInfo.DamageType type) {
+        ModHelper.log("[" + this.name + "]伤害变更计算");
+        if (type == DamageInfo.DamageType.NORMAL && !this.owner.isPlayer) {
+            AbstractMonster m = (AbstractMonster) this.owner;
+            if (BrandPower.isBurning(m)) {
+                ModHelper.log("[" + this.name + "]伤害变更计算 √");
+                return damage + this.amount;
             }
         }
+        ModHelper.log("[" + this.name + "]伤害变更计算 ×");
+        return damage;
     }
 
 }

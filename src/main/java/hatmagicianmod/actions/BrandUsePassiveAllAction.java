@@ -15,9 +15,8 @@ public class BrandUsePassiveAllAction extends AbstractGameAction {
     public void update() {
         for(AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
             if (!m.isDeadOrEscaped()) {
-                for(AbstractPower p: BrandPower.getBrandPowers(m)) {
-                    BrandPower p2 = (BrandPower) p;
-                    p2.usePassive();
+                for(BrandPower p: BrandPower.getBrandPowers(m)) {
+                    p.usePassive();
                 }
             }
         }

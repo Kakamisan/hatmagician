@@ -6,27 +6,27 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import hatmagicianmod.actions.BrandUsePassiveAllAction;
 import hatmagicianmod.helpers.ModHelper;
 
-public class WavePower extends AbstractPower {
+// 模板 加能力直接从这复制开始改
+public class TemplatePower extends AbstractPower {
     public static final String POWER_ID;
     private static final PowerStrings powerStrings;
     public static final String NAME;
     public static final String[] DESCRIPTIONS;
 
     static {
-        POWER_ID = ModHelper.makeID("WavePower");
+        POWER_ID = ModHelper.makeID("TemplatePower");
         powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
         NAME = powerStrings.NAME;
         DESCRIPTIONS = powerStrings.DESCRIPTIONS;
     }
 
-    public WavePower(AbstractCreature owner, int Amount) {
+    public TemplatePower(AbstractCreature owner, int Amount) {
         this.name = NAME;
         this.ID = POWER_ID;
         this.owner = owner;
-        this.type = PowerType.BUFF;
+        this.type = PowerType.DEBUFF;
 
         // 如果需要不能叠加的能力，只需将上面的Amount参数删掉，并把下面的Amount改成-1就行
         this.amount = Amount;
@@ -45,15 +45,4 @@ public class WavePower extends AbstractPower {
     public void updateDescription() {
         this.description = String.format(DESCRIPTIONS[0], this.amount);
     }
-
-    public void atEndOfTurnPreEndTurnCards(boolean isPlayer) {
-        if (BrandPower.hasAnyMonstersBrand()) {
-            this.flash();
-
-            for (int i = 0; i < this.amount; ++i) {
-                this.addToBot(new BrandUsePassiveAllAction());
-            }
-        }
-    }
-
 }

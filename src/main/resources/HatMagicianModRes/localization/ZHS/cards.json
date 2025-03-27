@@ -9,10 +9,14 @@
   },
   "HatMagicianMod:Prank": {
     "NAME": "小恶作剧"
-    ,"DESCRIPTION": "对所有敌人造成 !D! 点伤害 !M! 次。 NL 保留，消耗， hatmagician:激活 。"
+    ,"DESCRIPTION": "对所有敌人造成 !D! 点伤害 !M! 次。 NL  保留 ， 消耗 ， hatmagician:激活 。"
   },
   "HatMagicianMod:Lightning": {
     "NAME": "闪电"
     ,"DESCRIPTION": "给予1个 hatmagician:闪电印记 。"
+  },
+  "HatMagicianMod:Fire": {
+    "NAME": "球形火焰"
+    ,"DESCRIPTION": "造成 !D! 点伤害。 NL 给予1个 hatmagician:火焰印记 。"
   }
 }

@@ -2,7 +2,9 @@ package hatmagicianmod.powers;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -11,6 +13,7 @@ import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import hatmagicianmod.actions.BrandEvokeEndAction;
 import hatmagicianmod.actions.DamageChainLightningEnemiesAction;
 import hatmagicianmod.effects.AtkChainLightningEffect;
 import hatmagicianmod.helpers.ModHelper;
@@ -31,6 +34,7 @@ public class BrandPower extends AbstractPower {
     public boolean is_activated = false;    // 是否已激活
     public int scar_turn = 0;               // 创伤，激活后经过多少次自动触发被动后消失
     public boolean is_played_sfx = false;   // 只播放一次生成音效
+    public boolean is_evoking = false;      // 印记是否激活中
 
     // 印记配置类
     public static class BrandBaseClass {
@@ -71,8 +75,8 @@ public class BrandPower extends AbstractPower {
         this.amount = -1;
 
         // 添加一大一小两张能力图
-        String path128 = "ExampleModResources/img/powers/Example84.png";
-        String path48 = "ExampleModResources/img/powers/Example32.png";
+        String path128 = "HatMagicianModRes/img/powers/Example84.png";
+        String path48 = "HatMagicianModRes/img/powers/Example32.png";
         this.region128 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path128), 0, 0, 84, 84);
         this.region48 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path48), 0, 0, 32, 32);
 
@@ -106,14 +110,32 @@ public class BrandPower extends AbstractPower {
 //        }
 //    }
 
+    // 火印记激活时，受到伤害变为2倍
+    public float atDamageReceive(float damage, DamageInfo.DamageType type) {
+        ModHelper.log("[" + this.name + "]伤害变更计算");
+        if (type == DamageInfo.DamageType.NORMAL && !this.owner.isPlayer) {
+            AbstractMonster m = (AbstractMonster) this.owner;
+            if (BrandPower.isBurning(m)) {
+                ModHelper.log("[" + this.name + "]伤害变更计算 √");
+                return damage * 2.0F;
+            }
+        }
+        ModHelper.log("[" + this.name + "]伤害变更计算 ×");
+        return damage;
+    }
+
     // 使用被动（因为创伤数要自动使用被动时处理，不能一起放在被动里）
     public void usePassive() {
         switch (this.brand_type) {
             case LIGHTNING:
+                // 造成连锁闪电伤害
                 this.addToTop(new DamageChainLightningEnemiesAction(this.brandPassiveValue()));
                 this.addToTop(new VFXAction(new AtkChainLightningEffect()));
                 break;
             case FIRE:
+                // 增加X层灼烧
+                this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new BrandBurnPower(this.owner, this.brandPassiveValue())));
+                break;
             case ICE:
             default:
         }
@@ -124,10 +146,11 @@ public class BrandPower extends AbstractPower {
     public void useEvoke() {
         switch (this.brand_type) {
             case LIGHTNING:
+                // 造成更高的连锁闪电伤害
                 this.addToTop(new DamageChainLightningEnemiesAction(this.brandEvokeValue()));
                 this.addToTop(new VFXAction(new AtkChainLightningEffect()));
                 break;
-            case FIRE:
+            case FIRE:  // 火印记激活本身不存在效果
             case ICE:
             default:
         }
@@ -136,14 +159,25 @@ public class BrandPower extends AbstractPower {
 
     // 激活
     public void evoke() {
-        if (this.is_activated)
+        ModHelper.log("[" + this.name + "]激活");
+        if (this.is_activated){
+            ModHelper.log("[" + this.name + "]激活 ×");
             return;
-        this.useEvoke();
+        }
+        this.is_evoking = true;
+        ModHelper.log("[" + this.name + "]激活 √");
         this.is_activated = true;
+        this.useEvoke();
+        this.evokeEnd();
         this.tryRemove();
     }
 
-    // 尝试移除印记 (若已激活且创伤数为0，则移除)
+    // 激活结束 *添加到底部
+    public void evokeEnd() {
+        this.addToBot(new BrandEvokeEndAction(this));
+    }
+
+    // 尝试移除印记 *若已激活且创伤数为0，则移除 *添加到底部
     public void tryRemove() {
         if (this.is_activated && this.scar_turn <= 0) {
             // 执行移除
@@ -180,11 +214,26 @@ public class BrandPower extends AbstractPower {
     }
 
     // 获取该怪物的所有印记
-    public static ArrayList<AbstractPower> getBrandPowers(AbstractMonster m) {
-        ArrayList<AbstractPower> list = new ArrayList<>();
+    public static ArrayList<BrandPower> getBrandPowers(AbstractMonster m) {
+        ArrayList<BrandPower> list = new ArrayList<>();
         for (AbstractPower p : m.powers) {
             if (BrandPower.isBrandPower(p)) {
-                list.add(p);
+                BrandPower p2 = (BrandPower) p;
+                list.add(p2);
+            }
+        }
+        return list;
+    }
+
+    // 获取该怪物的所有特定类型印记
+    public static ArrayList<BrandPower> getBrandPowers(AbstractMonster m, BRAND_TYPE type) {
+        ArrayList<BrandPower> list = new ArrayList<>();
+        for (AbstractPower p : m.powers) {
+            if (BrandPower.isBrandPower(p)) {
+                BrandPower p2 = (BrandPower) p;
+                if (p2.brand_type == type) {
+                    list.add(p2);
+                }
             }
         }
         return list;
@@ -215,6 +264,25 @@ public class BrandPower extends AbstractPower {
     // 是否印记能力
     public static boolean isBrandPower(AbstractPower p) {
         return p.ID.contains(ModHelper.makeID("BrandPower"));
+    }
+
+    // 是否印记能力
+    public static boolean isBrandPower(AbstractPower p, BRAND_TYPE type) {
+        if (isBrandPower(p)) {
+            return ((BrandPower) p).brand_type == type;
+        }
+        return false;
+    }
+
+    // 是否处于激活火印记
+    public static boolean isBurning(AbstractMonster m) {
+        ArrayList<BrandPower> list = getBrandPowers(m, BRAND_TYPE.FIRE);
+        for (BrandPower p : list) {
+            if (p.is_evoking) {
+                return true;
+            }
+        }
+        return false;
     }
 
     // 获取印记实际名字 闪电/火焰/冰冻

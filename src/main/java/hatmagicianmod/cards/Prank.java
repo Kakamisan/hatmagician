@@ -6,11 +6,15 @@ import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 import hatmagicianmod.actions.BrandEvokeAllAction;
 import hatmagicianmod.effects.AtkAllLightningEffect;
 import hatmagicianmod.helpers.ModHelper;
+
+import static hatmagicianmod.modcore.HatMagicianMod.MY_COLOR;
 
 public class Prank extends CustomCard {
 
@@ -45,10 +49,11 @@ public class Prank extends CustomCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
+        this.addToBot(new VFXAction(p, new ShockWaveEffect(p.hb.cX, p.hb.cY, MY_COLOR, ShockWaveEffect.ShockWaveType.CHAOTIC), 0.3F));
         this.addToBot(new BrandEvokeAllAction());
         for (int i = 0; i < this.magicNumber; i++) {
-            this.addToBot(new VFXAction(new AtkAllLightningEffect()));
-            this.addToBot(new DamageAllEnemiesAction(p, this.damage, this.damageTypeForTurn, AttackEffect.NONE));
+//            this.addToBot(new VFXAction(new AtkAllLightningEffect()));
+            this.addToBot(new DamageAllEnemiesAction(p, this.damage, this.damageTypeForTurn, AttackEffect.SLASH_HORIZONTAL));
         }
     }
 }

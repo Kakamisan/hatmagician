@@ -4,6 +4,7 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import hatmagicianmod.helpers.ModHelper;
 import hatmagicianmod.powers.BrandPower;
 
 public class ApplyBrandPowerAction extends AbstractGameAction {
@@ -18,6 +19,7 @@ public class ApplyBrandPowerAction extends AbstractGameAction {
 
     @Override
     public void update() {
+        ModHelper.log("[添加印记]addToTop");
         this.addToTop(new ApplyPowerAction(this.target, AbstractDungeon.player, new BrandPower(this.target, this.type)));
         this.addToTop(new BrandEvokeAction(this.target));
         this.isDone = true;

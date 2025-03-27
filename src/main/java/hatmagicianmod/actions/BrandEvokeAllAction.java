@@ -14,9 +14,8 @@ public class BrandEvokeAllAction extends AbstractGameAction {
     public void update() {
         for(AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
             if (!m.isDeadOrEscaped()) {
-                for(AbstractPower p: BrandPower.getBrandPowers(m)) {
-                    BrandPower p2 = (BrandPower) p;
-                    p2.evoke();
+                for(BrandPower p: BrandPower.getBrandPowers(m)) {
+                    p.evoke();
                 }
             }
         }
