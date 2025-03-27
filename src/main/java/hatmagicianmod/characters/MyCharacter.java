@@ -17,10 +17,7 @@ import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ScreenShake;
 import com.megacrit.cardcrawl.localization.CharacterStrings;
 import com.megacrit.cardcrawl.screens.CharSelectInfo;
-import hatmagicianmod.cards.Block;
-import hatmagicianmod.cards.Fire;
-import hatmagicianmod.cards.Lightning;
-import hatmagicianmod.cards.Strike;
+import hatmagicianmod.cards.*;
 import hatmagicianmod.helpers.ModHelper;
 import hatmagicianmod.modcore.HatMagicianMod;
 import hatmagicianmod.relics.SpecHat;
@@ -96,6 +93,7 @@ public class MyCharacter extends CustomPlayer {
         }
         retVal.add(Lightning.ID);
         retVal.add(Fire.ID);
+        retVal.add(Ice.ID);
         return retVal;
     }
 

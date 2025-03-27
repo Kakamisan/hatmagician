@@ -1,6 +1,7 @@
 package hatmagicianmod.powers;
 
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
@@ -12,6 +13,8 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.powers.GainStrengthPower;
+import com.megacrit.cardcrawl.powers.StrengthPower;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import hatmagicianmod.actions.BrandEvokeEndAction;
 import hatmagicianmod.actions.DamageChainLightningEnemiesAction;
@@ -74,11 +77,23 @@ public class BrandPower extends AbstractPower {
         // 如果需要不能叠加的能力，只需将上面的Amount参数删掉，并把下面的Amount改成-1就行
         this.amount = -1;
 
-        // 添加一大一小两张能力图
-        String path128 = "HatMagicianModRes/img/powers/Example84.png";
-        String path48 = "HatMagicianModRes/img/powers/Example32.png";
-        this.region128 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path128), 0, 0, 84, 84);
-        this.region48 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path48), 0, 0, 32, 32);
+//        // 添加一大一小两张能力图
+//        String path128 = "HatMagicianModRes/img/powers/Example84.png";
+//        String path48 = "HatMagicianModRes/img/powers/Example32.png";
+//        this.region128 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path128), 0, 0, 84, 84);
+//        this.region48 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path48), 0, 0, 32, 32);
+
+        switch (type) {
+            case LIGHTNING:
+                this.loadRegion("mastery");
+                break;
+            case FIRE:
+                this.loadRegion("attackBurn");
+                break;
+            case ICE:
+                this.loadRegion("int");
+                break;
+        }
 
         // 首次添加能力更新描述
         this.updateDescription();
@@ -137,6 +152,12 @@ public class BrandPower extends AbstractPower {
                 this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new BrandBurnPower(this.owner, this.brandPassiveValue())));
                 break;
             case ICE:
+                // 失去X点临时力量
+                if (!this.owner.hasPower("Artifact")) {
+                    this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new GainStrengthPower(this.owner, this.brandPassiveValue()), this.brandPassiveValue(), true, AbstractGameAction.AttackEffect.NONE));
+                }
+                this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new StrengthPower(this.owner, -this.brandPassiveValue()), -this.brandPassiveValue(), true, AbstractGameAction.AttackEffect.NONE));
+                break;
             default:
         }
         this.flash();
@@ -152,6 +173,12 @@ public class BrandPower extends AbstractPower {
                 break;
             case FIRE:  // 火印记激活本身不存在效果
             case ICE:
+                // 失去X点临时力量
+                if (!this.owner.hasPower("Artifact")) {
+                    this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new GainStrengthPower(this.owner, this.brandEvokeValue()), this.brandEvokeValue(), true, AbstractGameAction.AttackEffect.NONE));
+                }
+                this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new StrengthPower(this.owner, -this.brandEvokeValue()), -this.brandEvokeValue(), true, AbstractGameAction.AttackEffect.NONE));
+                break;
             default:
         }
         this.flash();

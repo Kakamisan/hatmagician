@@ -18,5 +18,9 @@
   "HatMagicianMod:Fire": {
     "NAME": "球形火焰"
     ,"DESCRIPTION": "造成 !D! 点伤害。 NL 给予1个 hatmagician:火焰印记 。"
+  },
+  "HatMagicianMod:Ice": {
+    "NAME": "冻结"
+    ,"DESCRIPTION": "给予 !M! 个 hatmagician:冰冻印记 。"
   }
 }
