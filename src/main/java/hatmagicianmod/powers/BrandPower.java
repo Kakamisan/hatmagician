@@ -1,22 +1,20 @@
 package hatmagicianmod.powers;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.powers.GainStrengthPower;
-import com.megacrit.cardcrawl.powers.StrengthPower;
+import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import hatmagicianmod.actions.BrandEvokeEndAction;
+import hatmagicianmod.actions.BrandUsePassiveAllAction;
 import hatmagicianmod.actions.DamageChainLightningEnemiesAction;
 import hatmagicianmod.effects.AtkChainLightningEffect;
 import hatmagicianmod.helpers.ModHelper;
@@ -101,7 +99,8 @@ public class BrandPower extends AbstractPower {
 
     // 能力在更新时如何修改描述
     public void updateDescription() {
-        this.description = String.format(DESCRIPTIONS[0], this.getBrandSubDesc());
+        ModHelper.log("[" + this.name + "]更新了描述");
+        this.description = DESCRIPTIONS[0] + this.getBrandSubDesc();
     }
 
     // 每回合被动效果
@@ -117,13 +116,9 @@ public class BrandPower extends AbstractPower {
         }
     }
 
-//    // 推印记 *不生效，具体原因懒得看
-//    public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
-//        ModHelper.log("添加了新的能力" + power.ID);
-//        if (BrandPower.isBrandPower(power) && target == this.owner && !this.is_activated) {
-//            this.evoke();
-//        }
-//    }
+    public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
+        this.updateDescription();
+    }
 
     // 火印记激活时，受到伤害变为2倍
     public float atDamageReceive(float damage, DamageInfo.DamageType type) {
@@ -164,7 +159,9 @@ public class BrandPower extends AbstractPower {
     }
 
     // 使用激活
-    public void useEvoke() {
+    public void useEvoke(BRAND_TYPE source_type) {
+
+        // 常规激活效果
         switch (this.brand_type) {
             case LIGHTNING:
                 // 造成更高的连锁闪电伤害
@@ -180,21 +177,61 @@ public class BrandPower extends AbstractPower {
                 this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new StrengthPower(this.owner, -this.brandEvokeValue()), -this.brandEvokeValue(), true, AbstractGameAction.AttackEffect.NONE));
                 break;
             default:
+                break;
         }
+
         this.flash();
+
+        // 超载效果
+        if (source_type != null && source_type != this.brand_type) {
+            switch (this.brand_type) {
+                case LIGHTNING:
+                    if (source_type == BRAND_TYPE.FIRE) {
+                        // 额外1次连锁闪电
+                        this.addToTop(new DamageChainLightningEnemiesAction(this.brandEvokeValue()));
+                        this.addToTop(new VFXAction(new AtkChainLightningEffect()));
+                    } else {
+                        // 抽1
+                        this.addToTop(new DrawCardAction(1));
+                    }
+                    break;
+                case FIRE:
+                    if (source_type == BRAND_TYPE.LIGHTNING) {
+                        // 1层易伤
+                        this.addToBot(new ApplyPowerAction(this.owner, AbstractDungeon.player, new VulnerablePower(this.owner, 1, false), 1, true, AbstractGameAction.AttackEffect.NONE));
+                    } else {
+                        // 1层虚弱
+                        this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new WeakPower(this.owner, 1, false), 1));
+                    }
+                    break;
+                case ICE:
+                    if (source_type == BRAND_TYPE.LIGHTNING) {
+                        // 使用所有印记的一次被动 *有点超模！！！
+                        this.addToTop(new BrandUsePassiveAllAction());
+                    } else {
+                        // 添加X层灼烧 *可能超模！！
+                        this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new BrandBurnPower(this.owner, this.brandPassiveValue())));
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+            this.flash();
+        }
     }
 
-    // 激活
-    public void evoke() {
+    // 激活 source_type=造成本次激活的印记 null=普通激活
+    public void evoke(BRAND_TYPE source_type) {
         ModHelper.log("[" + this.name + "]激活");
-        if (this.is_activated){
+        if (this.is_activated) {
             ModHelper.log("[" + this.name + "]激活 ×");
             return;
         }
         this.is_evoking = true;
         ModHelper.log("[" + this.name + "]激活 √");
         this.is_activated = true;
-        this.useEvoke();
+        this.useEvoke(source_type);
         this.evokeEnd();
         this.tryRemove();
     }
@@ -330,11 +367,23 @@ public class BrandPower extends AbstractPower {
     private String getBrandSubDesc() {
         switch (this.brand_type) {
             case LIGHTNING:
-                return String.format(DESCRIPTIONS[4], this.brandPassiveValue());
+                return String.format(DESCRIPTIONS[4], this.brandPassiveValue())
+                        + String.format(DESCRIPTIONS[7], this.brandEvokeValue())
+                        + DESCRIPTIONS[10]
+                        + DESCRIPTIONS[11]
+                        ;
             case FIRE:
-                return String.format(DESCRIPTIONS[5], this.brandPassiveValue());
+                return String.format(DESCRIPTIONS[5], this.brandPassiveValue())
+                        + DESCRIPTIONS[8]
+                        + DESCRIPTIONS[12]
+                        + DESCRIPTIONS[13]
+                        ;
             case ICE:
-                return String.format(DESCRIPTIONS[6], this.brandPassiveValue());
+                return String.format(DESCRIPTIONS[6], this.brandPassiveValue())
+                        + String.format(DESCRIPTIONS[9], this.brandEvokeValue())
+                        + DESCRIPTIONS[14]
+                        + String.format(DESCRIPTIONS[15], this.brandPassiveValue())
+                        ;
             default:
                 return "";
         }
