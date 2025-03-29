@@ -46,14 +46,15 @@
   },
   "HatMagicianMod:Wave": {
     "NAME": "心烦意乱"
-    ,"DESCRIPTION": "回合结束时，额外触发 !M! 次所有 hatmagician:印记 的被动。"
+    ,"DESCRIPTION": " 虚无 。 NL 回合结束时，额外触发 !M! 次所有 hatmagician:印记 的被动。"
+    ,"UPGRADE_DESCRIPTION": " NL 回合结束时，额外触发 !M! 次所有 hatmagician:印记 的被动。"
   },
   "HatMagicianMod:Curiosity": {
     "NAME": "兴致勃勃"
     ,"DESCRIPTION": "获得 !M! 点 hatmagician:好奇心 。"
   },
-  "HatMagicianMod:SageMode": {
-    "NAME": "贤者时间"
-    ,"DESCRIPTION": ""
+  "HatMagicianMod:ZzzWorld": {
+    "NAME": "晚安，世界"
+    ,"DESCRIPTION": "回合结束时，获得 !M! 点格挡。 NL 场上存在 hatmagician:冰冻印记 ，则额外获得1次。"
   }
 }

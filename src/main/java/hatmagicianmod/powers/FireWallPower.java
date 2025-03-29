@@ -1,26 +1,34 @@
 package hatmagicianmod.powers;
 
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.actions.common.DamageAction;
+import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import hatmagicianmod.actions.BrandUsePassiveAllAction;
+import com.megacrit.cardcrawl.powers.FlameBarrierPower;
 import hatmagicianmod.helpers.ModHelper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-public class WavePower extends AbstractPower {
+public class FireWallPower extends AbstractPower {
     public static final String POWER_ID;
     private static final PowerStrings powerStrings;
     public static final String NAME;
     public static final String[] DESCRIPTIONS;
 
     static {
-        POWER_ID = ModHelper.makeID("WavePower");
+        POWER_ID = ModHelper.makeID("FireWallPower");
         powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
         NAME = powerStrings.NAME;
         DESCRIPTIONS = powerStrings.DESCRIPTIONS;
     }
 
-    public WavePower(AbstractCreature owner, int Amount) {
+    public FireWallPower(AbstractCreature owner, int Amount) {
         this.name = NAME;
         this.ID = POWER_ID;
         this.owner = owner;
@@ -34,7 +42,8 @@ public class WavePower extends AbstractPower {
 //        String path48 = "HatMagicianModRes/img/powers/Example32.png";
 //        this.region128 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path128), 0, 0, 84, 84);
 //        this.region48 = new TextureAtlas.AtlasRegion(ImageMaster.loadImage(path48), 0, 0, 32, 32);
-        this.loadRegion("loop");
+
+        this.loadRegion("flameBarrier");
 
         // 首次添加能力更新描述
         this.updateDescription();
@@ -42,17 +51,19 @@ public class WavePower extends AbstractPower {
 
     // 能力在更新时如何修改描述
     public void updateDescription() {
-        this.description = String.format(DESCRIPTIONS[0], this.amount);
+        this.description = DESCRIPTIONS[0];
     }
 
-    public void atEndOfTurnPreEndTurnCards(boolean isPlayer) {
-        if (BrandPower.hasAnyMonstersBrand()) {
+    public int onAttacked(DamageInfo info, int damageAmount) {
+        if (info.owner != null && info.type != DamageInfo.DamageType.THORNS && info.type != DamageInfo.DamageType.HP_LOSS && info.owner != this.owner) {
             this.flash();
-
-            for (int i = 0; i < this.amount; ++i) {
-                this.addToBot(new BrandUsePassiveAllAction());
-            }
+            this.addToTop(new ApplyPowerAction(info.owner, this.owner, new BrandBurnPower(info.owner, this.amount)));
         }
+
+        return damageAmount;
     }
 
+    public void atStartOfTurn() {
+        this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, this.ID));
+    }
 }

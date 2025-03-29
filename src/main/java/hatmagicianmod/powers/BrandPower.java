@@ -15,7 +15,6 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import hatmagicianmod.actions.BrandEvokeEndAction;
-import hatmagicianmod.actions.BrandUsePassiveAllAction;
 import hatmagicianmod.actions.DamageChainLightningEnemiesAction;
 import hatmagicianmod.effects.AtkChainLightningEffect;
 import hatmagicianmod.helpers.ModHelper;
@@ -37,6 +36,8 @@ public class BrandPower extends AbstractPower {
     public int scar_turn = 0;               // 创伤，激活后经过多少次自动触发被动后消失
     public boolean is_played_sfx = false;   // 只播放一次生成音效
     public boolean is_evoking = false;      // 印记是否激活中
+
+    private int curiosity = 0;  // 临时存储好奇心数值
 
     // 印记配置类
     public static class BrandBaseClass {
@@ -102,6 +103,13 @@ public class BrandPower extends AbstractPower {
     public void updateDescription() {
         ModHelper.log("[" + this.name + "]更新了描述");
         this.description = DESCRIPTIONS[0] + this.getBrandSubDesc();
+        this.curiosity = 0; // 更新完之后把这个数值设成0，下次若直接调用更新描述则是获取player上的好奇心数值
+    }
+
+    public void updateDescription(int curiosity) {
+        ModHelper.log("[" + this.name + "]更新了描述");
+        this.curiosity = curiosity;
+        this.updateDescription();
     }
 
     // 每回合被动效果
@@ -267,6 +275,15 @@ public class BrandPower extends AbstractPower {
             default:
         }
         this.is_played_sfx = true;
+
+        // 因为每个印记只会执行一次，所以这里也可以去做生成印记时的额外处理
+        ZzzWorldPower.onBrandPowerApplied();
+    }
+
+    @Override
+    public void onRemove() {
+        super.onRemove();
+        ZzzWorldPower.onBrandPowerApplied();
     }
 
     // ############## 工具 ##############
@@ -275,6 +292,16 @@ public class BrandPower extends AbstractPower {
     public static boolean hasAnyMonstersBrand() {
         for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
             if (!m.isDeadOrEscaped() && BrandPower.hasBrandPower(m)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // 场上是否存在任意印记
+    public static boolean hasAnyMonstersBrand(BRAND_TYPE type) {
+        for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
+            if (!m.isDeadOrEscaped() && BrandPower.hasBrandPower(m, type)) {
                 return true;
             }
         }
@@ -405,6 +432,9 @@ public class BrandPower extends AbstractPower {
 
     // 好奇心提供的数值
     private int playerCuriosity() {
+        if (this.curiosity != 0) {
+            return this.curiosity;
+        }
         AbstractPower p = AbstractDungeon.player.getPower(ModHelper.makeID("CuriosityPower"));
         if (p != null) {
             return p.amount;

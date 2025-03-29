@@ -35,7 +35,20 @@
   ,"HatMagicianMod:CuriosityPower": {
     "NAME": "好奇心",
     "DESCRIPTIONS": [
-      "使 #y印记 的部分效果增加 #g%d 。"
+      "使 #y印记 的部分效果增加 #g%d 。",
+      "使 #y印记 的部分效果减少 #g%d 。"
+    ]
+  }
+  ,"HatMagicianMod:ZzzWorldPower": {
+    "NAME": "晚安，世界",
+    "DESCRIPTIONS": [
+      "回合结束时，获得 #g%d 点格挡，若场上存在 #b冰冻印记 则额外获得1次。"
+    ]
+  }
+  ,"HatMagicianMod:FireWallPower": {
+    "NAME": "火焰墙",
+    "DESCRIPTIONS": [
+      "收到攻击时，给予1层 #y灼烧 。"
     ]
   }
 }
