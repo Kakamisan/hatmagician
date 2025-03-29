@@ -4,6 +4,7 @@ import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import hatmagicianmod.actions.ApplyBrandPowerAction;
@@ -27,22 +28,27 @@ public class Ice extends CustomCard {
     }
 
     public Ice() {
-        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.BASIC, CardTarget.ENEMY);
+        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.RARE, CardTarget.ENEMY);
         this.magicNumber = this.baseMagicNumber = 1;
+        this.exhaust = true;
     }
 
     @Override
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-            this.upgradeMagicNumber(1);
+            this.isInnate = true;
+            this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
+            this.initializeDescription();
         }
     }
 
     @Override
-    public void use(AbstractPlayer p, AbstractMonster m) {
-        for (int i = 0; i < this.magicNumber; i++){
-            this.addToBot(new ApplyBrandPowerAction(m, BrandPower.BRAND_TYPE.ICE));
+    public void use(AbstractPlayer p, AbstractMonster m_null) {
+        for (int i = 0; i < this.magicNumber; i++) {
+            for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
+                this.addToBot(new ApplyBrandPowerAction(m, BrandPower.BRAND_TYPE.ICE));
+            }
         }
     }
 }

@@ -4,6 +4,7 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
+import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -116,9 +117,9 @@ public class BrandPower extends AbstractPower {
         }
     }
 
-    public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
-        this.updateDescription();
-    }
+//    public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
+//        this.updateDescription();
+//    }
 
     // 火印记激活时，受到伤害变为2倍
     public float atDamageReceive(float damage, DamageInfo.DamageType type) {
@@ -169,6 +170,7 @@ public class BrandPower extends AbstractPower {
                 this.addToTop(new VFXAction(new AtkChainLightningEffect()));
                 break;
             case FIRE:  // 火印记激活本身不存在效果
+                break;
             case ICE:
                 // 失去X点临时力量
                 if (!this.owner.hasPower("Artifact")) {
@@ -187,7 +189,8 @@ public class BrandPower extends AbstractPower {
             switch (this.brand_type) {
                 case LIGHTNING:
                     if (source_type == BRAND_TYPE.FIRE) {
-                        // 额外1次连锁闪电
+                        // 额外1次激活
+                        // 造成更高的连锁闪电伤害
                         this.addToTop(new DamageChainLightningEnemiesAction(this.brandEvokeValue()));
                         this.addToTop(new VFXAction(new AtkChainLightningEffect()));
                     } else {
@@ -196,20 +199,21 @@ public class BrandPower extends AbstractPower {
                     }
                     break;
                 case FIRE:
-                    if (source_type == BRAND_TYPE.LIGHTNING) {
-                        // 1层易伤
-                        this.addToBot(new ApplyPowerAction(this.owner, AbstractDungeon.player, new VulnerablePower(this.owner, 1, false), 1, true, AbstractGameAction.AttackEffect.NONE));
+                    if (source_type == BRAND_TYPE.ICE) {
+                        // X层虚弱
+                        this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new WeakPower(this.owner, this.brandPassiveValue(), false), this.brandPassiveValue()));
                     } else {
-                        // 1层虚弱
-                        this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new WeakPower(this.owner, 1, false), 1));
+                        // X层易伤
+                        this.addToBot(new ApplyPowerAction(this.owner, AbstractDungeon.player, new VulnerablePower(this.owner, this.brandPassiveValue(), false), this.brandPassiveValue(), true, AbstractGameAction.AttackEffect.NONE));
                     }
                     break;
                 case ICE:
                     if (source_type == BRAND_TYPE.LIGHTNING) {
-                        // 使用所有印记的一次被动 *有点超模！！！
-                        this.addToTop(new BrandUsePassiveAllAction());
+                        // 获得X点格挡
+                        this.addToTop(new GainBlockAction(AbstractDungeon.player, this.brandEvokeValue()));
+                        break;
                     } else {
-                        // 添加X层灼烧 *可能超模！！
+                        // 添加X层灼烧
                         this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new BrandBurnPower(this.owner, this.brandPassiveValue())));
                     }
                     break;
@@ -375,13 +379,13 @@ public class BrandPower extends AbstractPower {
             case FIRE:
                 return String.format(DESCRIPTIONS[5], this.brandPassiveValue())
                         + DESCRIPTIONS[8]
-                        + DESCRIPTIONS[12]
-                        + DESCRIPTIONS[13]
+                        + String.format(DESCRIPTIONS[12], this.brandPassiveValue())
+                        + String.format(DESCRIPTIONS[13], this.brandPassiveValue())
                         ;
             case ICE:
                 return String.format(DESCRIPTIONS[6], this.brandPassiveValue())
                         + String.format(DESCRIPTIONS[9], this.brandEvokeValue())
-                        + DESCRIPTIONS[14]
+                        + String.format(DESCRIPTIONS[14], this.brandEvokeValue())
                         + String.format(DESCRIPTIONS[15], this.brandPassiveValue())
                         ;
             default:

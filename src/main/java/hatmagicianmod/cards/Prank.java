@@ -1,22 +1,19 @@
 package hatmagicianmod.cards;
 
-import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.actions.AbstractGameAction.AttackEffect;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.DamageAllEnemiesAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 import hatmagicianmod.actions.BrandEvokeAllAction;
-import hatmagicianmod.effects.AtkAllLightningEffect;
 import hatmagicianmod.helpers.ModHelper;
 
 import static hatmagicianmod.modcore.HatMagicianMod.MY_COLOR;
 
-public class Prank extends CustomCard {
+public class Prank extends BrandAtkBase {
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;
@@ -35,6 +32,7 @@ public class Prank extends CustomCard {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.BASIC, CardTarget.ALL_ENEMY);
         this.baseDamage = 2;
         this.magicNumber = this.baseMagicNumber = 2;
+        this.isMultiDamage = true;
         this.selfRetain = true;
         this.exhaust = true;
     }
@@ -53,7 +51,7 @@ public class Prank extends CustomCard {
         this.addToBot(new BrandEvokeAllAction());
         for (int i = 0; i < this.magicNumber; i++) {
 //            this.addToBot(new VFXAction(new AtkAllLightningEffect()));
-            this.addToBot(new DamageAllEnemiesAction(p, this.damage, this.damageTypeForTurn, AttackEffect.SLASH_HORIZONTAL));
+            this.addToBot(new DamageAllEnemiesAction(p, this.multiDamage, this.damageTypeForTurn, AttackEffect.SLASH_HORIZONTAL));
         }
     }
 }
