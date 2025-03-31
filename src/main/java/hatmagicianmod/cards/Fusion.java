@@ -4,6 +4,7 @@ import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import hatmagicianmod.helpers.ModHelper;
@@ -33,7 +34,7 @@ public class Fusion extends CustomCard {
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-            this.upgradeBlock(2);
+            this.upgradeBlock(3);
         }
     }
 
@@ -46,6 +47,11 @@ public class Fusion extends CustomCard {
             cnt++;
         if (BrandPower.hasAnyMonstersBrand(BrandPower.BRAND_TYPE.FIRE))
             cnt++;
+//        for (AbstractMonster mo : AbstractDungeon.getMonsters().monsters) {
+//            if (!mo.isDeadOrEscaped()) {
+//                cnt = BrandPower.getBrandPowers(mo).size() + cnt;
+//            }
+//        }
         this.addToBot(new GainBlockAction(p, this.block * cnt));
     }
 }

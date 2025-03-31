@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import hatmagicianmod.actions.BrandEvokeAction;
 import hatmagicianmod.helpers.ModHelper;
 
-public class BreakAttack extends BrandAtkBase {
+public class DoubleStar extends BrandAtkBase {
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;
@@ -19,30 +19,29 @@ public class BreakAttack extends BrandAtkBase {
     private static final CardType TYPE = CardType.ATTACK;
 
     static {
-        String name = "BreakAttack";
+        String name = "DoubleStar";
         ID = ModHelper.makeID(name);
         CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
         IMG_PATH = ModHelper.makeCardImgPath(TYPE, name);
     }
 
-    public BreakAttack() {
+    public DoubleStar() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.ENEMY);
-        this.baseDamage = 8;
-        this.magicNumber = this.baseMagicNumber = 2;
+        this.baseDamage = 4;
     }
 
     @Override
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-            this.upgradeDamage(3);
-            this.upgradeMagicNumber(1);
+            this.upgradeDamage(2);
         }
     }
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        this.addToBot(new BrandEvokeAction(m, this.magicNumber));
-        this.addToBot(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
+        this.addToBot(new BrandEvokeAction(m));
+        this.addToBot(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.SLASH_HEAVY));
+        this.addToBot(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.SLASH_HEAVY));
     }
 }

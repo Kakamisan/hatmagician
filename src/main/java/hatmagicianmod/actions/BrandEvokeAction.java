@@ -21,6 +21,12 @@ public class BrandEvokeAction extends AbstractGameAction {
         this.scar_turn = scar_turn;
     }
 
+    public BrandEvokeAction(AbstractMonster m) {
+        this.target = m;
+        this.source_type = null;
+        this.scar_turn = 0;
+    }
+
     @Override
     public void update() {
 

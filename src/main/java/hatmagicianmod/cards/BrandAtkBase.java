@@ -40,8 +40,10 @@ public class BrandAtkBase extends CustomCard {
             for (AbstractPower p : mo.powers) {
                 if (BrandPower.isBrandPower(p, BrandPower.BRAND_TYPE.FIRE)) {
                     BrandPower p2 = ((BrandPower) p);
-                    p2.is_evoking = true;
-                    tmp_pl.add(p2);
+                    if (!p2.is_activated) {
+                        p2.is_evoking = true;
+                        tmp_pl.add(p2);
+                    }
                 }
             }
         } else {
@@ -50,8 +52,10 @@ public class BrandAtkBase extends CustomCard {
                 for (AbstractPower p : m.powers) {
                     if (BrandPower.isBrandPower(p, BrandPower.BRAND_TYPE.FIRE)) {
                         BrandPower p2 = ((BrandPower) p);
-                        p2.is_evoking = true;
-                        tmp_pl.add(p2);
+                        if (!p2.is_activated) {
+                            p2.is_evoking = true;
+                            tmp_pl.add(p2);
+                        }
                     }
                 }
             }

@@ -1,16 +1,16 @@
 package hatmagicianmod.cards;
 
 import basemod.abstracts.CustomCard;
+import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import hatmagicianmod.actions.ApplyBrandPowerAction;
 import hatmagicianmod.helpers.ModHelper;
 import hatmagicianmod.powers.BrandPower;
 
-public class Ice extends CustomCard {
+public class Bloom extends CustomCard {
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;
@@ -19,14 +19,14 @@ public class Ice extends CustomCard {
     private static final CardType TYPE = CardType.SKILL;
 
     static {
-        String name = "Ice";
+        String name = "Bloom";
         ID = ModHelper.makeID(name);
         CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
         IMG_PATH = ModHelper.makeCardImgPath(TYPE, name);
     }
 
-    public Ice() {
-        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.ALL_ENEMY);
+    public Bloom() {
+        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.SELF);
         this.magicNumber = this.baseMagicNumber = 1;
         this.exhaust = true;
     }
@@ -43,10 +43,14 @@ public class Ice extends CustomCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster _m) {
-        for (int i = 0; i < this.magicNumber; i++) {
-            for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
-                this.addToBot(new ApplyBrandPowerAction(m, BrandPower.BRAND_TYPE.ICE));
+        int cnt = 0;
+        for (AbstractMonster mo : AbstractDungeon.getMonsters().monsters) {
+            if (!mo.isDeadOrEscaped()) {
+                cnt = BrandPower.getBrandPowers(mo).size() + cnt;
             }
+        }
+        if (cnt > 0) {
+            this.addToBot(new DrawCardAction(p, cnt));
         }
     }
 }
