@@ -29,14 +29,14 @@ public class Fire extends BrandAtkBase {
 
     public Fire() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.ENEMY);
-        this.baseDamage = 8;
+        this.baseDamage = 10;
     }
 
     @Override
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-            this.upgradeDamage(4);
+            this.upgradeBaseCost(1);
         }
     }
 

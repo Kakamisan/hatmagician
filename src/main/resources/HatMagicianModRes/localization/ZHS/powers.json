@@ -24,6 +24,7 @@
       ," NL  #y超载电 ：额外给予 #b%d 层易伤。"
       ," NL  #y超载电 ：额外获得 #b%d 点格挡。"
       ," NL  #r超载火 ：额外给予 #b%d 层 #y灼烧 。"
+      ," NL  #y烙印 ，剩余 #b%d 回合。"
     ]
   }
   ,"HatMagicianMod:BrandBurnPower": {
@@ -49,6 +50,18 @@
     "NAME": "火焰墙",
     "DESCRIPTIONS": [
       "收到攻击时，给予1层 #y灼烧 。"
+    ]
+  }
+  ,"HatMagicianMod:BrandScarPower": {
+    "NAME": "复之烙印",
+    "DESCRIPTIONS": [
+      "激活的印记不再立即移除，而是在 #g%d 回合后移除。 NL 已激活的印记无法再次激活。"
+    ]
+  }
+  ,"HatMagicianMod:OverloadFormPower": {
+    "NAME": "超载形态",
+    "DESCRIPTIONS": [
+      "每当你 hatmagician:超载激活 时，获得 #g%d 点 [E] 。"
     ]
   }
 }

@@ -102,7 +102,7 @@ public class BrandPower extends AbstractPower {
     // 能力在更新时如何修改描述
     public void updateDescription() {
         ModHelper.log("[" + this.name + "]更新了描述");
-        this.description = DESCRIPTIONS[0] + this.getBrandSubDesc();
+        this.description = DESCRIPTIONS[0] + this.getBrandSubDesc() + this.getScarDesc();
         this.curiosity = 0; // 更新完之后把这个数值设成0，下次若直接调用更新描述则是获取player上的好奇心数值
     }
 
@@ -194,6 +194,9 @@ public class BrandPower extends AbstractPower {
 
         // 超载效果
         if (source_type != null && source_type != this.brand_type) {
+
+            this.onPlayerOverloadEvoke();
+
             switch (this.brand_type) {
                 case LIGHTNING:
                     if (source_type == BRAND_TYPE.FIRE) {
@@ -233,8 +236,13 @@ public class BrandPower extends AbstractPower {
         }
     }
 
-    // 激活 source_type=造成本次激活的印记 null=普通激活
+    // 印记激活
+    // source_type=造成本次激活的印记 *null=普通激活
+    // scar_turn=附带烙印回合数
     public void evoke(BRAND_TYPE source_type) {
+        this.evoke(source_type, 0);
+    }
+    public void evoke(BRAND_TYPE source_type, int scar_turn) {
         ModHelper.log("[" + this.name + "]激活");
         if (this.is_activated) {
             ModHelper.log("[" + this.name + "]激活 ×");
@@ -245,6 +253,9 @@ public class BrandPower extends AbstractPower {
         this.is_activated = true;
         this.useEvoke(source_type);
         this.evokeEnd();
+        // 烙印能力 + 附加烙印
+        this.scar_turn = this.playerBrandScar() + scar_turn;
+        this.updateDescription();
         this.tryRemove();
     }
 
@@ -420,6 +431,14 @@ public class BrandPower extends AbstractPower {
         }
     }
 
+    // 获取变为烙印后的描述
+    private String getScarDesc() {
+        if (this.scar_turn > 0) {
+            return String.format(DESCRIPTIONS[16], this.scar_turn);
+        }
+        return "";
+    }
+
     // 印记的被动最终数值
     private int brandPassiveValue() {
         return BASE[this.brand_type.ordinal()].passive_value + this.playerCuriosity();
@@ -440,6 +459,23 @@ public class BrandPower extends AbstractPower {
             return p.amount;
         }
         return 0;
+    }
+
+    // 烙印的层数
+    private int playerBrandScar() {
+        AbstractPower p = AbstractDungeon.player.getPower(ModHelper.makeID("BrandScarPower"));
+        if (p != null) {
+            return p.amount;
+        }
+        return 0;
+    }
+
+    // 超载时触发一些能力的效果
+    private void onPlayerOverloadEvoke() {
+        OverloadFormPower p1 = (OverloadFormPower) AbstractDungeon.player.getPower(ModHelper.makeID("OverloadFormPower"));
+        if (p1 != null) {
+            p1.onOverloadEvoke();
+        }
     }
 
     // 印记类型

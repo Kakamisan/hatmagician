@@ -1,6 +1,7 @@
 package hatmagicianmod.helpers;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -43,5 +44,9 @@ public class ModHelper {
 
     public static void log(String str) {
         logger.info(str);
+    }
+
+    public static int cardRand(int size) {
+        return AbstractDungeon.cardRng.random(size - 1);
     }
 }

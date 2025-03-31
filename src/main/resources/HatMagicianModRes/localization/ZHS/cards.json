@@ -9,7 +9,7 @@
   },
   "HatMagicianMod:Prank": {
     "NAME": "小恶作剧"
-    ,"DESCRIPTION": "对所有敌人造成 !D! 点伤害 !M! 次。 NL  保留 ， 消耗 ， hatmagician:激活 。"
+    ,"DESCRIPTION": " 保留 ， 消耗 ， hatmagician:激活 。 NL 对所有敌人造成 !D! 点伤害 !M! 次。"
   },
   "HatMagicianMod:Lightning": {
     "NAME": "灵光"
@@ -56,5 +56,26 @@
   "HatMagicianMod:ZzzWorld": {
     "NAME": "晚安，世界"
     ,"DESCRIPTION": "回合结束时，获得 !M! 点格挡。 NL 场上存在 hatmagician:冰冻印记 ，则额外获得1次。"
+  },
+  "HatMagicianMod:BrandScar": {
+    "NAME": "复之烙印"
+    ,"DESCRIPTION": "激活的印记不再立即移除，而是在 !M! 回合后移除。 NL 已激活的印记无法再次激活。"
+    ,"UPGRADE_DESCRIPTION": " 固有  NL 激活的印记不再立即移除，而是在 !M! 回合后移除。 NL 已激活的印记无法再次激活。"
+  },
+  "HatMagicianMod:OverloadForm": {
+    "NAME": "超载形态"
+    ,"DESCRIPTION": "每当你 hatmagician:超载激活 时，获得 [E] 。 NL 每回合开始时，失去 [E] 。"
+  },
+  "HatMagicianMod:BreakAttack": {
+    "NAME": "破碎一击"
+    ,"DESCRIPTION": " hatmagician:激活 ， hatmagician:烙印  !M! 。 NL 造成 !D! 点伤害。"
+  },
+  "HatMagicianMod:TriAttack": {
+    "NAME": "三重攻击"
+    ,"DESCRIPTION": "造成 !D! 点伤害3次。 NL 随机赋予 !M! 个 hatmagician:印记 。"
+  },
+  "HatMagicianMod:Fusion": {
+    "NAME": "调和"
+    ,"DESCRIPTION": "场上每存在1种 hatmagician:印记 ，获得 !B! 点格挡。"
   }
 }

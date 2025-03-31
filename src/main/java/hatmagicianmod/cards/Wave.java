@@ -34,9 +34,10 @@ public class Wave extends CustomCard {
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-            this.isEthereal = false;
-            this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
-            this.initializeDescription();
+            this.upgradeBaseCost(1);
+//            this.isEthereal = false;
+//            this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
+//            this.initializeDescription();
         }
     }
 

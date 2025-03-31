@@ -1,45 +1,51 @@
 package hatmagicianmod.cards;
 
 import basemod.abstracts.CustomCard;
-import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import hatmagicianmod.helpers.ModHelper;
-import hatmagicianmod.powers.CuriosityPower;
+import hatmagicianmod.powers.BrandPower;
 
-public class Curiosity extends CustomCard {
+public class Fusion extends CustomCard {
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;
     private static final String IMG_PATH;
     private static final int COST = 1;
-    private static final CardType TYPE = CardType.POWER;
+    private static final CardType TYPE = CardType.SKILL;
 
     static {
-        String name = "Curiosity";
+        String name = "Fusion";
         ID = ModHelper.makeID(name);
         CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
         IMG_PATH = ModHelper.makeCardImgPath(TYPE, name);
     }
 
-    public Curiosity() {
+    public Fusion() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.SELF);
-        this.magicNumber = this.baseMagicNumber = 1;
+        this.baseBlock = 7;
     }
 
     @Override
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-//            this.upgradeBaseCost(1);
-            this.upgradeMagicNumber(1);
+            this.upgradeBlock(2);
         }
     }
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        this.addToBot(new ApplyPowerAction(p, p, new CuriosityPower(p, this.magicNumber)));
+        int cnt = 0;
+        if (BrandPower.hasAnyMonstersBrand(BrandPower.BRAND_TYPE.LIGHTNING))
+            cnt++;
+        if (BrandPower.hasAnyMonstersBrand(BrandPower.BRAND_TYPE.ICE))
+            cnt++;
+        if (BrandPower.hasAnyMonstersBrand(BrandPower.BRAND_TYPE.FIRE))
+            cnt++;
+        this.addToBot(new GainBlockAction(p, this.block * cnt));
     }
 }
