@@ -6,6 +6,8 @@ import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.CardQueueItem;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -16,6 +18,8 @@ import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import hatmagicianmod.actions.BrandEvokeEndAction;
 import hatmagicianmod.actions.DamageChainLightningEnemiesAction;
+import hatmagicianmod.cards.Haze;
+import hatmagicianmod.cards.OnOverloadEvokeBase;
 import hatmagicianmod.effects.AtkChainLightningEffect;
 import hatmagicianmod.helpers.ModHelper;
 
@@ -43,10 +47,14 @@ public class BrandPower extends AbstractPower {
     public static class BrandBaseClass {
         public int passive_value;   // 被动数值
         public int evoke_value;     // 激活数值
+        public int overload_value1; // 超载1
+        public int overload_value2; // 超载2
 
-        public BrandBaseClass(int passive_value, int evoke_value) {
+        public BrandBaseClass(int passive_value, int evoke_value, int overload_value1, int overload_value2) {
             this.passive_value = passive_value;
             this.evoke_value = evoke_value;
+            this.overload_value1 = overload_value1;
+            this.overload_value2 = overload_value2;
         }
     }
 
@@ -59,9 +67,9 @@ public class BrandPower extends AbstractPower {
         DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
         BASE = new BrandBaseClass[3];
-        BASE[BRAND_TYPE.LIGHTNING.ordinal()] = new BrandBaseClass(3, 8);
-        BASE[BRAND_TYPE.FIRE.ordinal()] = new BrandBaseClass(1, 1);
-        BASE[BRAND_TYPE.ICE.ordinal()] = new BrandBaseClass(1, 3);
+        BASE[BRAND_TYPE.LIGHTNING.ordinal()] = new BrandBaseClass(3, 8, 1, 2);
+        BASE[BRAND_TYPE.FIRE.ordinal()] = new BrandBaseClass(1, 1, 1, 1);
+        BASE[BRAND_TYPE.ICE.ordinal()] = new BrandBaseClass(1, 3, 5, 2);
     }
 
     public BrandPower(AbstractCreature owner, BRAND_TYPE type) {
@@ -102,7 +110,12 @@ public class BrandPower extends AbstractPower {
     // 能力在更新时如何修改描述
     public void updateDescription() {
         ModHelper.log("[" + this.name + "]更新了描述");
-        this.description = DESCRIPTIONS[0] + this.getBrandSubDesc() + this.getScarDesc();
+        if (this.is_activated && this.scar_turn > 0) {
+            this.description = DESCRIPTIONS[0] + this.getScarDesc();
+            this.name = this.getScarName();
+        } else {
+            this.description = DESCRIPTIONS[0] + this.getBrandSubDesc();
+        }
         this.curiosity = 0; // 更新完之后把这个数值设成0，下次若直接调用更新描述则是获取player上的好奇心数值
     }
 
@@ -120,6 +133,7 @@ public class BrandPower extends AbstractPower {
             // 如果是已激活印记，使其创伤数-1，创伤小于等于0则移除此印记
             if (this.is_activated) {
                 this.scar_turn--;
+                this.updateDescription();
                 this.tryRemove();
             }
         }
@@ -205,8 +219,8 @@ public class BrandPower extends AbstractPower {
                         this.addToTop(new DamageChainLightningEnemiesAction(this.brandEvokeValue()));
                         this.addToTop(new VFXAction(new AtkChainLightningEffect()));
                     } else {
-                        // 抽1
-                        this.addToTop(new DrawCardAction(1));
+                        // 抽2
+                        this.addToTop(new DrawCardAction(2));
                     }
                     break;
                 case FIRE:
@@ -221,11 +235,11 @@ public class BrandPower extends AbstractPower {
                 case ICE:
                     if (source_type == BRAND_TYPE.LIGHTNING) {
                         // 获得X点格挡
-                        this.addToTop(new GainBlockAction(AbstractDungeon.player, this.brandEvokeValue()));
+                        this.addToTop(new GainBlockAction(AbstractDungeon.player, this.brandOverloadValue1()));
                         break;
                     } else {
                         // 添加X层灼烧
-                        this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new BrandBurnPower(this.owner, this.brandPassiveValue())));
+                        this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new BrandBurnPower(this.owner, this.brandOverloadValue2())));
                     }
                     break;
                 default:
@@ -242,6 +256,7 @@ public class BrandPower extends AbstractPower {
     public void evoke(BRAND_TYPE source_type) {
         this.evoke(source_type, 0);
     }
+
     public void evoke(BRAND_TYPE source_type, int scar_turn) {
         ModHelper.log("[" + this.name + "]激活");
         if (this.is_activated) {
@@ -423,9 +438,23 @@ public class BrandPower extends AbstractPower {
             case ICE:
                 return String.format(DESCRIPTIONS[6], this.brandPassiveValue())
                         + String.format(DESCRIPTIONS[9], this.brandEvokeValue())
-                        + String.format(DESCRIPTIONS[14], this.brandEvokeValue())
-                        + String.format(DESCRIPTIONS[15], this.brandPassiveValue())
+                        + String.format(DESCRIPTIONS[14], this.brandOverloadValue1())
+                        + String.format(DESCRIPTIONS[15], this.brandOverloadValue2())
                         ;
+            default:
+                return "";
+        }
+    }
+
+    // 获取烙印实际名字 闪电/火焰/冰冻
+    private String getScarName() {
+        switch (this.brand_type) {
+            case LIGHTNING:
+                return DESCRIPTIONS[17];
+            case FIRE:
+                return DESCRIPTIONS[18];
+            case ICE:
+                return DESCRIPTIONS[19];
             default:
                 return "";
         }
@@ -433,10 +462,22 @@ public class BrandPower extends AbstractPower {
 
     // 获取变为烙印后的描述
     private String getScarDesc() {
-        if (this.scar_turn > 0) {
-            return String.format(DESCRIPTIONS[16], this.scar_turn);
+        switch (this.brand_type) {
+            case LIGHTNING:
+                return String.format(DESCRIPTIONS[4], this.brandPassiveValue())
+                        + String.format(DESCRIPTIONS[16], this.scar_turn)
+                        ;
+            case FIRE:
+                return String.format(DESCRIPTIONS[5], this.brandPassiveValue())
+                        + String.format(DESCRIPTIONS[16], this.scar_turn)
+                        ;
+            case ICE:
+                return String.format(DESCRIPTIONS[6], this.brandPassiveValue())
+                        + String.format(DESCRIPTIONS[16], this.scar_turn)
+                        ;
+            default:
+                return "";
         }
-        return "";
     }
 
     // 印记的被动最终数值
@@ -447,6 +488,14 @@ public class BrandPower extends AbstractPower {
     // 印记的激活最终数值
     private int brandEvokeValue() {
         return BASE[this.brand_type.ordinal()].evoke_value + this.playerCuriosity();
+    }
+
+    private int brandOverloadValue1() {
+        return BASE[this.brand_type.ordinal()].overload_value1 + this.playerCuriosity();
+    }
+
+    private int brandOverloadValue2() {
+        return BASE[this.brand_type.ordinal()].overload_value2 + this.playerCuriosity();
     }
 
     // 好奇心提供的数值
@@ -476,6 +525,28 @@ public class BrandPower extends AbstractPower {
         if (p1 != null) {
             p1.onOverloadEvoke();
         }
+
+        for(AbstractCard card : AbstractDungeon.player.hand.group) {
+            if (this.isInstanceOfOnOverloadEvoke(card)) {
+                ((OnOverloadEvokeBase)card).onOverloadEvoke();
+            }
+        }
+
+        for(AbstractCard card : AbstractDungeon.player.discardPile.group) {
+            if (this.isInstanceOfOnOverloadEvoke(card)) {
+                ((OnOverloadEvokeBase)card).onOverloadEvoke();
+            }
+        }
+
+        for(AbstractCard card : AbstractDungeon.player.drawPile.group) {
+            if (this.isInstanceOfOnOverloadEvoke(card)) {
+                ((OnOverloadEvokeBase)card).onOverloadEvoke();
+            }
+        }
+    }
+
+    private boolean isInstanceOfOnOverloadEvoke(AbstractCard card) {
+        return card instanceof OnOverloadEvokeBase;
     }
 
     // 印记类型

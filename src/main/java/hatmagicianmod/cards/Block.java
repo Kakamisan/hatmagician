@@ -26,6 +26,7 @@ public class Block extends CustomCard {
     public Block() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.BASIC, CardTarget.SELF);
         this.baseBlock = 5;
+        this.tags.add(CardTags.STARTER_DEFEND);
     }
 
     @Override

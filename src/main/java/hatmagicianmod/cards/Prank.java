@@ -50,7 +50,6 @@ public class Prank extends BrandAtkBase {
         this.addToBot(new VFXAction(p, new ShockWaveEffect(p.hb.cX, p.hb.cY, MY_COLOR, ShockWaveEffect.ShockWaveType.CHAOTIC), 0.3F));
         this.addToBot(new BrandEvokeAllAction());
         for (int i = 0; i < this.magicNumber; i++) {
-//            this.addToBot(new VFXAction(new AtkAllLightningEffect()));
             this.addToBot(new DamageAllEnemiesAction(p, this.multiDamage, this.damageTypeForTurn, AttackEffect.SLASH_HORIZONTAL));
         }
     }

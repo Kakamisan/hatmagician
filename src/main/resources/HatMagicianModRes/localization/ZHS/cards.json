@@ -94,5 +94,21 @@
   "HatMagicianMod:OverHeat": {
     "NAME": "燃尽"
     ,"DESCRIPTION": "给予 !M! 层 hatmagician:灼烧 。"
+  },
+  "HatMagicianMod:Echo": {
+    "NAME": "共鸣"
+    ,"DESCRIPTION": " hatmagician:激活 。 NL 场上每存在1种 hatmagician:印记 ，造成 !D! 点伤害。"
+  },
+  "HatMagicianMod:BurningAbyss": {
+    "NAME": "炼狱"
+    ,"DESCRIPTION": " 消耗 。给予所有敌人1个 hatmagician:火焰印记 。 NL 给予所有敌人 !M! 层 hatmagician:灼烧 。"
+  },
+  "HatMagicianMod:Absorb": {
+    "NAME": "掠夺"
+    ,"DESCRIPTION": "造成 !D! 点伤害。 NL 抽1张牌。 NL 敌人每存在1种 hatmagician:印记 使抽卡数+1。"
+  },
+  "HatMagicianMod:Haze": {
+    "NAME": "黑雾"
+    ,"DESCRIPTION": "本场战斗中每次 hatmagician:超载激活 使这张卡耗能减少 [E] 。 NL 获得 !B! 点格挡。"
   }
 }

@@ -9,27 +9,30 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.combat.FlashAtkImgEffect;
+import hatmagicianmod.actions.ApplyBrandPowerAction;
 import hatmagicianmod.helpers.ModHelper;
 import hatmagicianmod.powers.BrandBurnPower;
+import hatmagicianmod.powers.BrandPower;
 
-public class OverHeat extends CustomCard {
+public class BurningAbyss extends CustomCard {
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;
     private static final String IMG_PATH;
-    private static final int COST = 1;
+    private static final int COST = 2;
     private static final CardType TYPE = CardType.SKILL;
 
     static {
-        String name = "OverHeat";
+        String name = "BurningAbyss";
         ID = ModHelper.makeID(name);
         CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
         IMG_PATH = ModHelper.makeCardImgPath(TYPE, name);
     }
 
-    public OverHeat() {
-        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.ENEMY);
-        this.magicNumber = this.baseMagicNumber = 3;
+    public BurningAbyss() {
+        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.ALL_ENEMY);
+        this.magicNumber = this.baseMagicNumber = 2;
+        this.exhaust = true;
     }
 
     @Override
@@ -41,8 +44,11 @@ public class OverHeat extends CustomCard {
     }
 
     @Override
-    public void use(AbstractPlayer p, AbstractMonster m) {
-        AbstractDungeon.effectList.add(new FlashAtkImgEffect(m.hb.cX, m.hb.cY, AbstractGameAction.AttackEffect.FIRE));
-        this.addToTop(new ApplyPowerAction(m, p, new BrandBurnPower(m, this.magicNumber)));
+    public void use(AbstractPlayer p, AbstractMonster _m) {
+        for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
+            AbstractDungeon.effectList.add(new FlashAtkImgEffect(m.hb.cX, m.hb.cY, AbstractGameAction.AttackEffect.FIRE));
+            this.addToBot(new ApplyBrandPowerAction(m, BrandPower.BRAND_TYPE.FIRE));
+            this.addToTop(new ApplyPowerAction(m, p, new BrandBurnPower(m, this.magicNumber)));
+        }
     }
 }
