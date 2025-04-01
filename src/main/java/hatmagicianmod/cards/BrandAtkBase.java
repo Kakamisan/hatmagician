@@ -41,6 +41,7 @@ public class BrandAtkBase extends CustomCard {
                 if (BrandPower.isBrandPower(p, BrandPower.BRAND_TYPE.FIRE)) {
                     BrandPower p2 = ((BrandPower) p);
                     if (!p2.is_activated) {
+                        ModHelper.log("[" + p2.name + "]本次计算中激活");
                         p2.is_evoking = true;
                         tmp_pl.add(p2);
                     }
@@ -53,6 +54,7 @@ public class BrandAtkBase extends CustomCard {
                     if (BrandPower.isBrandPower(p, BrandPower.BRAND_TYPE.FIRE)) {
                         BrandPower p2 = ((BrandPower) p);
                         if (!p2.is_activated) {
+                            ModHelper.log("[" + p2.name + "]本次计算中激活");
                             p2.is_evoking = true;
                             tmp_pl.add(p2);
                         }
@@ -65,6 +67,7 @@ public class BrandAtkBase extends CustomCard {
 
         // 把印记复原
         for (BrandPower p : tmp_pl) {
+            ModHelper.log("[" + p.name + "]本次计算中还原");
             p.is_evoking = false;
         }
     }
