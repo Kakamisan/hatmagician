@@ -1,30 +1,32 @@
 package hatmagicianmod.powers;
 
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.unlock.UnlockTracker;
 import hatmagicianmod.helpers.ModHelper;
 
 import java.util.ArrayList;
 
-public class CuriosityPower extends AbstractPower {
+public class TempStrengthPower extends AbstractPower {
     public static final String POWER_ID;
     private static final PowerStrings powerStrings;
     public static final String NAME;
     public static final String[] DESCRIPTIONS;
 
     static {
-        POWER_ID = ModHelper.makeID("CuriosityPower");
+        POWER_ID = ModHelper.makeID("TempStrengthPower");
         powerStrings = CardCrawlGame.languagePack.getPowerStrings(POWER_ID);
         NAME = powerStrings.NAME;
         DESCRIPTIONS = powerStrings.DESCRIPTIONS;
     }
 
-    public CuriosityPower(AbstractCreature owner, int Amount) {
+    public TempStrengthPower(AbstractCreature owner, int Amount) {
         this.name = NAME;
         this.ID = POWER_ID;
         this.owner = owner;
@@ -43,20 +45,20 @@ public class CuriosityPower extends AbstractPower {
         this.updateDescription();
 
 //        this.loadRegion("focus");
-        this.loadRegion("curiosity");
+        this.loadRegion("strength");
 
         this.canGoNegative = true;
     }
 
     public void playApplyPowerSfx() {
-        CardCrawlGame.sound.play("POWER_FOCUS", 0.05F);
+        CardCrawlGame.sound.play("POWER_STRENGTH", 0.05F);
     }
 
     public void stackPower(int stackAmount) {
         this.fontScale = 8.0F;
         this.amount += stackAmount;
         if (this.amount == 0) {
-            this.addToTop(new RemoveSpecificPowerAction(this.owner, this.owner, this.ID));
+            this.addToTop(new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
         }
 
         if (this.amount >= 999) {
@@ -73,7 +75,7 @@ public class CuriosityPower extends AbstractPower {
         this.fontScale = 8.0F;
         this.amount -= reduceAmount;
         if (this.amount == 0) {
-            this.addToTop(new RemoveSpecificPowerAction(this.owner, this.owner, this.ID));
+            this.addToTop(new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
         }
 
         if (this.amount >= 999) {
@@ -96,15 +98,14 @@ public class CuriosityPower extends AbstractPower {
             this.type = PowerType.DEBUFF;
         }
 
-        // 所有印记也要更新说明
-        ArrayList<AbstractMonster> ms =  AbstractDungeon.getMonsters().monsters;
-        for (AbstractMonster m : ms) {
-            if (m.isDeadOrEscaped()) continue;
-            ArrayList<BrandPower> ps = BrandPower.getBrandPowers(m);
-            for (BrandPower p : ps) {
-                p.updateDescription(this.amount);
-            }
-        }
+    }
 
+    public float atDamageGive(float damage, DamageInfo.DamageType type) {
+        return type == DamageInfo.DamageType.NORMAL ? damage + (float)this.amount : damage;
+    }
+
+    @Override
+    public void atEndOfTurn(boolean isPlayer) {
+        this.addToTop(new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
     }
 }

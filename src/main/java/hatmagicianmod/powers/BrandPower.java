@@ -47,12 +47,14 @@ public class BrandPower extends AbstractPower {
         public int evoke_value;     // 激活数值
         public int overload_value1; // 超载1
         public int overload_value2; // 超载2
+        public int curiosity_rate;  // 好奇心提供加成的倍率 *闪电为2倍，其他为1倍
 
-        public BrandBaseClass(int passive_value, int evoke_value, int overload_value1, int overload_value2) {
+        public BrandBaseClass(int passive_value, int evoke_value, int overload_value1, int overload_value2, int curiosity_rate) {
             this.passive_value = passive_value;
             this.evoke_value = evoke_value;
             this.overload_value1 = overload_value1;
             this.overload_value2 = overload_value2;
+            this.curiosity_rate = curiosity_rate;
         }
     }
 
@@ -65,9 +67,9 @@ public class BrandPower extends AbstractPower {
         DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
         BASE = new BrandBaseClass[3];
-        BASE[BRAND_TYPE.LIGHTNING.ordinal()] = new BrandBaseClass(3, 8, 1, 2);
-        BASE[BRAND_TYPE.FIRE.ordinal()] = new BrandBaseClass(1, 1, 1, 1);
-        BASE[BRAND_TYPE.ICE.ordinal()] = new BrandBaseClass(1, 3, 5, 2);
+        BASE[BRAND_TYPE.LIGHTNING.ordinal()] = new BrandBaseClass(3, 8, 1, 2, 2);
+        BASE[BRAND_TYPE.FIRE.ordinal()] = new BrandBaseClass(1, 1, 1, 1, 1);
+        BASE[BRAND_TYPE.ICE.ordinal()] = new BrandBaseClass(1, 3, 5, 2, 1);
     }
 
     public BrandPower(AbstractCreature owner, BRAND_TYPE type) {
@@ -182,10 +184,11 @@ public class BrandPower extends AbstractPower {
                 break;
             case ICE:
                 // 失去X点临时力量
-                if (!this.owner.hasPower("Artifact")) {
-                    this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new GainStrengthPower(this.owner, this.brandPassiveValue()), this.brandPassiveValue(), true, AbstractGameAction.AttackEffect.NONE));
-                }
-                this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new StrengthPower(this.owner, -this.brandPassiveValue()), -this.brandPassiveValue(), true, AbstractGameAction.AttackEffect.NONE));
+//                if (!this.owner.hasPower("Artifact")) {
+//                    this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new GainStrengthPower(this.owner, this.brandPassiveValue()), this.brandPassiveValue(), true, AbstractGameAction.AttackEffect.NONE));
+//                }
+//                this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new StrengthPower(this.owner, -this.brandPassiveValue()), -this.brandPassiveValue(), true, AbstractGameAction.AttackEffect.NONE));
+                this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new TempStrengthPower(this.owner, -this.brandPassiveValue()), -this.brandPassiveValue(), true, AbstractGameAction.AttackEffect.NONE));
                 break;
             default:
         }
@@ -206,10 +209,11 @@ public class BrandPower extends AbstractPower {
                 break;
             case ICE:
                 // 失去X点临时力量
-                if (!this.owner.hasPower("Artifact")) {
-                    this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new GainStrengthPower(this.owner, this.brandEvokeValue()), this.brandEvokeValue(), true, AbstractGameAction.AttackEffect.NONE));
-                }
-                this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new StrengthPower(this.owner, -this.brandEvokeValue()), -this.brandEvokeValue(), true, AbstractGameAction.AttackEffect.NONE));
+//                if (!this.owner.hasPower("Artifact")) {
+//                    this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new GainStrengthPower(this.owner, this.brandEvokeValue()), this.brandEvokeValue(), true, AbstractGameAction.AttackEffect.NONE));
+//                }
+//                this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new StrengthPower(this.owner, -this.brandEvokeValue()), -this.brandEvokeValue(), true, AbstractGameAction.AttackEffect.NONE));
+                this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new TempStrengthPower(this.owner, -this.brandEvokeValue()), -this.brandEvokeValue(), true, AbstractGameAction.AttackEffect.NONE));
                 break;
             default:
                 break;
@@ -371,6 +375,18 @@ public class BrandPower extends AbstractPower {
         return list;
     }
 
+    // 获取该怪物的未激活的印记 *只会存在1个
+    public static BrandPower getCanEvokeBrandPower(AbstractMonster m) {
+        if (m == null) return null;
+        for (AbstractPower p : m.powers) {
+            if (BrandPower.isBrandPower(p)) {
+                BrandPower p2 = (BrandPower) p;
+                if (!p2.is_activated) return p2;
+            }
+        }
+        return null;
+    }
+
     // 怪物是否存在任意印记
     public static boolean hasBrandPower(AbstractMonster m) {
         for (AbstractPower p : m.powers) {
@@ -416,6 +432,7 @@ public class BrandPower extends AbstractPower {
         }
         return false;
     }
+
     public static boolean isBurning(BrandPower p) {
         return p.brand_type == BRAND_TYPE.FIRE && p.is_evoking;
     }
@@ -497,23 +514,25 @@ public class BrandPower extends AbstractPower {
 
     // 印记的被动最终数值
     private int brandPassiveValue() {
-        return BASE[this.brand_type.ordinal()].passive_value + this.playerCuriosity();
+        return BASE[this.brand_type.ordinal()].passive_value + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate;
     }
 
     // 印记的激活最终数值
     private int brandEvokeValue() {
-        return BASE[this.brand_type.ordinal()].evoke_value + this.playerCuriosity();
+        return BASE[this.brand_type.ordinal()].evoke_value + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate;
     }
 
+    // 超载1数值
     private int brandOverloadValue1() {
-        return BASE[this.brand_type.ordinal()].overload_value1 + this.playerCuriosity();
+        return BASE[this.brand_type.ordinal()].overload_value1 + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate;
     }
 
+    // 超载2数值
     private int brandOverloadValue2() {
-        return BASE[this.brand_type.ordinal()].overload_value2 + this.playerCuriosity();
+        return BASE[this.brand_type.ordinal()].overload_value2 + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate;
     }
 
-    // 好奇心提供的数值
+    // 好奇心的数值
     private int playerCuriosity() {
         if (this.curiosity != 0) {
             return this.curiosity;

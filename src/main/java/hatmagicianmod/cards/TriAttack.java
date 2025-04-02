@@ -29,8 +29,8 @@ public class TriAttack extends BrandAtkBase {
     }
 
     public TriAttack() {
-        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.ENEMY);
-        this.baseDamage = 5;
+        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.RARE, CardTarget.ENEMY);
+        this.baseDamage = 6;
         this.magicNumber = this.baseMagicNumber = 1;
     }
 

@@ -45,6 +45,7 @@ public class Ice extends CustomCard {
     public void use(AbstractPlayer p, AbstractMonster _m) {
         for (int i = 0; i < this.magicNumber; i++) {
             for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
+                if (m.isDeadOrEscaped()) continue;
                 this.addToBot(new ApplyBrandPowerAction(m, BrandPower.BRAND_TYPE.ICE));
             }
         }

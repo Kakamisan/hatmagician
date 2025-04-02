@@ -92,8 +92,7 @@ public class MyCharacter extends CustomPlayer {
             retVal.add(Block.ID);
         }
         retVal.add(Lightning.ID);
-//        retVal.add(Fire.ID);
-//        retVal.add(Ice.ID);
+//        retVal.add(TrickBox.ID);
         return retVal;
     }
 

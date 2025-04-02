@@ -14,7 +14,7 @@ public class Curiosity extends CustomCard {
     public static final String ID;
     private static final CardStrings CARD_STRINGS;
     private static final String IMG_PATH;
-    private static final int COST = 1;
+    private static final int COST = 2;
     private static final CardType TYPE = CardType.POWER;
 
     static {
@@ -33,8 +33,8 @@ public class Curiosity extends CustomCard {
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-//            this.upgradeBaseCost(1);
-            this.upgradeMagicNumber(1);
+            this.upgradeBaseCost(1);
+//            this.upgradeMagicNumber(1);
         }
     }
 

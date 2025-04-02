@@ -50,6 +50,7 @@ public class BrandAtkBase extends CustomCard {
         } else {
             ArrayList<AbstractMonster> ms = AbstractDungeon.getCurrRoom().monsters.monsters;
             for (AbstractMonster m : ms) {
+                if (m.isDeadOrEscaped()) continue;
                 for (AbstractPower p : m.powers) {
                     if (BrandPower.isBrandPower(p, BrandPower.BRAND_TYPE.FIRE)) {
                         BrandPower p2 = ((BrandPower) p);

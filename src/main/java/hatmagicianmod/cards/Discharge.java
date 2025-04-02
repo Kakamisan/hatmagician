@@ -31,6 +31,7 @@ public class Discharge extends CustomCard {
     public Discharge() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.ALL_ENEMY);
         this.magicNumber = this.baseMagicNumber = 2;
+        this.exhaust = true;
     }
 
     @Override

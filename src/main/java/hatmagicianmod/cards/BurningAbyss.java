@@ -46,9 +46,10 @@ public class BurningAbyss extends CustomCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster _m) {
         for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
+            if (m.isDeadOrEscaped()) continue;
             AbstractDungeon.effectList.add(new FlashAtkImgEffect(m.hb.cX, m.hb.cY, AbstractGameAction.AttackEffect.FIRE));
             this.addToBot(new ApplyBrandPowerAction(m, BrandPower.BRAND_TYPE.FIRE));
-            this.addToTop(new ApplyPowerAction(m, p, new BrandBurnPower(m, this.magicNumber)));
+            this.addToBot(new ApplyPowerAction(m, p, new BrandBurnPower(m, this.magicNumber)));
         }
     }
 }
