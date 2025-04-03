@@ -7,34 +7,32 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import hatmagicianmod.helpers.ModHelper;
 import hatmagicianmod.powers.BrandPower;
 
-public class TrickBox extends BaseBrandQueue {
+public class BlankBrand extends BaseBrandQueue {
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;
     private static final String IMG_PATH;
-    private static final int COST = 2;
+    private static final int COST = 0;
     private static final CardType TYPE = CardType.SKILL;
 
     static {
-        String name = "TrickBox";
+        String name = "BlankBrand";
         ID = ModHelper.makeID(name);
         CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
         IMG_PATH = ModHelper.makeCardImgPath(TYPE, name);
     }
 
-    public TrickBox() {
-        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.RARE, CardTarget.ENEMY);
-        this.magicNumber = this.baseMagicNumber = 3;
+    public BlankBrand() {
+        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, CardColor.COLORLESS, CardRarity.SPECIAL, CardTarget.ENEMY);
+        this.magicNumber = this.baseMagicNumber = 1;
         this.exhaust = true;
+        this.isEthereal = true;
     }
 
     @Override
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-//            this.upgradeMagicNumber(1);
-            this.exhaust = false;
-            this.updateBrandQueueBaseDesc();
         }
     }
 
@@ -58,17 +56,11 @@ public class TrickBox extends BaseBrandQueue {
 
     @Override
     public String cardNormalDesc() {
-        if (this.upgraded) {
-            return CARD_STRINGS.UPGRADE_DESCRIPTION;
-        }
         return CARD_STRINGS.DESCRIPTION;
     }
 
     @Override
     protected String cardCalcDesc() {
-        if (this.upgraded) {
-            return "";
-        }
-        return CARD_STRINGS.EXTENDED_DESCRIPTION[1];
+        return CARD_STRINGS.DESCRIPTION;
     }
 }

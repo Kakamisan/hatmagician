@@ -1,18 +1,14 @@
 package hatmagicianmod.cards;
 
 import basemod.abstracts.CustomCard;
-import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import hatmagicianmod.actions.ApplyBrandPowerAction;
-import hatmagicianmod.characters.MyCharacter;
-import hatmagicianmod.effects.GenBrandLightningEffect;
+import hatmagicianmod.actions.MeltAction;
 import hatmagicianmod.helpers.ModHelper;
-import hatmagicianmod.powers.BrandPower;
 
-public class Lightning extends CustomCard {
+public class Melt extends CustomCard {
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;
@@ -21,15 +17,14 @@ public class Lightning extends CustomCard {
     private static final CardType TYPE = CardType.SKILL;
 
     static {
-        String name = "Lightning";
+        String name = "Melt";
         ID = ModHelper.makeID(name);
         CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
         IMG_PATH = ModHelper.makeCardImgPath(TYPE, name);
     }
 
-    public Lightning() {
-        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.BASIC, CardTarget.ENEMY);
-        this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND);
+    public Melt() {
+        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.SELF);
     }
 
     @Override
@@ -42,7 +37,6 @@ public class Lightning extends CustomCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        this.addToBot(new VFXAction(new GenBrandLightningEffect(m)));
-        this.addToBot(new ApplyBrandPowerAction(m, BrandPower.BRAND_TYPE.LIGHTNING));
+        this.addToBot(new MeltAction());
     }
 }

@@ -17,7 +17,7 @@ import com.megacrit.cardcrawl.powers.*;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import hatmagicianmod.actions.BrandEvokeEndAction;
 import hatmagicianmod.actions.DamageChainLightningEnemiesAction;
-import hatmagicianmod.cards.OnOverloadEvokeBase;
+import hatmagicianmod.cards.BaseOnOverloadEvoke;
 import hatmagicianmod.effects.AtkChainLightningEffect;
 import hatmagicianmod.helpers.ModHelper;
 
@@ -562,25 +562,25 @@ public class BrandPower extends AbstractPower {
 
         for (AbstractCard card : AbstractDungeon.player.hand.group) {
             if (this.isInstanceOfOnOverloadEvoke(card)) {
-                ((OnOverloadEvokeBase) card).onOverloadEvoke();
+                ((BaseOnOverloadEvoke) card).onOverloadEvoke();
             }
         }
 
         for (AbstractCard card : AbstractDungeon.player.discardPile.group) {
             if (this.isInstanceOfOnOverloadEvoke(card)) {
-                ((OnOverloadEvokeBase) card).onOverloadEvoke();
+                ((BaseOnOverloadEvoke) card).onOverloadEvoke();
             }
         }
 
         for (AbstractCard card : AbstractDungeon.player.drawPile.group) {
             if (this.isInstanceOfOnOverloadEvoke(card)) {
-                ((OnOverloadEvokeBase) card).onOverloadEvoke();
+                ((BaseOnOverloadEvoke) card).onOverloadEvoke();
             }
         }
     }
 
     private boolean isInstanceOfOnOverloadEvoke(AbstractCard card) {
-        return card instanceof OnOverloadEvokeBase;
+        return card instanceof BaseOnOverloadEvoke;
     }
 
     // 印记类型

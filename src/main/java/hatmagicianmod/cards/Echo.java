@@ -15,7 +15,7 @@ import hatmagicianmod.powers.BrandPower;
 
 import static hatmagicianmod.modcore.HatMagicianMod.MY_COLOR;
 
-public class Echo extends BrandAtkBase {
+public class Echo extends BaseBrandAtk {
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;

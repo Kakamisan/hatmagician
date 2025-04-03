@@ -7,7 +7,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import hatmagicianmod.helpers.ModHelper;
 
-public class Haze extends OnOverloadEvokeBase {
+public class Haze extends BaseOnOverloadEvoke {
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;

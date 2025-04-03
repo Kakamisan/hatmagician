@@ -1,128 +1,165 @@
 {
   "HatMagicianMod:Strike": {
-    "NAME": "打击"
-    ,"DESCRIPTION": "造成 !D! 点伤害。"
+    "NAME": "打击",
+    "DESCRIPTION": "造成 !D! 点伤害。"
   },
   "HatMagicianMod:Block": {
-    "NAME": "防御"
-    ,"DESCRIPTION": "获得 !B! 点格挡。"
+    "NAME": "防御",
+    "DESCRIPTION": "获得 !B! 点格挡。"
   },
   "HatMagicianMod:Prank": {
-    "NAME": "小恶作剧"
-    ,"DESCRIPTION": " 保留 ， 消耗 ， hatmagician:激活 。 NL 对所有敌人造成 !D! 点伤害 !M! 次。"
+    "NAME": "小恶作剧",
+    "DESCRIPTION": " 保留 ， 消耗 ， hatmagician:激活 。 NL 对所有敌人造成 !D! 点伤害 !M! 次。"
   },
   "HatMagicianMod:Lightning": {
-    "NAME": "灵光"
-    ,"DESCRIPTION": "给予1个 hatmagician:闪电印记 。"
+    "NAME": "灵光",
+    "DESCRIPTION": "给予1个 hatmagician:闪电印记 。"
   },
   "HatMagicianMod:Fire": {
-    "NAME": "点火"
-    ,"DESCRIPTION": "造成 !D! 点伤害。 NL 给予1个 hatmagician:火焰印记 。"
+    "NAME": "点火",
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 给予1个 hatmagician:火焰印记 。"
   },
   "HatMagicianMod:Ice": {
-    "NAME": "冷场"
-    ,"DESCRIPTION": " 消耗 。 NL 给予所有敌人 !M! 个 hatmagician:冰冻印记 。"
-    ,"UPGRADE_DESCRIPTION": " 固有 ， 消耗 。 NL 给予所有敌人 !M! 个 hatmagician:冰冻印记 。"
+    "NAME": "冷场",
+    "DESCRIPTION": " 消耗 。 NL 给予所有敌人 !M! 个 hatmagician:冰冻印记 。",
+    "UPGRADE_DESCRIPTION": " 固有 ， 消耗 。 NL 给予所有敌人 !M! 个 hatmagician:冰冻印记 。"
   },
   "HatMagicianMod:Discharge": {
-    "NAME": "放电"
-    ,"DESCRIPTION": " 消耗 。 NL 随机给予 !M! 个 hatmagician:闪电印记 。"
+    "NAME": "放电",
+    "DESCRIPTION": " 消耗 。 NL 随机给予 !M! 个 hatmagician:闪电印记 。"
   },
   "HatMagicianMod:Bolt": {
-    "NAME": "雷击"
-    ,"DESCRIPTION": "造成 !D! 点伤害。 NL 给予1个 hatmagician:闪电印记 。"
+    "NAME": "雷击",
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 给予1个 hatmagician:闪电印记 。"
   },
   "HatMagicianMod:IceBeam": {
-    "NAME": "冰冻射线"
-    ,"DESCRIPTION": "造成 !D! 点伤害。 NL 给予1个 hatmagician:冰冻印记 。"
+    "NAME": "冰冻射线",
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 给予1个 hatmagician:冰冻印记 。"
   },
   "HatMagicianMod:IceBurn": {
-    "NAME": "冰焰"
-    ,"DESCRIPTION": "造成 !D! 点伤害。 NL 使其 hatmagician:灼烧 层数翻倍。"
+    "NAME": "冰焰",
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 使其 hatmagician:灼烧 层数翻倍。"
   },
   "HatMagicianMod:FireWall": {
-    "NAME": "火焰墙"
-    ,"DESCRIPTION": "获得 !B! 点格挡。 NL 本回合受到攻击时，给予1层 hatmagician:灼烧 。"
+    "NAME": "火焰墙",
+    "DESCRIPTION": "获得 !B! 点格挡。 NL 本回合受到攻击时，给予1层 hatmagician:灼烧 。"
   },
   "HatMagicianMod:Wave": {
-    "NAME": "心烦意乱"
-    ,"DESCRIPTION": " 虚无 。 NL 回合结束时，额外触发 !M! 次所有 hatmagician:印记 的被动。"
-    ,"UPGRADE_DESCRIPTION": " NL 回合结束时，额外触发 !M! 次所有 hatmagician:印记 的被动。"
+    "NAME": "心烦意乱",
+    "DESCRIPTION": " 虚无 。 NL 回合结束时，额外触发 !M! 次所有 hatmagician:印记 的被动。",
+    "UPGRADE_DESCRIPTION": " NL 回合结束时，额外触发 !M! 次所有 hatmagician:印记 的被动。"
   },
   "HatMagicianMod:Curiosity": {
-    "NAME": "兴致勃勃"
-    ,"DESCRIPTION": "获得 !M! 点 hatmagician:好奇心 。"
+    "NAME": "兴致勃勃",
+    "DESCRIPTION": "获得 !M! 点 hatmagician:好奇心 。"
   },
   "HatMagicianMod:ZzzWorld": {
-    "NAME": "晚安，世界"
-    ,"DESCRIPTION": "回合结束时，获得 !M! 点格挡。 NL 场上存在 hatmagician:冰冻印记 ，则额外获得1次。"
+    "NAME": "晚安，世界",
+    "DESCRIPTION": "回合结束时，获得 !M! 点格挡。 NL 场上存在 hatmagician:冰冻印记 ，则额外获得1次。"
   },
   "HatMagicianMod:BrandScar": {
-    "NAME": "复之烙印"
-    ,"DESCRIPTION": "激活的印记不再立即移除，而是在 !M! 回合后移除。"
-    ,"UPGRADE_DESCRIPTION": " 固有 。 NL 激活的印记不再立即移除，而是在 !M! 回合后移除。"
+    "NAME": "复之烙印",
+    "DESCRIPTION": "激活的印记不再立即移除，而是在 !M! 回合后移除。",
+    "UPGRADE_DESCRIPTION": " 固有 。 NL 激活的印记不再立即移除，而是在 !M! 回合后移除。"
   },
   "HatMagicianMod:OverloadForm": {
-    "NAME": "超载形态"
-    ,"DESCRIPTION": "每当你 hatmagician:超载激活 时获得 [E] 。 NL 回合开始时失去 [E] 。"
+    "NAME": "超载形态",
+    "DESCRIPTION": "每当你 hatmagician:超载激活 时获得 [E] 。 NL 回合开始时失去 [E] 。"
   },
   "HatMagicianMod:BreakAttack": {
-    "NAME": "破碎一击"
-    ,"DESCRIPTION": " hatmagician:激活 ， hatmagician:烙印 : !M! 。 NL 造成 !D! 点伤害。"
+    "NAME": "破碎一击",
+    "DESCRIPTION": " hatmagician:激活 ， hatmagician:烙印 : !M! 。 NL 造成 !D! 点伤害。"
   },
   "HatMagicianMod:TriAttack": {
-    "NAME": "三重攻击"
-    ,"DESCRIPTION": "造成 !D! 点伤害3次。 NL 随机赋予 !M! 个 hatmagician:印记 。"
+    "NAME": "三重攻击",
+    "DESCRIPTION": "造成 !D! 点伤害3次。 NL 随机赋予 !M! 个 hatmagician:印记 。"
   },
   "HatMagicianMod:Fusion": {
-    "NAME": "调和"
-    ,"DESCRIPTION": "场上每存在1种类 hatmagician:印记 ，获得 !B! 点格挡。"
+    "NAME": "调和",
+    "DESCRIPTION": "场上每存在1种类 hatmagician:印记 ，获得 !B! 点格挡。"
   },
   "HatMagicianMod:Shield": {
-    "NAME": "蜷缩"
-    ,"DESCRIPTION": "获得 !B! 点格挡。"
+    "NAME": "蜷缩",
+    "DESCRIPTION": "获得 !B! 点格挡。"
   },
   "HatMagicianMod:Bloom": {
-    "NAME": "开幕"
-    ,"DESCRIPTION": " 消耗 。 NL 场上每存在1个 hatmagician:印记 ，抽 !M! 张牌。"
-    ,"UPGRADE_DESCRIPTION": " 固有 ， 消耗 。 NL 场上每存在1个 hatmagician:印记 ，抽 !M! 张牌。"
+    "NAME": "开幕",
+    "DESCRIPTION": " 消耗 。 NL 场上每存在1个 hatmagician:印记 ，抽 !M! 张牌。",
+    "UPGRADE_DESCRIPTION": " 固有 ， 消耗 。 NL 场上每存在1个 hatmagician:印记 ，抽 !M! 张牌。"
   },
   "HatMagicianMod:DoubleStar": {
-    "NAME": "星光"
-    ,"DESCRIPTION": " hatmagician:激活 。 NL 造成 !D! 点伤害2次。"
+    "NAME": "星光",
+    "DESCRIPTION": " hatmagician:激活 。 NL 造成 !D! 点伤害2次。"
   },
   "HatMagicianMod:OverHeat": {
-    "NAME": "燃尽"
-    ,"DESCRIPTION": "给予 !M! 层 hatmagician:灼烧 。"
+    "NAME": "燃尽",
+    "DESCRIPTION": "给予 !M! 层 hatmagician:灼烧 。"
   },
   "HatMagicianMod:Echo": {
-    "NAME": "共鸣"
-    ,"DESCRIPTION": " hatmagician:激活 。 NL 场上每存在1种类 hatmagician:印记 ，对该敌人造成 !D! 点伤害。"
+    "NAME": "共鸣",
+    "DESCRIPTION": " hatmagician:激活 。 NL 场上每存在1种类 hatmagician:印记 ，对该敌人造成 !D! 点伤害。"
   },
   "HatMagicianMod:BurningAbyss": {
-    "NAME": "炼狱"
-    ,"DESCRIPTION": " 消耗 。给予所有敌人1个 hatmagician:火焰印记 。 NL 给予所有敌人 !M! 层 hatmagician:灼烧 。"
+    "NAME": "炼狱",
+    "DESCRIPTION": " 消耗 。给予所有敌人1个 hatmagician:火焰印记 。 NL 给予所有敌人 !M! 层 hatmagician:灼烧 。"
   },
   "HatMagicianMod:Absorb": {
-    "NAME": "掠夺"
-    ,"DESCRIPTION": "造成 !D! 点伤害。 NL 抽1张牌。 NL 该敌人每存在1种类 hatmagician:印记 使抽卡数+1。"
+    "NAME": "掠夺",
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 抽1张牌。 NL 该敌人每存在1种类 hatmagician:印记 使抽卡数+1。"
   },
   "HatMagicianMod:Haze": {
-    "NAME": "黑雾"
-    ,"DESCRIPTION": "本场战斗中每次 hatmagician:超载激活 使这张卡耗能减少 [E] 。 NL 获得 !B! 点格挡。"
+    "NAME": "黑雾",
+    "DESCRIPTION": "本场战斗中每次 hatmagician:超载激活 使这张卡耗能减少 [E] 。 NL 获得 !B! 点格挡。"
   },
   "HatMagicianMod:TrickBox": {
-    "NAME": "玩具箱"
-    ,"DESCRIPTION": " 消耗 。 NL 目标有未激活的 hatmagician:印记 时才可打出。 NL 以 hatmagician:序列 给予 !M! 个印记。"
-    ,"UPGRADE_DESCRIPTION": " 消耗 。 NL 目标有未激活的 hatmagician:印记 时才可打出。 NL 以 hatmagician:逆序列 给予 !M! 个印记。"
-    ,"EXTENDED_DESCRIPTION": [
+    "NAME": "玩具箱",
+    "DESCRIPTION": " 消耗 。 NL 目标有未激活的 hatmagician:印记 时才可打出。",
+    "UPGRADE_DESCRIPTION": "目标有未激活的 hatmagician:印记 时才可打出。",
+    "EXTENDED_DESCRIPTION": [
+      "敌人没有未激活的印记。",
+      " 消耗 。"
+    ]
+  },
+  "HatMagicianMod:BaseBrandQueue": {
+    "NAME": "序列基础",
+    "DESCRIPTION": " NL 以 hatmagician:序列 给予 !M! 个印记。",
+    "UPGRADE_DESCRIPTION": " NL 以 hatmagician:逆序列 给予 !M! 个印记。",
+    "EXTENDED_DESCRIPTION": [
+      " NL 给予 ",
+      " [#FFF533]闪电[]  ",
+      " [#EC5F64]火焰[]  ",
+      " [#46b7E8]冰冻[]  ",
+      "、",
+      "印记。"
+    ]
+  },
+  "HatMagicianMod:Spin": {
+    "NAME": "漩涡",
+    "DESCRIPTION": "造成 !D! 点伤害。"
+  },
+  "HatMagicianMod:BlankBrand": {
+    "NAME": "无色印记",
+    "DESCRIPTION": " 虚无 ， 消耗 。",
+    "EXTENDED_DESCRIPTION": [
       "敌人没有未激活的印记。"
-      ," 消耗 。 NL 给予 "
-      ," [#FFF533]闪电[]  "
-      ," [#EC5F64]火焰[]  "
-      ," [#46b7E8]冰冻[]  "
-      ,"各一个。"
-      ,"、"
+    ]
+  },
+  "HatMagicianMod:Melt": {
+    "NAME": "熔解",
+    "DESCRIPTION": "消耗 一张牌。 NL 获得与其耗能相等的 [E] 。 NL 若是印记牌，则将1张 hatmagician:无色印记 加入手中。"
+  },
+  "HatMagicianMod:Sleepy": {
+    "NAME": "昏昏欲睡",
+    "DESCRIPTION": " 不能被打出 。 NL 这张牌在手中时，每打出一张牌，自己和所有敌人临时失去 !M! 点力量。",
+    "EXTENDED_DESCRIPTION": [
+      "这张牌不能被打出。"
+    ]
+  },
+  "HatMagicianMod:BlankMemory": {
+    "NAME": "空白记忆",
+    "DESCRIPTION": " 虚无 消耗 。",
+    "EXTENDED_DESCRIPTION": [
+      "敌人没有未激活的印记。"
     ]
   }
 }

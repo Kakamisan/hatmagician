@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import hatmagicianmod.actions.BrandEvokeAction;
 import hatmagicianmod.helpers.ModHelper;
 
-public class DoubleStar extends BrandAtkBase {
+public class DoubleStar extends BaseBrandAtk {
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;

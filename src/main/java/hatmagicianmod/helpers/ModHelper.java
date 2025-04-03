@@ -2,8 +2,11 @@ package hatmagicianmod.helpers;
 
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+
+import java.util.ArrayList;
 
 import static hatmagicianmod.characters.MyCharacter.PlayerColorEnum.HAT_MAGICIAN_YELLOW;
 
@@ -48,5 +51,15 @@ public class ModHelper {
 
     public static int cardRand(int size) {
         return AbstractDungeon.cardRng.random(size - 1);
+    }
+
+    public static ArrayList<AbstractMonster> getAliveMonsters() {
+        ArrayList<AbstractMonster> ret_list = new ArrayList<>();
+        for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
+            if (!m.isDeadOrEscaped()) {
+                ret_list.add(m);
+            }
+        }
+        return ret_list;
     }
 }

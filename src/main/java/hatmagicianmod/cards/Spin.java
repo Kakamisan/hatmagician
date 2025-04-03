@@ -7,10 +7,9 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import hatmagicianmod.actions.BrandEvokeAction;
 import hatmagicianmod.helpers.ModHelper;
 
-public class BreakAttack extends BaseBrandAtk {
+public class Spin extends BaseBrandQueue{
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;
@@ -19,30 +18,40 @@ public class BreakAttack extends BaseBrandAtk {
     private static final CardType TYPE = CardType.ATTACK;
 
     static {
-        String name = "BreakAttack";
+        String name = "Spin";
         ID = ModHelper.makeID(name);
         CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
         IMG_PATH = ModHelper.makeCardImgPath(TYPE, name);
     }
 
-    public BreakAttack() {
-        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.ENEMY);
+    public Spin() {
+        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.ENEMY);
+        this.magicNumber = this.baseMagicNumber = 1;
         this.baseDamage = 8;
-        this.magicNumber = this.baseMagicNumber = 2;
     }
 
     @Override
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-            this.upgradeDamage(3);
-            this.upgradeMagicNumber(1);
+            this.upgradeDamage(4);
         }
     }
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        this.addToBot(new BrandEvokeAction(m, this.magicNumber));
-        this.addToBot(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
+        AbstractGameAction.AttackEffect eff = AbstractGameAction.AttackEffect.SLASH_HEAVY;
+        super.use(p, m);
+        this.addToBot(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), eff));
+    }
+
+    @Override
+    public String cardNormalDesc() {
+        return CARD_STRINGS.DESCRIPTION;
+    }
+
+    @Override
+    protected String cardCalcDesc() {
+        return CARD_STRINGS.DESCRIPTION;
     }
 }

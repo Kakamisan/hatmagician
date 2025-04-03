@@ -92,7 +92,9 @@ public class MyCharacter extends CustomPlayer {
             retVal.add(Block.ID);
         }
         retVal.add(Lightning.ID);
-//        retVal.add(TrickBox.ID);
+//        retVal.add(Melt.ID);
+//        retVal.add(Sleepy.ID);
+//        retVal.add(Spin.ID);
         return retVal;
     }
 
@@ -242,5 +244,12 @@ public class MyCharacter extends CustomPlayer {
         // 这个变量未被使用（呈现灰色）是正常的
         @SpireEnum
         public static CardLibrary.LibraryType HAT_MAGICIAN_YELLOW;
+    }
+
+    public static class PlayerCardTags {
+
+        // 印记牌
+        @SpireEnum
+        public static AbstractCard.CardTags HAT_MAGICIAN_BRAND;
     }
 }

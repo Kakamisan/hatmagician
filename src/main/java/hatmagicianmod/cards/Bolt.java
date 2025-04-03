@@ -9,11 +9,12 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import hatmagicianmod.actions.ApplyBrandPowerAction;
+import hatmagicianmod.characters.MyCharacter;
 import hatmagicianmod.effects.GenBrandLightningEffect;
 import hatmagicianmod.helpers.ModHelper;
 import hatmagicianmod.powers.BrandPower;
 
-public class Bolt extends BrandAtkBase {
+public class Bolt extends BaseBrandAtk {
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;
@@ -31,6 +32,7 @@ public class Bolt extends BrandAtkBase {
     public Bolt() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.ENEMY);
         this.baseDamage = 7;
+        this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND);
     }
 
     @Override

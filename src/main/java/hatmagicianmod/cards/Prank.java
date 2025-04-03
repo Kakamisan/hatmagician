@@ -13,7 +13,7 @@ import hatmagicianmod.helpers.ModHelper;
 
 import static hatmagicianmod.modcore.HatMagicianMod.MY_COLOR;
 
-public class Prank extends BrandAtkBase {
+public class Prank extends BaseBrandAtk {
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;
