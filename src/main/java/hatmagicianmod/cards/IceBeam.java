@@ -31,6 +31,7 @@ public class IceBeam extends BaseBrandAtk {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.ENEMY);
         this.baseDamage = 7;
         this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND);
+        this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND_ICE);
     }
 
     @Override

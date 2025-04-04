@@ -2,10 +2,13 @@ package hatmagicianmod.relics;
 
 import basemod.abstracts.CustomRelic;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import hatmagicianmod.cards.Prank;
+import hatmagicianmod.cards.*;
 import hatmagicianmod.helpers.ModHelper;
+
+import java.util.ArrayList;
 
 public class SpecHat extends CustomRelic {
     // 遗物ID（此处的ModHelper在“04 - 本地化”中提到）
@@ -18,6 +21,8 @@ public class SpecHat extends CustomRelic {
     private static final RelicTier RELIC_TIER = RelicTier.STARTER;
     // 点击音效
     private static final LandingSound LANDING_SOUND = LandingSound.FLAT;
+
+    private ArrayList<AbstractCard.CardTags> exhaust_brand_tags;
 
     public SpecHat() {
         super(ID, ImageMaster.loadImage(IMG_PATH), RELIC_TIER, LANDING_SOUND);
@@ -38,5 +43,43 @@ public class SpecHat extends CustomRelic {
     public void atBattleStart() {
         super.atBattleStart();
         this.addToBot(new MakeTempCardInHandAction(new Prank()));
+
+        // test
+        this.addToBot(new MakeTempCardInHandAction(new BlankMemory()));
+        this.addToBot(new MakeTempCardInHandAction(new Lightning()));
+        this.addToBot(new MakeTempCardInHandAction(new Ice()));
+        this.addToBot(new MakeTempCardInHandAction(new BurningAbyss()));
+        // end of test
+
+        this.exhaust_brand_tags = new ArrayList<>();
+    }
+
+    @Override
+    public void onExhaust(AbstractCard card) {
+        super.onExhaust(card);
+
+        if (this.exhaust_brand_tags.size() >= 4) {
+            return;
+        }
+
+        AbstractCard.CardTags tag = BlankMemory.getCardBrandTag(card);
+
+        if (tag != null) {
+            if (this.exhaust_brand_tags.size() < 3) {
+                if (!this.exhaust_brand_tags.contains(tag)) {
+                    this.exhaust_brand_tags.add(tag);
+                } else {
+                    this.exhaust_brand_tags = new ArrayList<>();
+                }
+            } else {
+                if (this.exhaust_brand_tags.get(0) == tag) {
+                    this.exhaust_brand_tags.add(tag);
+                    AbstractCard blank_memory = new BlankMemory();
+                    this.addToTop(new MakeTempCardInHandAction(blank_memory));
+                } else {
+                    this.exhaust_brand_tags = new ArrayList<>();
+                }
+            }
+        }
     }
 }

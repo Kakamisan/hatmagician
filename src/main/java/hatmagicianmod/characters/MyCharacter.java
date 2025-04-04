@@ -251,5 +251,11 @@ public class MyCharacter extends CustomPlayer {
         // 印记牌
         @SpireEnum
         public static AbstractCard.CardTags HAT_MAGICIAN_BRAND;
+        @SpireEnum
+        public static AbstractCard.CardTags HAT_MAGICIAN_BRAND_LIGHTNING;
+        @SpireEnum
+        public static AbstractCard.CardTags HAT_MAGICIAN_BRAND_FIRE;
+        @SpireEnum
+        public static AbstractCard.CardTags HAT_MAGICIAN_BRAND_ICE;
     }
 }

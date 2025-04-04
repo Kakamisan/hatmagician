@@ -8,14 +8,21 @@ import hatmagicianmod.powers.BrandPower;
 
 public class BrandEvokeAllAction extends AbstractGameAction {
 
-    public BrandEvokeAllAction() {}
+    private final int scar_turn;
+
+    public BrandEvokeAllAction() {
+        this.scar_turn = 0;
+    }
+    public BrandEvokeAllAction(int scar_turn) {
+        this.scar_turn = scar_turn;
+    }
 
     @Override
     public void update() {
         for(AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
             if (!m.isDeadOrEscaped()) {
                 for(BrandPower p: BrandPower.getBrandPowers(m)) {
-                    p.evoke(null);
+                    p.evoke(null, this.scar_turn);
                 }
             }
         }

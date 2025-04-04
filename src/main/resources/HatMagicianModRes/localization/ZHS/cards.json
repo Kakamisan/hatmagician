@@ -146,7 +146,7 @@
   },
   "HatMagicianMod:Melt": {
     "NAME": "熔解",
-    "DESCRIPTION": "消耗 一张牌。 NL 获得与其耗能相等的 [E] 。 NL 若是印记牌，则将1张 hatmagician:无色印记 加入手中。"
+    "DESCRIPTION": "消耗 一张牌。 NL 获得与其耗能相等的 [E] 。 NL 若消耗印记牌，则将1张 hatmagician:无色印记 加入手中。"
   },
   "HatMagicianMod:Sleepy": {
     "NAME": "昏昏欲睡",
@@ -155,11 +155,29 @@
       "这张牌不能被打出。"
     ]
   },
-  "HatMagicianMod:BlankMemory": {
-    "NAME": "空白记忆",
-    "DESCRIPTION": " 虚无 消耗 。",
+  "HatMagicianMod:PsyShock": {
+    "NAME": "精神冲击",
+    "DESCRIPTION": " hatmagician:激活 ， hatmagician:烙印 : !M! 。 NL 对所有敌人造成 !D! 点伤害。"
+  },
+  "HatMagicianMod:QuickIdea": {
+    "NAME": "急中生智",
+    "DESCRIPTION": " 丢弃 一张牌。 NL 抽 !M! 张牌。 NL 若丢弃非印记牌，则将1张 hatmagician:魔力痕迹 加入手中。"
+  },
+  "HatMagicianMod:MagicMark": {
+    "NAME": "魔力痕迹",
+    "DESCRIPTION": " 虚无 ， 消耗 。 NL hatmagician:激活 ， hatmagician:烙印 : !M! 。",
     "EXTENDED_DESCRIPTION": [
       "敌人没有未激活的印记。"
+    ]
+  },
+  "HatMagicianMod:BlankMemory": {
+    "NAME": "空白记忆",
+    "DESCRIPTION": " 虚无 ",
+    "EXTENDED_DESCRIPTION": [
+      "你获得了遗忘。",
+      "你获得了敏锐。",
+      "你获得了热情。",
+      "你获得了冷静。"
     ]
   }
 }

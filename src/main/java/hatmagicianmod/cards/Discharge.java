@@ -34,6 +34,7 @@ public class Discharge extends CustomCard {
         this.magicNumber = this.baseMagicNumber = 2;
         this.exhaust = true;
         this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND);
+        this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND_LIGHTNING);
     }
 
     @Override

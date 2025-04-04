@@ -31,6 +31,7 @@ public class Ice extends CustomCard {
         this.magicNumber = this.baseMagicNumber = 1;
         this.exhaust = true;
         this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND);
+        this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND_ICE);
     }
 
     @Override
