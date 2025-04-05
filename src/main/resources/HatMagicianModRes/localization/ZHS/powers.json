@@ -4,74 +4,80 @@
     "DESCRIPTIONS": [
       "回合结束时，使用所有印记的被动 #g%d 次。"
     ]
-  }
-  ,"HatMagicianMod:BrandPower": {
+  },
+  "HatMagicianMod:BrandPower": {
     "NAME": "印记",
     "DESCRIPTIONS": [
-      "回合结束时，"
-      ,"闪电印记"
-      ,"火焰印记"
-      ,"冰冻印记"
-      ,"对场上拥有闪电印记的敌人造成 #g%d 点伤害。"
-      ,"给予 #g%d 层 #y灼烧 。"
-      ,"失去 #g%d 力量1回合。"
-      ," NL  #y激活 : 对场上拥有闪电印记的敌人造成 #g%d 点伤害。"
-      ," NL  #y激活 : 此次攻击伤害变为 #b2 倍。"
-      ," NL  #y激活 : 失去 #g%d 力量1回合。"
-      ," NL  #r超载火 : 额外激活 #b1 次闪电。"
-      ," NL  #b超载冰 : 额外抽取 #b2 张牌。"
-      ," NL  #b超载冰 : 额外给予 #g%d 层虚弱。"
-      ," NL  #y超载电 : 额外给予 #g%d 层易伤。"
-      ," NL  #y超载电 : 额外获得 #g%d 点格挡。"
-      ," NL  #r超载火 : 额外给予 #g%d 层 #y灼烧 。"
-      ,"剩余 #b%d 回合。"
-      ,"闪电烙印"
-      ,"火焰烙印"
-      ,"冰冻烙印"
+      "回合结束时，",
+      "闪电印记",
+      "火焰印记",
+      "冰冻印记",
+      "对场上拥有闪电印记的敌人造成 #g%d 点伤害。",
+      "给予 #g%d 层 #y灼烧 。",
+      "失去 #g%d 力量1回合。",
+      " NL  #y激活 : 激活 #g%d 点伤害的闪电。",
+      " NL  #y激活 : 此次攻击伤害变为 #b2 倍。",
+      " NL  #y激活 : 失去 #g%d 力量1回合。",
+      " NL  #r超载火 : 额外激活 #b1 次 #g%d 点伤害的闪电。",
+      " NL  #b超载冰 : 额外抽取 #b%d 张牌。",
+      " NL  #b超载冰 : 额外给予 #g%d 层虚弱。",
+      " NL  #y超载电 : 额外给予 #g%d 层易伤。",
+      " NL  #y超载电 : 额外获得 #g%d 点格挡。",
+      " NL  #r超载火 : 额外给予 #g%d 层 #y灼烧 。",
+      "剩余 #b%d 回合。",
+      "闪电烙印",
+      "火焰烙印",
+      "冰冻烙印"
     ]
-  }
-  ,"HatMagicianMod:BrandBurnPower": {
+  },
+  "HatMagicianMod:BrandBurnPower": {
     "NAME": "灼烧",
     "DESCRIPTIONS": [
       " #y火焰印记 激活时，受到攻击伤害增加 #g%d 。"
     ]
-  }
-  ,"HatMagicianMod:CuriosityPower": {
+  },
+  "HatMagicianMod:CuriosityPower": {
     "NAME": "好奇心",
     "DESCRIPTIONS": [
       "使 #y印记 的部分效果增加 #g%d 。",
       "使 #y印记 的部分效果减少 #g%d 。"
     ]
-  }
-  ,"HatMagicianMod:TempStrengthPower": {
+  },
+  "HatMagicianMod:TempStrengthPower": {
     "NAME": "临时力量",
     "DESCRIPTIONS": [
       "攻击伤害提升 #g%d ，下回合移除。",
       "攻击伤害减少 #g%d ，下回合移除。"
     ]
-  }
-  ,"HatMagicianMod:ZzzWorldPower": {
+  },
+  "HatMagicianMod:ZzzWorldPower": {
     "NAME": "晚安，世界",
     "DESCRIPTIONS": [
       "回合结束时，获得 #g%d 点格挡，若场上存在 #b冰冻印记 则额外获得1次。"
     ]
-  }
-  ,"HatMagicianMod:FireWallPower": {
+  },
+  "HatMagicianMod:FireWallPower": {
     "NAME": "火焰墙",
     "DESCRIPTIONS": [
       "受到攻击时，给予 #b1 层 #y灼烧 。"
     ]
-  }
-  ,"HatMagicianMod:BrandScarPower": {
+  },
+  "HatMagicianMod:BrandScarPower": {
     "NAME": "复之烙印",
     "DESCRIPTIONS": [
       "激活的印记不再立即移除，而是在 #g%d 回合后移除。 NL 已激活的印记无法再次激活。"
     ]
-  }
-  ,"HatMagicianMod:OverloadFormPower": {
+  },
+  "HatMagicianMod:OverloadFormPower": {
     "NAME": "超载形态",
     "DESCRIPTIONS": [
-      "每当你 hatmagician:超载激活 时，获得 #g%d 点 [E] 。"
+      "每当你 #y超载激活 时，获得 #g%d 点 [E] 。"
+    ]
+  },
+  "HatMagicianMod:OverWorldPower": {
+    "NAME": "超世形态",
+    "DESCRIPTIONS": [
+      "立即获得 #b3 点 #y好奇心 。 NL 你的 #y超载激活 获得双倍效果。"
     ]
   }
 }

@@ -66,7 +66,7 @@ public class CuriosityPower extends AbstractPower {
         if (this.amount <= -999) {
             this.amount = -999;
         }
-
+        BrandPower.updateAllBrandDesc(this.amount);
     }
 
     public void reducePower(int reduceAmount) {
@@ -83,7 +83,7 @@ public class CuriosityPower extends AbstractPower {
         if (this.amount <= -999) {
             this.amount = -999;
         }
-
+        BrandPower.updateAllBrandDesc(this.amount);
     }
 
     public void updateDescription() {
@@ -95,16 +95,11 @@ public class CuriosityPower extends AbstractPower {
             this.description = String.format(DESCRIPTIONS[1], tmp);
             this.type = PowerType.DEBUFF;
         }
+    }
 
-        // 所有印记也要更新说明
-        ArrayList<AbstractMonster> ms =  AbstractDungeon.getMonsters().monsters;
-        for (AbstractMonster m : ms) {
-            if (m.isDeadOrEscaped()) continue;
-            ArrayList<BrandPower> ps = BrandPower.getBrandPowers(m);
-            for (BrandPower p : ps) {
-                p.updateDescription(this.amount);
-            }
-        }
-
+    @Override
+    public void onInitialApplication() {
+        super.onInitialApplication();
+        BrandPower.updateAllBrandDesc(this.amount);
     }
 }

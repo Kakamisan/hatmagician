@@ -67,7 +67,7 @@ public class BrandPower extends AbstractPower {
         DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
         BASE = new BrandBaseClass[3];
-        BASE[BRAND_TYPE.LIGHTNING.ordinal()] = new BrandBaseClass(3, 8, 1, 2, 2);
+        BASE[BRAND_TYPE.LIGHTNING.ordinal()] = new BrandBaseClass(3, 8, 8, 2, 2);
         BASE[BRAND_TYPE.FIRE.ordinal()] = new BrandBaseClass(1, 1, 1, 1, 1);
         BASE[BRAND_TYPE.ICE.ordinal()] = new BrandBaseClass(1, 3, 5, 2, 1);
     }
@@ -231,20 +231,20 @@ public class BrandPower extends AbstractPower {
                     if (source_type == BRAND_TYPE.FIRE) {
                         // 额外1次激活
                         // 造成更高的连锁闪电伤害
-                        this.addToTop(new DamageChainLightningEnemiesAction(this.brandEvokeValue()));
+                        this.addToTop(new DamageChainLightningEnemiesAction(this.brandOverloadValue1()));
                         this.addToTop(new VFXAction(new AtkChainLightningEffect()));
                     } else {
                         // 抽2
-                        this.addToTop(new DrawCardAction(2));
+                        this.addToTop(new DrawCardAction(this.brandOverloadValue2()));
                     }
                     break;
                 case FIRE:
                     if (source_type == BRAND_TYPE.ICE) {
                         // X层虚弱
-                        this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new WeakPower(this.owner, this.brandPassiveValue(), false), this.brandPassiveValue()));
+                        this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new WeakPower(this.owner, this.brandOverloadValue1(), false)));
                     } else {
                         // X层易伤
-                        this.addToBot(new ApplyPowerAction(this.owner, AbstractDungeon.player, new VulnerablePower(this.owner, this.brandPassiveValue(), false), this.brandPassiveValue(), true, AbstractGameAction.AttackEffect.NONE));
+                        this.addToBot(new ApplyPowerAction(this.owner, AbstractDungeon.player, new VulnerablePower(this.owner, this.brandOverloadValue2(), false)));
                     }
                     break;
                 case ICE:
@@ -457,14 +457,14 @@ public class BrandPower extends AbstractPower {
             case LIGHTNING:
                 return String.format(DESCRIPTIONS[4], this.brandPassiveValue())
                         + String.format(DESCRIPTIONS[7], this.brandEvokeValue())
-                        + DESCRIPTIONS[10]
-                        + DESCRIPTIONS[11]
+                        + String.format(DESCRIPTIONS[10], this.brandOverloadValue1())
+                        + String.format(DESCRIPTIONS[11], this.brandOverloadValue2())
                         ;
             case FIRE:
                 return String.format(DESCRIPTIONS[5], this.brandPassiveValue())
                         + DESCRIPTIONS[8]
-                        + String.format(DESCRIPTIONS[12], this.brandPassiveValue())
-                        + String.format(DESCRIPTIONS[13], this.brandPassiveValue())
+                        + String.format(DESCRIPTIONS[12], this.brandOverloadValue1())
+                        + String.format(DESCRIPTIONS[13], this.brandOverloadValue2())
                         ;
             case ICE:
                 return String.format(DESCRIPTIONS[6], this.brandPassiveValue())
@@ -524,12 +524,15 @@ public class BrandPower extends AbstractPower {
 
     // 超载1数值
     private int brandOverloadValue1() {
-        return BASE[this.brand_type.ordinal()].overload_value1 + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate;
+        return (BASE[this.brand_type.ordinal()].overload_value1 + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate) * this.playerOverWorld();
     }
 
     // 超载2数值
     private int brandOverloadValue2() {
-        return BASE[this.brand_type.ordinal()].overload_value2 + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate;
+        if (this.brand_type == BRAND_TYPE.LIGHTNING) {
+            return BASE[this.brand_type.ordinal()].overload_value2 * this.playerOverWorld();
+        }
+        return (BASE[this.brand_type.ordinal()].overload_value2 + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate) * this.playerOverWorld();
     }
 
     // 好奇心的数值
@@ -542,6 +545,15 @@ public class BrandPower extends AbstractPower {
             return p.amount;
         }
         return 0;
+    }
+
+    // 超世形态 *超载2倍效果
+    private int playerOverWorld() {
+        AbstractPower p = AbstractDungeon.player.getPower(ModHelper.makeID("OverWorldPower"));
+        if (p != null) {
+            return 2;
+        }
+        return 1;
     }
 
     // 烙印的层数
@@ -581,6 +593,22 @@ public class BrandPower extends AbstractPower {
 
     private boolean isInstanceOfOnOverloadEvoke(AbstractCard card) {
         return card instanceof BaseOnOverloadEvoke;
+    }
+
+    // 更新所有印记的描述
+    public static void updateAllBrandDesc() {
+        updateAllBrandDesc(0);
+    }
+    public static void updateAllBrandDesc(int amount) {
+        // 所有印记也要更新说明
+        ArrayList<AbstractMonster> ms =  AbstractDungeon.getMonsters().monsters;
+        for (AbstractMonster m : ms) {
+            if (m.isDeadOrEscaped()) continue;
+            ArrayList<BrandPower> ps = BrandPower.getBrandPowers(m);
+            for (BrandPower p : ps) {
+                p.updateDescription(amount);
+            }
+        }
     }
 
     // 印记类型

@@ -45,10 +45,10 @@ public class SpecHat extends CustomRelic {
         this.addToBot(new MakeTempCardInHandAction(new Prank()));
 
         // test
-        this.addToBot(new MakeTempCardInHandAction(new BlankMemory()));
-        this.addToBot(new MakeTempCardInHandAction(new Lightning()));
-        this.addToBot(new MakeTempCardInHandAction(new Ice()));
-        this.addToBot(new MakeTempCardInHandAction(new BurningAbyss()));
+//        this.addToBot(new MakeTempCardInHandAction(new BlankMemory()));
+//        this.addToBot(new MakeTempCardInHandAction(new Discharge()));
+//        this.addToBot(new MakeTempCardInHandAction(new Ice()));
+//        this.addToBot(new MakeTempCardInHandAction(new BurningAbyss()));
         // end of test
 
         this.exhaust_brand_tags = new ArrayList<>();
@@ -70,6 +70,7 @@ public class SpecHat extends CustomRelic {
                     this.exhaust_brand_tags.add(tag);
                 } else {
                     this.exhaust_brand_tags = new ArrayList<>();
+                    this.exhaust_brand_tags.add(tag);
                 }
             } else {
                 if (this.exhaust_brand_tags.get(0) == tag) {
@@ -78,8 +79,10 @@ public class SpecHat extends CustomRelic {
                     this.addToTop(new MakeTempCardInHandAction(blank_memory));
                 } else {
                     this.exhaust_brand_tags = new ArrayList<>();
+                    this.exhaust_brand_tags.add(tag);
                 }
             }
+            ModHelper.log("[空白记忆]计数" + this.exhaust_brand_tags.size());
         }
     }
 }
