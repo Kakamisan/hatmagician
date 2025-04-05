@@ -64,7 +64,7 @@
   },
   "HatMagicianMod:OverloadForm": {
     "NAME": "超载形态",
-    "DESCRIPTION": "每当你 hatmagician:超载激活 时获得 [E] 。 NL 回合开始时失去 [E] 。"
+    "DESCRIPTION": "每当你 hatmagician:超载激活 时获得 [E] 。 NL 每回合开始时失去 [E] 。"
   },
   "HatMagicianMod:BreakAttack": {
     "NAME": "破碎一击",
@@ -146,7 +146,7 @@
   },
   "HatMagicianMod:Melt": {
     "NAME": "熔解",
-    "DESCRIPTION": "消耗 一张牌。 NL 获得与其耗能相等的 [E] 。 NL 若消耗印记牌，则将1张 hatmagician:无色印记 加入手中。"
+    "DESCRIPTION": " 消耗 一张牌。 NL 获得与其耗能相等的 [E] 。 NL 若消耗印记牌，则将1张 *无色印记 加入手中。"
   },
   "HatMagicianMod:Sleepy": {
     "NAME": "昏昏欲睡",
@@ -161,7 +161,7 @@
   },
   "HatMagicianMod:QuickIdea": {
     "NAME": "急中生智",
-    "DESCRIPTION": " 丢弃 一张牌。 NL 抽 !M! 张牌。 NL 若丢弃非印记牌，则将1张 hatmagician:魔力痕迹 加入手中。"
+    "DESCRIPTION": " 丢弃 一张牌。 NL 抽 !M! 张牌。 NL 若丢弃非印记牌，则将1张 *魔力痕迹 加入手中。"
   },
   "HatMagicianMod:MagicMark": {
     "NAME": "魔力痕迹",
@@ -180,5 +180,33 @@
       " NL 你学会了 [#46b7E8]专注[] 。",
       "不再迷茫。"
     ]
+  },
+  "HatMagicianMod:PlayFire": {
+    "NAME": "玩火",
+    "DESCRIPTION": "给予1个 hatmagician:火焰印记 。 NL 将 !M! 张 *灼伤 加入弃牌堆。"
+  },
+  "HatMagicianMod:RapidCold": {
+    "NAME": "极速冷却",
+    "DESCRIPTION": " 消耗 。 NL 选择一张已 消耗 的印记牌，将其放入你的手牌。"
+  },
+  "HatMagicianMod:RapidShield": {
+    "NAME": "紧急防护",
+    "DESCRIPTION": " 消耗 一张牌。 NL 获得 !B! 点格挡。 NL 若消耗印记牌，额外获得 #b3 点格挡。"
+  },
+  "HatMagicianMod:Charge": {
+    "NAME": "充电",
+    "DESCRIPTION": " 消耗 抽牌堆的一张印记牌。 NL 本回合 hatmagician:闪电印记 的伤害增加 #b50% 。"
+  },
+  "HatMagicianMod:Improvise": {
+    "NAME": "即兴发挥",
+    "DESCRIPTION": " 消耗 。 NL 将一张随机印记牌加入手中。 NL 这张牌在本回合耗能变为 #g0 。"
+  },
+  "HatMagicianMod:OverloadBeam": {
+    "NAME": "超载射线",
+    "DESCRIPTION": "对所有敌人造成 !D! 点伤害。 NL 下回合失去 [E]  [E]  [E] 。"
+  },
+  "HatMagicianMod:Kite": {
+    "NAME": "风筝",
+    "DESCRIPTION": "获得 !B! 点格挡。 NL 将1张 *无色印记 加入手中。"
   }
 }
