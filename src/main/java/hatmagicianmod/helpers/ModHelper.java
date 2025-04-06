@@ -1,9 +1,11 @@
 package hatmagicianmod.helpers;
 
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.sun.jna.Function;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
@@ -62,5 +64,28 @@ public class ModHelper {
             }
         }
         return ret_list;
+    }
+
+    public interface Lambda extends Runnable {
+    }
+
+    public static void addToBotAbstract(Lambda func) {
+        AbstractDungeon.actionManager.addToBottom(new AbstractGameAction() {
+            @Override
+            public void update() {
+                func.run();
+                isDone = true;
+            }
+        });
+    }
+
+    public static void addToTopAbstract(Lambda func) {
+        AbstractDungeon.actionManager.addToTop(new AbstractGameAction() {
+            @Override
+            public void update() {
+                func.run();
+                isDone = true;
+            }
+        });
     }
 }

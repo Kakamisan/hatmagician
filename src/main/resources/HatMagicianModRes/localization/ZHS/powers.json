@@ -79,5 +79,11 @@
     "DESCRIPTIONS": [
       "立即获得 #b3 点 #y好奇心 。 NL 你的 #y超载激活 获得双倍效果。"
     ]
+  },
+  "HatMagicianMod:ChargePower": {
+    "NAME": "充电",
+    "DESCRIPTIONS": [
+      "闪电印记的伤害增加 #b50% 。"
+    ]
   }
 }

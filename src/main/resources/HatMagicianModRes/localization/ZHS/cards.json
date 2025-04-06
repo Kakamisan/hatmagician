@@ -55,7 +55,7 @@
   },
   "HatMagicianMod:ZzzWorld": {
     "NAME": "晚安，世界",
-    "DESCRIPTION": "回合结束时，获得 !M! 点格挡。 NL 场上存在 hatmagician:冰冻印记 ，则额外获得1次。"
+    "DESCRIPTION": "回合结束时，获得 !M! 点格挡，临时失去1点力量。 NL 场上存在 hatmagician:冰冻印记 ，则额外触发1次。"
   },
   "HatMagicianMod:BrandScar": {
     "NAME": "复之烙印",
@@ -65,6 +65,17 @@
   "HatMagicianMod:OverloadForm": {
     "NAME": "超载形态",
     "DESCRIPTION": "每当你 hatmagician:超载激活 时获得 [E] 。 NL 每回合开始时失去 [E] 。"
+  },
+  "HatMagicianMod:BlankMemory": {
+    "NAME": "空白记忆",
+    "DESCRIPTION": " 虚无 ",
+    "EXTENDED_DESCRIPTION": [
+      "你获得了遗忘。",
+      " NL 你拥有了 [#FFF533]信念[] 。",
+      " NL 你拾回了 [#EC5F64]勇气[] 。",
+      " NL 你学会了 [#46b7E8]专注[] 。",
+      "不再迷茫。"
+    ]
   },
   "HatMagicianMod:BreakAttack": {
     "NAME": "破碎一击",
@@ -170,17 +181,6 @@
       "敌人没有未激活的印记。"
     ]
   },
-  "HatMagicianMod:BlankMemory": {
-    "NAME": "空白记忆",
-    "DESCRIPTION": " 虚无 ",
-    "EXTENDED_DESCRIPTION": [
-      "你获得了遗忘。",
-      " NL 你拥有了 [#FFF533]信念[] 。",
-      " NL 你拾回了 [#EC5F64]梦想[] 。",
-      " NL 你学会了 [#46b7E8]专注[] 。",
-      "不再迷茫。"
-    ]
-  },
   "HatMagicianMod:PlayFire": {
     "NAME": "玩火",
     "DESCRIPTION": "给予1个 hatmagician:火焰印记 。 NL 将 !M! 张 *灼伤 加入弃牌堆。"
@@ -191,12 +191,18 @@
   },
   "HatMagicianMod:RapidShield": {
     "NAME": "紧急防护",
-    "DESCRIPTION": " 消耗 一张牌。 NL 获得 !B! 点格挡。 NL 若消耗印记牌，额外获得 #b3 点格挡。"
+    "DESCRIPTION": " 消耗 一张牌。 NL 获得 !B! 点格挡。 NL 若消耗印记牌，额外获得5点格挡。"
   },
   "HatMagicianMod:Charge": {
     "NAME": "充电",
-    "DESCRIPTION": " 消耗 抽牌堆的一张印记牌。 NL 本回合 hatmagician:闪电印记 的伤害增加 #b50% 。"
+    "DESCRIPTION": " 消耗 抽牌堆的一张印记牌。 NL 在 !M! 回合内 hatmagician:闪电印记 的伤害增加50%。",
+    "EXTENDED_DESCRIPTION": [
+      "抽牌堆中没有印记牌。"
+    ]
   },
+
+
+
   "HatMagicianMod:Improvise": {
     "NAME": "即兴发挥",
     "DESCRIPTION": " 消耗 。 NL 将一张随机印记牌加入手中。 NL 这张牌在本回合耗能变为 #g0 。"
@@ -208,5 +214,16 @@
   "HatMagicianMod:Kite": {
     "NAME": "风筝",
     "DESCRIPTION": "获得 !B! 点格挡。 NL 将1张 *无色印记 加入手中。"
+  },
+  "HatMagicianMod:Yawn": {
+    "NAME": "哈欠",
+    "DESCRIPTION": "获得 !B! 点格挡。 NL 每当你失去力量，回复与之相等的生命。"
+  },
+  "HatMagicianMod:Rest": {
+    "NAME": "睡觉",
+    "DESCRIPTION": " 虚无 ， 消耗 。 NL 这张卡只能 hatmagician:立即打出 。 NL 临时失去 !M! 点力量。 NL 回复 #b7 点生命。",
+    "EXTENDED_DESCRIPTION": [
+      "现在无法入睡了。"
+    ]
   }
 }

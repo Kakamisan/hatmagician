@@ -257,5 +257,7 @@ public class MyCharacter extends CustomPlayer {
         public static AbstractCard.CardTags HAT_MAGICIAN_BRAND_FIRE;
         @SpireEnum
         public static AbstractCard.CardTags HAT_MAGICIAN_BRAND_ICE;
+        @SpireEnum
+        public static AbstractCard.CardTags HAT_MAGICIAN_SLEEP;
     }
 }

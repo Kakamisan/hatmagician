@@ -49,6 +49,7 @@ public class SpecHat extends CustomRelic {
 //        this.addToBot(new MakeTempCardInHandAction(new Discharge()));
 //        this.addToBot(new MakeTempCardInHandAction(new Ice()));
 //        this.addToBot(new MakeTempCardInHandAction(new BurningAbyss()));
+        this.addToBot(new MakeTempCardInHandAction(new Charge()));
         // end of test
 
         this.exhaust_brand_tags = new ArrayList<>();
@@ -59,6 +60,10 @@ public class SpecHat extends CustomRelic {
         super.onExhaust(card);
 
         if (this.exhaust_brand_tags.size() >= 4) {
+            return;
+        }
+
+        if (card == null) {
             return;
         }
 

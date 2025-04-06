@@ -39,7 +39,8 @@ public class BrandPower extends AbstractPower {
     public boolean is_played_sfx = false;   // 只播放一次生成音效
     public boolean is_evoking = false;      // 印记是否激活中
 
-    private int curiosity = 0;  // 临时存储好奇心数值
+    private int curiosity = 0;      // 临时存储好奇心数值
+    private boolean charge = false; // 临时存储充电能力是否开启 *原因：onRemove时player身上还有这个power
 
     // 印记配置类
     public static class BrandBaseClass {
@@ -48,13 +49,15 @@ public class BrandPower extends AbstractPower {
         public int overload_value1; // 超载1
         public int overload_value2; // 超载2
         public int curiosity_rate;  // 好奇心提供加成的倍率 *闪电为2倍，其他为1倍
+        public float charge_rate;     // 充电提供加成的倍率 *闪电为1.5倍，其他为1倍
 
-        public BrandBaseClass(int passive_value, int evoke_value, int overload_value1, int overload_value2, int curiosity_rate) {
+        public BrandBaseClass(int passive_value, int evoke_value, int overload_value1, int overload_value2, int curiosity_rate, float charge_rate) {
             this.passive_value = passive_value;
             this.evoke_value = evoke_value;
             this.overload_value1 = overload_value1;
             this.overload_value2 = overload_value2;
             this.curiosity_rate = curiosity_rate;
+            this.charge_rate = charge_rate;
         }
     }
 
@@ -67,9 +70,9 @@ public class BrandPower extends AbstractPower {
         DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
         BASE = new BrandBaseClass[3];
-        BASE[BRAND_TYPE.LIGHTNING.ordinal()] = new BrandBaseClass(3, 8, 8, 2, 2);
-        BASE[BRAND_TYPE.FIRE.ordinal()] = new BrandBaseClass(1, 1, 1, 1, 1);
-        BASE[BRAND_TYPE.ICE.ordinal()] = new BrandBaseClass(1, 3, 5, 2, 1);
+        BASE[BRAND_TYPE.LIGHTNING.ordinal()] = new BrandBaseClass(3, 8, 8, 2, 2, 1.5F);
+        BASE[BRAND_TYPE.FIRE.ordinal()] = new BrandBaseClass(1, 1, 1, 1, 1, 1.0F);
+        BASE[BRAND_TYPE.ICE.ordinal()] = new BrandBaseClass(1, 3, 5, 2, 1, 1.0F);
     }
 
     public BrandPower(AbstractCreature owner, BRAND_TYPE type) {
@@ -514,17 +517,23 @@ public class BrandPower extends AbstractPower {
 
     // 印记的被动最终数值
     private int brandPassiveValue() {
-        return BASE[this.brand_type.ordinal()].passive_value + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate;
+        return Math.round((
+                BASE[this.brand_type.ordinal()].passive_value + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate
+        ) * this.playerCharge());
     }
 
     // 印记的激活最终数值
     private int brandEvokeValue() {
-        return BASE[this.brand_type.ordinal()].evoke_value + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate;
+        return Math.round((
+                BASE[this.brand_type.ordinal()].evoke_value + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate
+        ) * this.playerCharge());
     }
 
     // 超载1数值
     private int brandOverloadValue1() {
-        return (BASE[this.brand_type.ordinal()].overload_value1 + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate) * this.playerOverWorld();
+        return Math.round((
+                (BASE[this.brand_type.ordinal()].overload_value1 + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate) * this.playerOverWorld()
+        ) * this.playerCharge());
     }
 
     // 超载2数值
@@ -545,6 +554,15 @@ public class BrandPower extends AbstractPower {
             return p.amount;
         }
         return 0;
+    }
+
+    // 充电的数值
+    private float playerCharge() {
+        AbstractPower p = AbstractDungeon.player.getPower(ModHelper.makeID("ChargePower"));
+        if (p != null) {
+            return BASE[this.brand_type.ordinal()].charge_rate;
+        }
+        return 1;
     }
 
     // 超世形态 *超载2倍效果
@@ -599,9 +617,10 @@ public class BrandPower extends AbstractPower {
     public static void updateAllBrandDesc() {
         updateAllBrandDesc(0);
     }
+
     public static void updateAllBrandDesc(int amount) {
         // 所有印记也要更新说明
-        ArrayList<AbstractMonster> ms =  AbstractDungeon.getMonsters().monsters;
+        ArrayList<AbstractMonster> ms = AbstractDungeon.getMonsters().monsters;
         for (AbstractMonster m : ms) {
             if (m.isDeadOrEscaped()) continue;
             ArrayList<BrandPower> ps = BrandPower.getBrandPowers(m);
