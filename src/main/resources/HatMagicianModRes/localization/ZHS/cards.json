@@ -91,7 +91,7 @@
   },
   "HatMagicianMod:Shield": {
     "NAME": "蜷缩",
-    "DESCRIPTION": "获得 !B! 点格挡。"
+    "DESCRIPTION": "获得 !B! 点格挡。 NL 场上每存在1个 hatmagician:冰冻印记 ，额外获得 !M! 点。"
   },
   "HatMagicianMod:Bloom": {
     "NAME": "开幕",
@@ -108,7 +108,8 @@
   },
   "HatMagicianMod:Echo": {
     "NAME": "共鸣",
-    "DESCRIPTION": " hatmagician:激活 。 NL 场上每存在1种类 hatmagician:印记 ，对该敌人造成 !D! 点伤害。"
+    "DESCRIPTION": " hatmagician:激活 。 NL 场上每存在1种类 hatmagician:印记 ，对该敌人造成 !D! 点伤害。",
+    "UPGRADE_DESCRIPTION": " hatmagician:激活 。 NL 场上每存在1种类 hatmagician:印记 ，对该敌人造成 !D! 点伤害，当前造成 !M! 次。"
   },
   "HatMagicianMod:BurningAbyss": {
     "NAME": "炼狱",
@@ -157,7 +158,7 @@
   },
   "HatMagicianMod:Melt": {
     "NAME": "熔解",
-    "DESCRIPTION": " 消耗 一张牌。 NL 获得与其耗能相等的 [E] 。 NL 若消耗印记牌，则将1张 *无色印记 加入手中。"
+    "DESCRIPTION": " 消耗 一张牌。 NL 获得与其耗能相等的 [E] 。 NL 若消耗 hatmagician:印记牌 或 hatmagician:睡眠牌 ，则将1张 *无色印记 加入手中。"
   },
   "HatMagicianMod:Sleepy": {
     "NAME": "昏昏欲睡",
@@ -172,7 +173,7 @@
   },
   "HatMagicianMod:QuickIdea": {
     "NAME": "急中生智",
-    "DESCRIPTION": " 丢弃 一张牌。 NL 抽 !M! 张牌。 NL 若丢弃非印记牌，则将1张 *魔力痕迹 加入手中。"
+    "DESCRIPTION": " 消耗 一张牌。 NL 抽 !M! 张牌。 NL 若消耗 hatmagician:印记牌 或 hatmagician:睡眠牌 ，则将1张 *魔力痕迹 加入手中。"
   },
   "HatMagicianMod:MagicMark": {
     "NAME": "魔力痕迹",
@@ -187,7 +188,11 @@
   },
   "HatMagicianMod:RapidCold": {
     "NAME": "极速冷却",
-    "DESCRIPTION": " 消耗 。 NL 选择一张已 消耗 的印记牌，将其放入你的手牌。"
+    "DESCRIPTION": " 消耗 。 NL 选择一张已 消耗 的 hatmagician:印记牌 或 hatmagician:睡眠牌 ，将其放入你的手牌。",
+    "UPGRADE_DESCRIPTION": "选择一张已 消耗 的 hatmagician:印记牌 或 hatmagician:睡眠牌 ，将其放入你的手牌。",
+    "EXTENDED_DESCRIPTION": [
+      "消耗堆中没有印记牌或睡眠牌。"
+    ]
   },
   "HatMagicianMod:RapidShield": {
     "NAME": "紧急防护",
@@ -195,35 +200,73 @@
   },
   "HatMagicianMod:Charge": {
     "NAME": "充电",
-    "DESCRIPTION": " 消耗 抽牌堆的一张印记牌。 NL 在 !M! 回合内 hatmagician:闪电印记 的伤害增加50%。",
+    "DESCRIPTION": " 消耗 抽牌堆的一张 hatmagician:印记牌 或 hatmagician:睡眠牌 。 NL 在 !M! 回合内 hatmagician:闪电印记 的伤害增加50%。",
     "EXTENDED_DESCRIPTION": [
-      "抽牌堆中没有印记牌。"
+      "抽牌堆中没有印记牌或睡眠牌。"
     ]
   },
-
-
-
+  "HatMagicianMod:ElectricExchange": {
+    "NAME": "闪电交换",
+    "DESCRIPTION": "将弃牌堆中的 !M! 张牌加入手中。 NL 接着将1张牌放到抽牌堆底部。",
+    "EXTENDED_DESCRIPTION": [
+      "弃牌堆是空的。"
+    ]
+  },
   "HatMagicianMod:Improvise": {
     "NAME": "即兴发挥",
-    "DESCRIPTION": " 消耗 。 NL 将一张随机印记牌加入手中。 NL 这张牌在本回合耗能变为 #g0 。"
+    "DESCRIPTION": " 消耗 。 NL 将一张随机印记牌加入手中。 NL 这张牌在本回合耗能变为0。"
   },
   "HatMagicianMod:OverloadBeam": {
     "NAME": "超载射线",
     "DESCRIPTION": "对所有敌人造成 !D! 点伤害。 NL 下回合失去 [E]  [E]  [E] 。"
   },
   "HatMagicianMod:Kite": {
-    "NAME": "风筝",
+    "NAME": "风筝战术",
     "DESCRIPTION": "获得 !B! 点格挡。 NL 将1张 *无色印记 加入手中。"
   },
   "HatMagicianMod:Yawn": {
     "NAME": "哈欠",
-    "DESCRIPTION": "获得 !B! 点格挡。 NL 每当你失去力量，回复与之相等的生命。"
+    "DESCRIPTION": " 消耗 。 NL 获得 !B! 点格挡。 NL 每当你失去力量，回复与之相等的生命。"
   },
   "HatMagicianMod:Rest": {
     "NAME": "睡觉",
-    "DESCRIPTION": " 虚无 ， 消耗 。 NL 这张卡只能 hatmagician:立即打出 。 NL 临时失去 !M! 点力量。 NL 回复 #b7 点生命。",
+    "DESCRIPTION": " 虚无 ， 消耗 。 NL 这张卡只能 hatmagician:立即打出 。 NL 临时失去3点力量，回复7点生命。",
+    "UPGRADE_DESCRIPTION": " 虚无 ， 消耗 。 NL 这张卡只能 hatmagician:立即打出 。 NL 临时失去3点力量，回复10点生命。",
     "EXTENDED_DESCRIPTION": [
       "现在无法入睡了。"
     ]
+  },
+  "HatMagicianMod:SleepTalk": {
+    "NAME": "梦话",
+    "DESCRIPTION": "对所有敌人造成 !D! 点伤害。 NL  hatmagician:临时力量 在这张卡上发挥相反效果。"
+  },
+  "HatMagicianMod:MorningAnger": {
+    "NAME": "起床气",
+    "DESCRIPTION": "对敌人造成 !D! 点伤害2次，给予 !M! 层 易伤 。 NL 清除自身的 hatmagician:临时力量 。 NL  hatmagician:临时力量 在这张卡上发挥相反效果。"
+  },
+  "HatMagicianMod:IsSleep": {
+    "NAME": "睡眠",
+    "DESCRIPTION": " hatmagician:沉睡  NL 这是一张睡眠牌。 NL 打出时在抽牌堆中加入1张 *睡眠 。"
+  },
+  "HatMagicianMod:Rolling": {
+    "NAME": "打滚",
+    "DESCRIPTION": "临时失去3点力量，抽 !M! 张牌。"
+  },
+  "HatMagicianMod:Doze": {
+    "NAME": "瞌睡",
+    "DESCRIPTION": "将2张 *睡眠 加入抽牌堆。 NL 获得 [E] 。",
+    "UPGRADE_DESCRIPTION": "将2张 *睡眠 加入抽牌堆。 NL 获得 [E]  [E] 。"
+  },
+  "HatMagicianMod:BlearyEyed": {
+    "NAME": "睡眼惺忪",
+    "DESCRIPTION": "抽2张牌。 NL 如果抽到的是 hatmagician:睡眠牌 ，自己和所有敌人临时失去 !M! 点力量。"
+  },
+  "HatMagicianMod:SweetDream": {
+    "NAME": "好梦",
+    "DESCRIPTION": "在你的回合开始时，抽1张牌，将1张 *睡眠 加入抽牌堆。"
+  },
+  "HatMagicianMod:Nightmare": {
+    "NAME": "恶梦",
+    "DESCRIPTION": "每当有一张 hatmagician:睡眠牌 被消耗时，随机给予 !M! 个 hatmagician:闪电印记 。"
   }
 }

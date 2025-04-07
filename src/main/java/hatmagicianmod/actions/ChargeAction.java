@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import hatmagicianmod.cards.Charge;
 import hatmagicianmod.characters.MyCharacter;
 import hatmagicianmod.helpers.ModHelper;
 import hatmagicianmod.powers.ChargePower;
@@ -32,8 +33,7 @@ public class ChargeAction extends AbstractGameAction {
             CardGroup tmp = new CardGroup(CardGroup.CardGroupType.UNSPECIFIED);
 
             for (AbstractCard c : this.p.drawPile.group) {
-                ModHelper.log("[" + c.name + "]正在检查这张牌");
-                if (c.tags.contains(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND)) {
+                if (Charge.checkCardTag(c)) {
                     tmp.addToRandomSpot(c);
                 }
             }
@@ -89,7 +89,6 @@ public class ChargeAction extends AbstractGameAction {
     }
 
     private void doExhaust(AbstractCard c) {
-        ModHelper.log("[" + c.name + "]充电消耗了这张牌");
         this.p.hand.moveToExhaustPile(c);
         this.addToBot(new ApplyPowerAction(p, p, new ChargePower(p, this.magicNumber)));
     }

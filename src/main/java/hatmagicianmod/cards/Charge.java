@@ -27,7 +27,7 @@ public class Charge extends CustomCard {
     }
 
     public Charge() {
-        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.RARE, CardTarget.SELF);
+        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.SELF);
         this.magicNumber = this.baseMagicNumber = 2;
     }
 
@@ -45,7 +45,7 @@ public class Charge extends CustomCard {
         if (canUse) {
             boolean canUse2 = false;
             for (AbstractCard c : AbstractDungeon.player.drawPile.group) {
-                if (c.tags.contains(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND)) {
+                if (checkCardTag(c)) {
                     canUse2 = true;
                     break;
                 }
@@ -54,6 +54,26 @@ public class Charge extends CustomCard {
                 return true;
             }
             this.cantUseMessage = CARD_STRINGS.EXTENDED_DESCRIPTION[0];
+        }
+        return false;
+    }
+
+    public void triggerOnGlowCheck() {
+        this.glowColor = AbstractCard.BLUE_BORDER_GLOW_COLOR.cpy();
+
+        for (AbstractCard c : AbstractDungeon.player.drawPile.group) {
+            if (checkCardTag(c)) {
+                this.glowColor = AbstractCard.GOLD_BORDER_GLOW_COLOR.cpy();
+                break;
+            }
+        }
+
+    }
+
+    // 是否印记牌或睡眠牌
+    public static boolean checkCardTag(AbstractCard c) {
+        if (c != null) {
+            return c.hasTag(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND) || c.hasTag(MyCharacter.PlayerCardTags.HAT_MAGICIAN_SLEEP);
         }
         return false;
     }

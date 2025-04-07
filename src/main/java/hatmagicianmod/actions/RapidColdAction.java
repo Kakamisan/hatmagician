@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import hatmagicianmod.cards.Charge;
 import hatmagicianmod.characters.MyCharacter;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class RapidColdAction extends AbstractGameAction {
             } else if (this.p.exhaustPile.isEmpty()) {
                 this.isDone = true;
             } else if (this.p.exhaustPile.size() == 1) {
-                if (!((AbstractCard)this.p.exhaustPile.group.get(0)).tags.contains(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND)) {
+                if (!Charge.checkCardTag((AbstractCard)this.p.exhaustPile.group.get(0))) {
                     this.isDone = true;
                 } else {
                     AbstractCard c = this.p.exhaustPile.getTopCard();
@@ -59,7 +60,7 @@ public class RapidColdAction extends AbstractGameAction {
 
                 while(c.hasNext()) {
                     AbstractCard derp = (AbstractCard)c.next();
-                    if (derp.cardID.equals("Exhume") || !derp.tags.contains(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND)) {
+                    if (derp.cardID.equals("Exhume") || !Charge.checkCardTag(derp)) {
                         c.remove();
                         this.cache_cards.add(derp);
                     }

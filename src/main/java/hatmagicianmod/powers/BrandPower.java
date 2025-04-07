@@ -1,5 +1,6 @@
 package hatmagicianmod.powers;
 
+import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
@@ -517,21 +518,21 @@ public class BrandPower extends AbstractPower {
 
     // 印记的被动最终数值
     private int brandPassiveValue() {
-        return Math.round((
+        return MathUtils.floor((
                 BASE[this.brand_type.ordinal()].passive_value + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate
         ) * this.playerCharge());
     }
 
     // 印记的激活最终数值
     private int brandEvokeValue() {
-        return Math.round((
+        return MathUtils.floor((
                 BASE[this.brand_type.ordinal()].evoke_value + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate
         ) * this.playerCharge());
     }
 
     // 超载1数值
     private int brandOverloadValue1() {
-        return Math.round((
+        return MathUtils.floor((
                 (BASE[this.brand_type.ordinal()].overload_value1 + this.playerCuriosity() * BASE[this.brand_type.ordinal()].curiosity_rate) * this.playerOverWorld()
         ) * this.playerCharge());
     }

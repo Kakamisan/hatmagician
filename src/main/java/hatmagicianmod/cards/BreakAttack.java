@@ -28,7 +28,7 @@ public class BreakAttack extends BaseBrandAtk {
     public BreakAttack() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.ENEMY);
         this.baseDamage = 8;
-        this.magicNumber = this.baseMagicNumber = 2;
+        this.magicNumber = this.baseMagicNumber = 3;
     }
 
     @Override
@@ -43,6 +43,6 @@ public class BreakAttack extends BaseBrandAtk {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         this.addToBot(new BrandEvokeAction(m, this.magicNumber));
-        this.addToBot(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
+        this.addToBot(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.SLASH_HEAVY));
     }
 }

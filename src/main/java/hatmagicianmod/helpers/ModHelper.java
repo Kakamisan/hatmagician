@@ -28,11 +28,7 @@ public class ModHelper {
                 type_name = "power";
                 break;
             case STATUS:
-                type_name = "status";
-                break;
             case CURSE:
-                type_name = "curse";
-                break;
             case SKILL:
                 type_name = "skill";
                 break;

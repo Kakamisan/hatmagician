@@ -1,13 +1,17 @@
 package hatmagicianmod.cards;
 
 import basemod.abstracts.CustomCard;
+import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import hatmagicianmod.characters.MyCharacter;
 import hatmagicianmod.helpers.ModHelper;
+import hatmagicianmod.powers.BrandPower;
 
 public class Shield extends CustomCard {
 
@@ -28,6 +32,8 @@ public class Shield extends CustomCard {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.SELF);
         this.baseBlock = 9;
         this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_SLEEP);
+        this.magicNumber = this.baseMagicNumber = 1;
+        this.cardsToPreview = new IsSleep();
     }
 
     @Override
@@ -39,7 +45,45 @@ public class Shield extends CustomCard {
     }
 
     @Override
+    protected void applyPowersToBlock() {
+        this.isBlockModified = false;
+        float tmp = (float) this.baseBlock;
+
+        for (AbstractPower p : AbstractDungeon.player.powers) {
+            tmp = p.modifyBlock(tmp, this);
+        }
+
+        for (AbstractPower p : AbstractDungeon.player.powers) {
+            tmp = p.modifyBlockLast(tmp);
+        }
+
+        tmp += this.getVariantBlock();
+
+        if (this.baseBlock != MathUtils.floor(tmp)) {
+            this.isBlockModified = true;
+        }
+
+        if (tmp < 0.0F) {
+            tmp = 0.0F;
+        }
+
+        this.block = MathUtils.floor(tmp);
+        this.initializeDescription();
+    }
+
+    @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         this.addToBot(new GainBlockAction(p, this.block));
     }
+
+    private int getVariantBlock() {
+        int tmp = 0;
+        for (AbstractMonster m : ModHelper.getAliveMonsters()) {
+            if (BrandPower.hasBrandPower(m, BrandPower.BRAND_TYPE.ICE)) {
+                tmp += this.magicNumber;
+            }
+        }
+        return tmp;
+    }
+
 }

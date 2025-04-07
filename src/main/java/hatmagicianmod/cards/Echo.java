@@ -6,12 +6,16 @@ import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 import hatmagicianmod.actions.BrandEvokeAction;
 import hatmagicianmod.helpers.ModHelper;
 import hatmagicianmod.powers.BrandPower;
+
+import java.util.ArrayList;
 
 import static hatmagicianmod.modcore.HatMagicianMod.MY_COLOR;
 
@@ -33,6 +37,7 @@ public class Echo extends BaseBrandAtk {
     public Echo() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.ENEMY);
         this.baseDamage = 5;
+        this.magicNumber = this.baseMagicNumber = 0;
     }
 
     @Override
@@ -41,6 +46,22 @@ public class Echo extends BaseBrandAtk {
             this.upgradeName();
             this.upgradeDamage(2);
         }
+    }
+
+    @Override
+    public void applyPowers() {
+        super.applyPowers();
+
+        int cnt = 0;
+        if (BrandPower.hasAnyMonstersBrand(BrandPower.BRAND_TYPE.LIGHTNING))
+            cnt++;
+        if (BrandPower.hasAnyMonstersBrand(BrandPower.BRAND_TYPE.ICE))
+            cnt++;
+        if (BrandPower.hasAnyMonstersBrand(BrandPower.BRAND_TYPE.FIRE))
+            cnt++;
+        this.magicNumber = cnt;
+        this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
+        this.initializeDescription();
     }
 
     @Override

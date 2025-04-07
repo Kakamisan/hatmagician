@@ -11,6 +11,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.ui.panels.EnergyPanel;
 import hatmagicianmod.cards.BlankBrand;
+import hatmagicianmod.cards.Charge;
 import hatmagicianmod.characters.MyCharacter;
 
 public class MeltAction extends AbstractGameAction{
@@ -66,7 +67,7 @@ public class MeltAction extends AbstractGameAction{
 
         this.p.hand.moveToExhaustPile(c);
 
-        if (c.tags.contains(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND)) {
+        if (Charge.checkCardTag(c)) {
             AbstractCard card = new BlankBrand();
             this.addToTop(new MakeTempCardInHandAction(card));
         }

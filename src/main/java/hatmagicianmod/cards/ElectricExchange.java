@@ -1,18 +1,15 @@
 package hatmagicianmod.cards;
 
 import basemod.abstracts.CustomCard;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import hatmagicianmod.actions.RapidColdAction;
-import hatmagicianmod.characters.MyCharacter;
+import hatmagicianmod.actions.ElectricExchangeAction;
 import hatmagicianmod.helpers.ModHelper;
-import hatmagicianmod.powers.BrandPower;
 
-public class RapidCold extends CustomCard {
+public class ElectricExchange extends CustomCard {
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;
@@ -21,30 +18,28 @@ public class RapidCold extends CustomCard {
     private static final CardType TYPE = CardType.SKILL;
 
     static {
-        String name = "RapidCold";
+        String name = "ElectricExchange";
         ID = ModHelper.makeID(name);
         CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
         IMG_PATH = ModHelper.makeCardImgPath(TYPE, name);
     }
 
-    public RapidCold() {
-        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.SELF);
-        this.exhaust = true;
+    public ElectricExchange() {
+        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.SELF);
+        this.magicNumber = this.baseMagicNumber = 1;
     }
 
     @Override
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-            this.exhaust = false;
-            this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
-            this.initializeDescription();
+            this.upgradeBaseCost(0);
         }
     }
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        this.addToBot(new RapidColdAction(false));
+        this.addToBot(new ElectricExchangeAction(this.magicNumber, false, 1));
     }
 
     @Override
@@ -52,26 +47,12 @@ public class RapidCold extends CustomCard {
         boolean canUse = super.canUse(p, m);
         if (canUse) {
 
-            for (AbstractCard c : AbstractDungeon.player.exhaustPile.group) {
-                if (Charge.checkCardTag(c)) {
-                    return true;
-                }
+            if (!AbstractDungeon.player.discardPile.group.isEmpty()) {
+                return true;
             }
 
             this.cantUseMessage = CARD_STRINGS.EXTENDED_DESCRIPTION[0];
         }
         return false;
-    }
-
-    public void triggerOnGlowCheck() {
-        this.glowColor = AbstractCard.BLUE_BORDER_GLOW_COLOR.cpy();
-
-        for (AbstractCard c : AbstractDungeon.player.exhaustPile.group) {
-            if (Charge.checkCardTag(c)) {
-                this.glowColor = AbstractCard.GOLD_BORDER_GLOW_COLOR.cpy();
-                break;
-            }
-        }
-
     }
 }

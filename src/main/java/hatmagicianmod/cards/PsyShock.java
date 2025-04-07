@@ -30,7 +30,7 @@ public class PsyShock extends BaseBrandAtk {
 
     public PsyShock() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.ALL_ENEMY);
-        this.baseDamage = 5;
+        this.baseDamage = 6;
         this.magicNumber = this.baseMagicNumber = 2;
         this.isMultiDamage = true;
     }

@@ -85,5 +85,39 @@
     "DESCRIPTIONS": [
       "闪电印记的伤害增加 #b50% 。"
     ]
+  },
+  "HatMagicianMod:OverloadFormEnergyDownPower": {
+    "NAME": "超载负担",
+    "DESCRIPTIONS": [
+      "在你的回合开始时，失去 ",
+      "",
+      "在你的回合开始时，失去 #b%d 点 [E] 。"
+    ]
+  },
+  "HatMagicianMod:OverloadEnergyDownPower": {
+    "NAME": "超载负担",
+    "DESCRIPTIONS": [
+      "下回合开始时，失去 ",
+      "",
+      "下回合开始时，失去 #b%d 点 [E] 。"
+    ]
+  },
+  "HatMagicianMod:YawnPower": {
+    "NAME": "哈欠",
+    "DESCRIPTIONS": [
+      "每当你失去力量，回复与之相等的生命。 NL 已打 #g%d 个哈欠。"
+    ]
+  },
+  "HatMagicianMod:SweetDreamPower": {
+    "NAME": "好梦",
+    "DESCRIPTIONS": [
+      "在你的回合开始时，抽 #g%d 张牌，将 #b1 张 #y睡眠 加入抽牌堆。"
+    ]
+  },
+  "HatMagicianMod:NightmarePower": {
+    "NAME": "恶梦",
+    "DESCRIPTIONS": [
+      "每当有一张 #y睡眠牌 被消耗时，随机给予 #g%d 个 #y闪电印记 。"
+    ]
   }
 }

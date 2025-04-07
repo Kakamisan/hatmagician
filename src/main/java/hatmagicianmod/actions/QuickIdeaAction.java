@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import hatmagicianmod.cards.Charge;
 import hatmagicianmod.cards.MagicMark;
 import hatmagicianmod.characters.MyCharacter;
 
@@ -30,13 +31,13 @@ public class QuickIdeaAction extends AbstractGameAction {
         if (this.duration == Settings.ACTION_DUR_FAST) {
             if (this.p.hand.isEmpty()) {
 
-                this.doDiscard(null);
+                this.doExhaust(null);
 
                 this.tickDuration();
             } else if (this.p.hand.size() == 1) {
                 AbstractCard c = this.p.hand.getBottomCard();
 
-                this.doDiscard(c);
+                this.doExhaust(c);
 
                 this.tickDuration();
             } else {
@@ -46,7 +47,7 @@ public class QuickIdeaAction extends AbstractGameAction {
         } else {
             if (!AbstractDungeon.handCardSelectScreen.wereCardsRetrieved) {
                 for (AbstractCard c : AbstractDungeon.handCardSelectScreen.selectedCards.group) {
-                    this.doDiscard(c);
+                    this.doExhaust(c);
                 }
 
                 AbstractDungeon.handCardSelectScreen.wereCardsRetrieved = true;
@@ -58,21 +59,22 @@ public class QuickIdeaAction extends AbstractGameAction {
     }
 
     static {
-        uiStrings = CardCrawlGame.languagePack.getUIString("DiscardAction");
+        uiStrings = CardCrawlGame.languagePack.getUIString("RecycleAction");
         TEXT = uiStrings.TEXT;
     }
 
-    private void doDiscard(AbstractCard c) {
+    private void doExhaust(AbstractCard c) {
 
         if (c != null) {
-            this.p.hand.moveToDiscardPile(c);
-            c.triggerOnManualDiscard();
+//            this.p.hand.moveToDiscardPile(c);
+//            c.triggerOnManualDiscard();
+            this.p.hand.moveToExhaustPile(c);
         }
 
         this.addToBot(new DrawCardAction(this.draw_num));
 
         if (c != null) {
-            if (!c.tags.contains(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND)) {
+            if (Charge.checkCardTag(c)) {
                 AbstractCard card = new MagicMark();
                 this.addToTop(new MakeTempCardInHandAction(card));
             }
