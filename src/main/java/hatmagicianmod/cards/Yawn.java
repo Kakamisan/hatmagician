@@ -23,11 +23,11 @@ public class Yawn extends CustomCard {
         String name = "Yawn";
         ID = ModHelper.makeID(name);
         CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
-        IMG_PATH = ModHelper.makeCardImgPath(TYPE, "Beta");
+        IMG_PATH = ModHelper.makeCardImgPath(TYPE, name);
     }
 
     public Yawn() {
-        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.SELF);
+        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.SELF);
         this.baseBlock = 3;
         this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_SLEEP);
         this.exhaust = true;

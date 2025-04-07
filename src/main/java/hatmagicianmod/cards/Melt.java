@@ -1,11 +1,13 @@
 package hatmagicianmod.cards;
 
 import basemod.abstracts.CustomCard;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import hatmagicianmod.actions.MeltAction;
+import hatmagicianmod.characters.MyCharacter;
 import hatmagicianmod.helpers.ModHelper;
 
 public class Melt extends CustomCard {
@@ -39,5 +41,14 @@ public class Melt extends CustomCard {
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         this.addToBot(new MeltAction());
+    }
+
+
+    // 是否印记牌
+    public static boolean checkCardTag(AbstractCard c) {
+        if (c != null) {
+            return c.hasTag(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND);
+        }
+        return false;
     }
 }

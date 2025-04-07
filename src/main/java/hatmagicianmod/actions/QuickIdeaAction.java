@@ -9,9 +9,8 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
-import hatmagicianmod.cards.Charge;
 import hatmagicianmod.cards.MagicMark;
-import hatmagicianmod.characters.MyCharacter;
+import hatmagicianmod.cards.Melt;
 
 public class QuickIdeaAction extends AbstractGameAction {
     private static final UIStrings uiStrings;
@@ -74,7 +73,7 @@ public class QuickIdeaAction extends AbstractGameAction {
         this.addToBot(new DrawCardAction(this.draw_num));
 
         if (c != null) {
-            if (Charge.checkCardTag(c)) {
+            if (Melt.checkCardTag(c)) {
                 AbstractCard card = new MagicMark();
                 this.addToTop(new MakeTempCardInHandAction(card));
             }

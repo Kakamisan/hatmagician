@@ -27,7 +27,7 @@ public class OverloadBeam extends CustomCard {
         String name = "OverloadBeam";
         ID = ModHelper.makeID(name);
         CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
-        IMG_PATH = ModHelper.makeCardImgPath(TYPE, "Beta");
+        IMG_PATH = ModHelper.makeCardImgPath(TYPE, name);
     }
 
     public OverloadBeam() {

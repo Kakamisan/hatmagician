@@ -8,7 +8,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
-import hatmagicianmod.characters.MyCharacter;
+import hatmagicianmod.cards.Charge;
 
 public class RapidShieldAction extends AbstractGameAction {
     private static final UIStrings uiStrings;
@@ -65,7 +65,7 @@ public class RapidShieldAction extends AbstractGameAction {
         if (c != null) {
             this.p.hand.moveToExhaustPile(c);
 
-            if (c.tags.contains(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND)) {
+            if (Charge.checkCardTag(c)) {
                 final_block += this.ex_block;
             }
 

@@ -23,7 +23,7 @@ public class Rolling extends CustomCard {
         String name = "Rolling";
         ID = ModHelper.makeID(name);
         CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
-        IMG_PATH = ModHelper.makeCardImgPath(TYPE, "Beta");
+        IMG_PATH = ModHelper.makeCardImgPath(TYPE, name);
     }
 
     public Rolling() {

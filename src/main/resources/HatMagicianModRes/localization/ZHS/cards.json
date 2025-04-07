@@ -158,7 +158,7 @@
   },
   "HatMagicianMod:Melt": {
     "NAME": "熔解",
-    "DESCRIPTION": " 消耗 一张牌。 NL 获得与其耗能相等的 [E] 。 NL 若消耗 hatmagician:印记牌 或 hatmagician:睡眠牌 ，则将1张 *无色印记 加入手中。"
+    "DESCRIPTION": " 消耗 一张牌，获得与其耗能相等的 [E] 。 NL 若消耗 hatmagician:印记牌 ，则将1张 *无色印记 加入手中。"
   },
   "HatMagicianMod:Sleepy": {
     "NAME": "昏昏欲睡",
@@ -173,7 +173,7 @@
   },
   "HatMagicianMod:QuickIdea": {
     "NAME": "急中生智",
-    "DESCRIPTION": " 消耗 一张牌。 NL 抽 !M! 张牌。 NL 若消耗 hatmagician:印记牌 或 hatmagician:睡眠牌 ，则将1张 *魔力痕迹 加入手中。"
+    "DESCRIPTION": " 消耗 一张牌，抽 !M! 张牌。 NL 若消耗 hatmagician:印记牌 ，则将1张 *魔力痕迹 加入手中。"
   },
   "HatMagicianMod:MagicMark": {
     "NAME": "魔力痕迹",
@@ -196,7 +196,7 @@
   },
   "HatMagicianMod:RapidShield": {
     "NAME": "紧急防护",
-    "DESCRIPTION": " 消耗 一张牌。 NL 获得 !B! 点格挡。 NL 若消耗印记牌，额外获得5点格挡。"
+    "DESCRIPTION": " 消耗 一张牌。 NL 获得 !B! 点格挡。 NL 若消耗 hatmagician:印记牌 或 hatmagician:睡眠牌 ，额外获得5点格挡。"
   },
   "HatMagicianMod:Charge": {
     "NAME": "充电",
@@ -226,12 +226,12 @@
   },
   "HatMagicianMod:Yawn": {
     "NAME": "哈欠",
-    "DESCRIPTION": " 消耗 。 NL 获得 !B! 点格挡。 NL 每当你失去力量，回复与之相等的生命。"
+    "DESCRIPTION": " 消耗 。 NL 获得 !B! 点格挡。 NL 每当你失去力量，回复与之相等的生命，该效果无法叠加。"
   },
   "HatMagicianMod:Rest": {
     "NAME": "睡觉",
-    "DESCRIPTION": " 虚无 ， 消耗 。 NL 这张卡只能 hatmagician:立即打出 。 NL 临时失去3点力量，回复7点生命。",
-    "UPGRADE_DESCRIPTION": " 虚无 ， 消耗 。 NL 这张卡只能 hatmagician:立即打出 。 NL 临时失去3点力量，回复10点生命。",
+    "DESCRIPTION": " 虚无 ， 消耗 。 NL 这张卡只能 hatmagician:立即打出 。 NL 临时失去3点力量，回复 !M! 点生命。",
+    "UPGRADE_DESCRIPTION": " 虚无 ， 消耗 。 NL 这张卡只能 hatmagician:立即打出 。 NL 临时失去3点力量，回复 !M! 点生命。",
     "EXTENDED_DESCRIPTION": [
       "现在无法入睡了。"
     ]
@@ -246,7 +246,7 @@
   },
   "HatMagicianMod:IsSleep": {
     "NAME": "睡眠",
-    "DESCRIPTION": " hatmagician:沉睡  NL 这是一张睡眠牌。 NL 打出时在抽牌堆中加入1张 *睡眠 。"
+    "DESCRIPTION": " hatmagician:沉睡  NL 这是一张睡眠牌。"
   },
   "HatMagicianMod:Rolling": {
     "NAME": "打滚",
@@ -268,5 +268,9 @@
   "HatMagicianMod:Nightmare": {
     "NAME": "恶梦",
     "DESCRIPTION": "每当有一张 hatmagician:睡眠牌 被消耗时，随机给予 !M! 个 hatmagician:闪电印记 。"
+  },
+  "HatMagicianMod:DreamEater": {
+    "NAME": "食梦",
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 将1张 *睡眠 加入手中。 NL  hatmagician:临时力量 在这张卡上发挥相反效果。"
   }
 }

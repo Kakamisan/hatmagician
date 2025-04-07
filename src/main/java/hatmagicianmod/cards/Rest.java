@@ -6,6 +6,7 @@ import com.megacrit.cardcrawl.actions.common.HealAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import hatmagicianmod.characters.MyCharacter;
@@ -20,13 +21,11 @@ public class Rest extends CustomCard {
     private static final int COST = 1;
     private static final CardType TYPE = CardType.SKILL;
 
-    private boolean is_can_use;
-
     static {
         String name = "Rest";
         ID = ModHelper.makeID(name);
         CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
-        IMG_PATH = ModHelper.makeCardImgPath(TYPE, "Beta");
+        IMG_PATH = ModHelper.makeCardImgPath(TYPE, name);
     }
 
     public Rest() {
@@ -35,7 +34,6 @@ public class Rest extends CustomCard {
         this.magicNumber = this.baseMagicNumber = 7;
         this.exhaust = true;
         this.isEthereal = true;
-        this.is_can_use = true;
         this.cardsToPreview = new IsSleep();
     }
 
@@ -44,6 +42,8 @@ public class Rest extends CustomCard {
         if (!this.upgraded) {
             this.upgradeName();
             this.upgradeMagicNumber(3);
+//            this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
+//            this.initializeDescription();
         }
     }
 
@@ -58,7 +58,7 @@ public class Rest extends CustomCard {
         boolean canUse = super.canUse(p, m);
         if (canUse) {
 
-            if (this.is_can_use) {
+            if (this.calcCanUse()) {
                 return true;
             }
 
@@ -68,31 +68,15 @@ public class Rest extends CustomCard {
     }
 
     public void triggerOnGlowCheck() {
-        this.glowColor = AbstractCard.BLUE_BORDER_GLOW_COLOR.cpy();
+        this.glowColor = this.calcCanUse() ? AbstractCard.GOLD_BORDER_GLOW_COLOR.cpy() : AbstractCard.BLUE_BORDER_GLOW_COLOR.cpy();
+    }
 
-        if (this.is_can_use) {
-            this.glowColor = AbstractCard.GOLD_BORDER_GLOW_COLOR.cpy();
+    private boolean calcCanUse() {
+        for (AbstractCard c : AbstractDungeon.actionManager.cardsPlayedThisTurn) {
+            if (!c.hasTag(MyCharacter.PlayerCardTags.HAT_MAGICIAN_SLEEP)) {
+                return false;
+            }
         }
-
-    }
-
-    @Override
-    public void triggerOnOtherCardPlayed(AbstractCard c) {
-        super.triggerOnOtherCardPlayed(c);
-        if (!c.hasTag(MyCharacter.PlayerCardTags.HAT_MAGICIAN_SLEEP)) {
-            this.is_can_use = false;
-        }
-    }
-
-    @Override
-    public void onMoveToDiscard() {
-        super.onMoveToDiscard();
-        this.is_can_use = true;
-    }
-
-    @Override
-    public void triggerOnExhaust() {
-        super.triggerOnExhaust();
-        this.is_can_use = true;
+        return true;
     }
 }
