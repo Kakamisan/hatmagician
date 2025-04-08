@@ -59,10 +59,10 @@ public class RapidColdAction extends AbstractGameAction {
                 Iterator<AbstractCard> c = this.p.exhaustPile.group.iterator();
 
                 while(c.hasNext()) {
-                    AbstractCard derp = (AbstractCard)c.next();
-                    if (derp.cardID.equals("Exhume") || !Charge.checkCardTag(derp)) {
+                    AbstractCard cache_c = (AbstractCard)c.next();
+                    if (!Charge.checkCardTag(cache_c)) {
                         c.remove();
-                        this.cache_cards.add(derp);
+                        this.cache_cards.add(cache_c);
                     }
                 }
 

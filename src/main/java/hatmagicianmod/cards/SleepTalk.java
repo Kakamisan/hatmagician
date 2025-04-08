@@ -13,6 +13,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 import hatmagicianmod.characters.MyCharacter;
 import hatmagicianmod.helpers.ModHelper;
+import hatmagicianmod.powers.TempStrengthPower;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class SleepTalk extends CustomCard {
         String name = "SleepTalk";
         ID = ModHelper.makeID(name);
         CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
-        IMG_PATH = ModHelper.makeCardImgPath(TYPE, "Beta");
+        IMG_PATH = ModHelper.makeCardImgPath(TYPE, name);
     }
 
     public SleepTalk() {
@@ -55,7 +56,7 @@ public class SleepTalk extends CustomCard {
         ArrayList<AbstractPower> tmp_list = new ArrayList<>();
 
         for (AbstractPower p : player.powers) {
-            if (p.ID.equals(ModHelper.makeID("TempStrengthPower"))) {
+            if (p.ID.equals(TempStrengthPower.POWER_ID)) {
                 p.amount = -p.amount;
                 tmp_list.add(p);
             }
@@ -74,7 +75,7 @@ public class SleepTalk extends CustomCard {
         ArrayList<AbstractPower> tmp_list = new ArrayList<>();
 
         for (AbstractPower p : player.powers) {
-            if (p.ID.equals(ModHelper.makeID("TempStrengthPower"))) {
+            if (p.ID.equals(TempStrengthPower.POWER_ID)) {
                 p.amount = -p.amount;
                 tmp_list.add(p);
             }

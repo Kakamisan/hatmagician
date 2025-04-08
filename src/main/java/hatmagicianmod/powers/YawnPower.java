@@ -49,7 +49,7 @@ public class YawnPower extends AbstractPower {
     public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
         super.onApplyPower(power, target, source);
         if (power.amount < 0 && power.owner.isPlayer) {
-            if (power.ID.equals("Strength") || power.ID.equals(ModHelper.makeID("TempStrengthPower"))) {
+            if (power.ID.equals("Strength") || power.ID.equals(TempStrengthPower.POWER_ID)) {
                 this.flash();
                 this.addToTop(new HealAction(this.owner, this.owner, -power.amount));
             }

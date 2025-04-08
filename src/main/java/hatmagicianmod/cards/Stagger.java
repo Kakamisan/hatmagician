@@ -3,7 +3,6 @@ package hatmagicianmod.cards;
 import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
-import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -18,24 +17,24 @@ import hatmagicianmod.powers.TempStrengthPower;
 
 import java.util.ArrayList;
 
-public class DreamEater extends CustomCard {
+public class Stagger extends CustomCard {
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;
     private static final String IMG_PATH;
-    private static final int COST = 1;
+    private static final int COST = 3;
     private static final CardType TYPE = CardType.ATTACK;
 
     static {
-        String name = "DreamEater";
+        String name = "Stagger";
         ID = ModHelper.makeID(name);
         CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
         IMG_PATH = ModHelper.makeCardImgPath(TYPE, name);
     }
 
-    public DreamEater() {
-        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.ENEMY);
-        this.baseDamage = 8;
+    public Stagger() {
+        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.ENEMY);
+        this.baseDamage = 24;
         this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_SLEEP);
         this.cardsToPreview = new IsSleep();
     }
@@ -44,7 +43,7 @@ public class DreamEater extends CustomCard {
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-            this.upgradeDamage(4);
+            this.upgradeDamage(8);
         }
     }
 
@@ -68,6 +67,7 @@ public class DreamEater extends CustomCard {
 
     }
 
+    @Override
     public void applyPowers() {
         AbstractPlayer player = AbstractDungeon.player;
         ArrayList<AbstractPower> tmp_list = new ArrayList<>();
@@ -89,8 +89,13 @@ public class DreamEater extends CustomCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        this.addToBot(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.POISON));
-        AbstractCard c = new IsSleep();
-        this.addToBot(new MakeTempCardInHandAction(c));
+        this.addToBot(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.SMASH));
+    }
+
+    public void triggerOnCardPlayed(AbstractCard c) {
+        super.triggerOnCardPlayed(c);
+        if (c.cardID.equals(IsSleep.ID)) {
+            this.updateCost(-1);
+        }
     }
 }

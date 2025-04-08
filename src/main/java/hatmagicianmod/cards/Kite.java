@@ -29,6 +29,7 @@ public class Kite extends CustomCard {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.SELF);
         this.cardsToPreview = new BlankBrand();
         this.block = this.baseBlock = 6;
+        this.magicNumber = this.baseMagicNumber = 1;
     }
 
     @Override
@@ -43,6 +44,6 @@ public class Kite extends CustomCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         this.addToBot(new GainBlockAction(p, this.block));
         AbstractCard card = new BlankBrand();
-        this.addToBot(new MakeTempCardInHandAction(card));
+        this.addToBot(new MakeTempCardInHandAction(card, this.magicNumber));
     }
 }

@@ -222,7 +222,7 @@
   },
   "HatMagicianMod:Kite": {
     "NAME": "风筝战术",
-    "DESCRIPTION": "获得 !B! 点格挡。 NL 将1张 *无色印记 加入手中。"
+    "DESCRIPTION": "获得 !B! 点格挡。 NL 将 !M! 张 *无色印记 加入手中。"
   },
   "HatMagicianMod:Yawn": {
     "NAME": "哈欠",
@@ -250,7 +250,7 @@
   },
   "HatMagicianMod:Rolling": {
     "NAME": "打滚",
-    "DESCRIPTION": "临时失去3点力量，抽 !M! 张牌。"
+    "DESCRIPTION": " 消耗 。 NL 临时失去3点力量，抽 !M! 张牌。"
   },
   "HatMagicianMod:Doze": {
     "NAME": "瞌睡",
@@ -259,7 +259,7 @@
   },
   "HatMagicianMod:BlearyEyed": {
     "NAME": "睡眼惺忪",
-    "DESCRIPTION": "抽2张牌。 NL 如果抽到的是 hatmagician:睡眠牌 ，自己和所有敌人临时失去 !M! 点力量。"
+    "DESCRIPTION": "抽 !M! 张牌。 NL 如果抽到 hatmagician:睡眠牌 ，自己和所有敌人临时失去2点力量。"
   },
   "HatMagicianMod:SweetDream": {
     "NAME": "好梦",
@@ -272,5 +272,17 @@
   "HatMagicianMod:DreamEater": {
     "NAME": "食梦",
     "DESCRIPTION": "造成 !D! 点伤害。 NL 将1张 *睡眠 加入手中。 NL  hatmagician:临时力量 在这张卡上发挥相反效果。"
+  },
+  "HatMagicianMod:FullPowerAttack": {
+    "NAME": "全力敲打",
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 临时失去 !M! 点力量。"
+  },
+  "HatMagicianMod:Stagger": {
+    "NAME": "踉跄",
+    "DESCRIPTION": "在本场战斗中每打出一张 *睡眠 ，耗能就减少 [E] 。造成 !D! 点伤害。 NL  hatmagician:临时力量 在这张卡上发挥相反效果。"
+  },
+  "HatMagicianMod:Encamp": {
+    "NAME": "扎营",
+    "DESCRIPTION": "获得 !B! 点格挡。 NL 将 !M! 张 *睡眠 加入手中。"
   }
 }

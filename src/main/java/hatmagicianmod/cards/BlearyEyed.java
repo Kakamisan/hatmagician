@@ -22,14 +22,14 @@ public class BlearyEyed extends CustomCard {
         String name = "BlearyEyed";
         ID = ModHelper.makeID(name);
         CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ID);
-        IMG_PATH = ModHelper.makeCardImgPath(TYPE, "Beta");
+        IMG_PATH = ModHelper.makeCardImgPath(TYPE, name);
     }
 
     public BlearyEyed() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.SELF);
         this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_SLEEP);
         this.cardsToPreview = new IsSleep();
-        this.magicNumber = this.baseMagicNumber = 2;
+        this.magicNumber = this.baseMagicNumber = 1;
     }
 
     @Override
@@ -42,6 +42,6 @@ public class BlearyEyed extends CustomCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        this.addToBot(new DrawCardAction(2, new BlearyEyedAction(this.magicNumber)));
+        this.addToBot(new DrawCardAction(this.magicNumber, new BlearyEyedAction(2)));
     }
 }

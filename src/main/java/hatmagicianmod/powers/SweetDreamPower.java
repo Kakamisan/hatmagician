@@ -52,8 +52,8 @@ public class SweetDreamPower extends AbstractPower {
     public void atStartOfTurnPostDraw() {
         super.atStartOfTurnPostDraw();
         this.flash();
+        this.addToBot(new DrawCardAction(this.amount));
         AbstractCard c = new IsSleep();
         this.addToBot(new MakeTempCardInDrawPileAction(c, 1, true, true));
-        this.addToBot(new DrawCardAction(this.amount));
     }
 }
