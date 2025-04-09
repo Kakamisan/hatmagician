@@ -47,7 +47,8 @@ public class SpecHat extends CustomRelic {
         // test
 //        this.addToBot(new MakeTempCardInHandAction(new BlankMemory()));
 //        this.addToBot(new MakeTempCardInHandAction(new Discharge()));
-//        this.addToBot(new MakeTempCardInHandAction(new Ice()));
+//        this.addToBot(new MakeTempCardInHandAction(new Ice(), 3));
+//        this.addToBot(new MakeTempCardInHandAction(new BrandScar()));
 //        this.addToBot(new MakeTempCardInHandAction(new BurningAbyss()));
 //        this.addToBot(new MakeTempCardInHandAction(new ElectricExchange()));
 //        this.addToBot(new MakeTempCardInHandAction(new Improvise()));

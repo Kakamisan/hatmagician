@@ -1,6 +1,7 @@
 package hatmagicianmod.cards;
 
 import basemod.abstracts.CustomCard;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDiscardAction;
 import com.megacrit.cardcrawl.cards.status.Burn;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
@@ -10,6 +11,7 @@ import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import hatmagicianmod.actions.ApplyBrandPowerAction;
 import hatmagicianmod.characters.MyCharacter;
 import hatmagicianmod.helpers.ModHelper;
+import hatmagicianmod.powers.BrandBurnPower;
 import hatmagicianmod.powers.BrandPower;
 
 public class PlayFire extends CustomCard {
@@ -39,13 +41,14 @@ public class PlayFire extends CustomCard {
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-            this.upgradeMagicNumber(-1);
+            this.upgradeMagicNumber(2);
         }
     }
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         this.addToBot(new ApplyBrandPowerAction(m, BrandPower.BRAND_TYPE.FIRE));
-        this.addToBot(new MakeTempCardInDiscardAction(new Burn(), this.magicNumber));
+        this.addToBot(new ApplyPowerAction(m, p, new BrandBurnPower(m, this.magicNumber)));
+        this.addToBot(new MakeTempCardInDiscardAction(new Burn(), 2));
     }
 }

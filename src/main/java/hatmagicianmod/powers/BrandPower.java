@@ -36,12 +36,14 @@ public class BrandPower extends AbstractPower {
     public static int postfix = 0;  // 实现唯一ID
 
     public boolean is_activated = false;    // 是否已激活
-    public int scar_turn = 0;               // 创伤，激活后经过多少次自动触发被动后消失
+    public int scar_turn = 0;               // 烙印数，激活后经过多少次自动触发被动后消失
+    public boolean go_for_stack = false;    // 是否即将去执行重叠烙印能力，是的话，即使有烙印数也要移除 *对应的堆叠数加到第一个相同的烙印上面
+    public boolean stacked = false;         // 是否已重叠完成
     public boolean is_played_sfx = false;   // 只播放一次生成音效
     public boolean is_evoking = false;      // 印记是否激活中
 
     private int curiosity = 0;      // 临时存储好奇心数值
-    private boolean charge = false; // 临时存储充电能力是否开启 *原因：onRemove时player身上还有这个power
+//    private boolean charge = false; // 临时存储充电能力是否开启 *原因：onRemove时player身上还有这个power
 
     // 印记配置类
     public static class BrandBaseClass {
@@ -113,6 +115,9 @@ public class BrandPower extends AbstractPower {
 
     // 能力在更新时如何修改描述
     public void updateDescription() {
+        if (this.go_for_stack) {
+            return;
+        }
         ModHelper.log("[" + this.name + "]更新了描述");
         if (this.is_activated && this.scar_turn > 0) {
 //            this.description = DESCRIPTIONS[0] + this.getScarDesc();
@@ -176,27 +181,34 @@ public class BrandPower extends AbstractPower {
 
     // 使用被动（因为创伤数要自动使用被动时处理，不能一起放在被动里）
     public void usePassive() {
-        switch (this.brand_type) {
-            case LIGHTNING:
-                // 造成连锁闪电伤害
-                this.addToTop(new DamageChainLightningEnemiesAction(this.brandPassiveValue()));
-                this.addToTop(new VFXAction(new AtkChainLightningEffect()));
-                break;
-            case FIRE:
-                // 增加X层灼烧
-                this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new BrandBurnPower(this.owner, this.brandPassiveValue())));
-                break;
-            case ICE:
-                // 失去X点临时力量
-//                if (!this.owner.hasPower("Artifact")) {
-//                    this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new GainStrengthPower(this.owner, this.brandPassiveValue()), this.brandPassiveValue(), true, AbstractGameAction.AttackEffect.NONE));
-//                }
-//                this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new StrengthPower(this.owner, -this.brandPassiveValue()), -this.brandPassiveValue(), true, AbstractGameAction.AttackEffect.NONE));
-                this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new TempStrengthPower(this.owner, -this.brandPassiveValue()), -this.brandPassiveValue(), true, AbstractGameAction.AttackEffect.NONE));
-                break;
-            default:
+        // 这个印记已经合并完成了，不能触发被动
+        if (this.go_for_stack && this.stacked) {
+            return;
         }
-        this.flash();
+        // 烙印可以重叠成同一个能力，并且触发X次
+        int use_cnt = 1;
+        if (this.amount > 0) {
+            use_cnt = this.amount;
+        }
+        for (int i = 0; i < use_cnt; i++) {
+            switch (this.brand_type) {
+                case LIGHTNING:
+                    // 造成连锁闪电伤害
+                    this.addToTop(new DamageChainLightningEnemiesAction(this.brandPassiveValue()));
+                    this.addToTop(new VFXAction(new AtkChainLightningEffect()));
+                    break;
+                case FIRE:
+                    // 增加X层灼烧
+                    this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new BrandBurnPower(this.owner, this.brandPassiveValue())));
+                    break;
+                case ICE:
+                    // 失去X点临时力量
+                    this.addToTop(new ApplyPowerAction(this.owner, AbstractDungeon.player, new TempStrengthPower(this.owner, -this.brandPassiveValue()), -this.brandPassiveValue(), true, AbstractGameAction.AttackEffect.NONE));
+                    break;
+                default:
+            }
+            this.flash();
+        }
     }
 
     // 使用激活
@@ -289,6 +301,11 @@ public class BrandPower extends AbstractPower {
         this.evokeEnd();
         // 烙印能力 + 附加烙印
         this.scar_turn = this.playerBrandScar() + scar_turn;
+        // 相同烙印数的同属性印记叠加在一起
+        if (this.scar_turn > 0) {
+            this.amount = 1;
+            this.go_for_stack = this.checkStack();
+        }
         this.updateDescription();
         this.tryRemove();
     }
@@ -298,9 +315,26 @@ public class BrandPower extends AbstractPower {
         this.addToBot(new BrandEvokeEndAction(this));
     }
 
+    // 检查是否有旧的烙印可以重叠
+    public boolean checkStack() {
+        ArrayList<BrandPower> powers = getBrandPowers((AbstractMonster) this.owner);
+        for (BrandPower p : powers) {
+            // 查找另一个相同的烙印
+            if (p.amount > 0 && !p.ID.equals(this.ID) && p.is_activated && p.scar_turn == this.scar_turn && p.brand_type == this.brand_type && !p.go_for_stack) {
+                ModHelper.addToBotAbstract(() -> {
+                    p.stackPower(this.amount);
+                    this.stacked = true;
+                    p.updateDescription();
+                });
+                return true;
+            }
+        }
+        return false;
+    }
+
     // 尝试移除印记 *若已激活且创伤数为0，则移除 *添加到底部
     public void tryRemove() {
-        if (this.is_activated && this.scar_turn <= 0) {
+        if (this.is_activated && this.scar_turn <= 0 || this.go_for_stack) {
             // 执行移除
             this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, this));
         }
@@ -497,7 +531,7 @@ public class BrandPower extends AbstractPower {
 
     // 获取变为烙印后的描述
     private String getScarDesc() {
-        return String.format(DESCRIPTIONS[16], this.scar_turn);
+        return String.format(DESCRIPTIONS[16], this.amount, this.scar_turn);
 //        switch (this.brand_type) {
 //            case LIGHTNING:
 //                return String.format(DESCRIPTIONS[4], this.brandPassiveValue())

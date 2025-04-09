@@ -6,16 +6,12 @@ import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 import hatmagicianmod.actions.BrandEvokeAction;
 import hatmagicianmod.helpers.ModHelper;
 import hatmagicianmod.powers.BrandPower;
-
-import java.util.ArrayList;
 
 import static hatmagicianmod.modcore.HatMagicianMod.MY_COLOR;
 
@@ -51,7 +47,22 @@ public class Echo extends BaseBrandAtk {
     @Override
     public void applyPowers() {
         super.applyPowers();
+        this.updateDesc();
+    }
 
+    @Override
+    public void calculateCardDamage(AbstractMonster mo) {
+        super.calculateCardDamage(mo);
+        this.updateDesc();
+    }
+
+    private void updateDesc() {
+        this.magicNumber = this.curCnt();
+        this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
+        this.initializeDescription();
+    }
+
+    public int curCnt() {
         int cnt = 0;
         if (BrandPower.hasAnyMonstersBrand(BrandPower.BRAND_TYPE.LIGHTNING))
             cnt++;
@@ -59,23 +70,14 @@ public class Echo extends BaseBrandAtk {
             cnt++;
         if (BrandPower.hasAnyMonstersBrand(BrandPower.BRAND_TYPE.FIRE))
             cnt++;
-        this.magicNumber = cnt;
-        this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
-        this.initializeDescription();
+        return cnt;
     }
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         this.addToBot(new VFXAction(p, new ShockWaveEffect(p.hb.cX, p.hb.cY, MY_COLOR, ShockWaveEffect.ShockWaveType.CHAOTIC), 0.3F));
         this.addToBot(new BrandEvokeAction(m));
-        int cnt = 0;
-        if (BrandPower.hasAnyMonstersBrand(BrandPower.BRAND_TYPE.LIGHTNING))
-            cnt++;
-        if (BrandPower.hasAnyMonstersBrand(BrandPower.BRAND_TYPE.ICE))
-            cnt++;
-        if (BrandPower.hasAnyMonstersBrand(BrandPower.BRAND_TYPE.FIRE))
-            cnt++;
-        for (int i = 0; i < cnt; i++) {
+        for (int i = 0; i < this.curCnt(); i++) {
             this.addToBot(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.BLUNT_HEAVY));
         }
     }

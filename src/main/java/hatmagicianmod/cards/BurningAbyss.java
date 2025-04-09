@@ -32,7 +32,7 @@ public class BurningAbyss extends CustomCard {
 
     public BurningAbyss() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.ALL_ENEMY);
-        this.magicNumber = this.baseMagicNumber = 2;
+        this.magicNumber = this.baseMagicNumber = 3;
         this.exhaust = true;
         this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND);
         this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND_FIRE);
@@ -42,7 +42,7 @@ public class BurningAbyss extends CustomCard {
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-            this.upgradeMagicNumber(2);
+            this.upgradeMagicNumber(3);
         }
     }
 

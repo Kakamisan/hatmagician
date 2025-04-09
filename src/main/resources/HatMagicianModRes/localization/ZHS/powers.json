@@ -24,7 +24,7 @@
       " NL  #y超载电 : 额外给予 #g%d 层易伤。",
       " NL  #y超载电 : 额外获得 #g%d 点格挡。",
       " NL  #r超载火 : 额外给予 #g%d 层 #y灼烧 。",
-      "剩余 #b%d 回合。",
+      "叠加 #b%d，剩余 #b%d 回合。",
       "闪电烙印",
       "火焰烙印",
       "冰冻烙印"
@@ -44,7 +44,7 @@
     ]
   },
   "HatMagicianMod:TempStrengthPower": {
-    "NAME": "临时力量",
+    "NAME": "困意",
     "DESCRIPTIONS": [
       "攻击伤害提升 #g%d ，下回合移除。",
       "攻击伤害减少 #g%d ，下回合移除。"
@@ -105,7 +105,7 @@
   "HatMagicianMod:YawnPower": {
     "NAME": "哈欠",
     "DESCRIPTIONS": [
-      "每当你失去力量，回复与之相等的生命。 NL 已打 #g%d 个哈欠。"
+      "每当你获得困意，回复与之相等的生命。 NL 已打 #g%d 个哈欠。"
     ]
   },
   "HatMagicianMod:SweetDreamPower": {
