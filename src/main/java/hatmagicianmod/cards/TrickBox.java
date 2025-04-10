@@ -4,6 +4,7 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import hatmagicianmod.characters.MyCharacter;
 import hatmagicianmod.helpers.ModHelper;
 import hatmagicianmod.powers.BrandPower;
 
@@ -24,6 +25,7 @@ public class TrickBox extends BaseBrandQueue {
 
     public TrickBox() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.RARE, CardTarget.ENEMY);
+        this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND);
         this.magicNumber = this.baseMagicNumber = 3;
         this.exhaust = true;
     }

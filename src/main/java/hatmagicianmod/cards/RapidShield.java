@@ -26,18 +26,20 @@ public class RapidShield extends CustomCard {
     public RapidShield() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.SELF);
         this.block = this.baseBlock = 8;
+        this.magicNumber = this.baseMagicNumber = 6;
     }
 
     @Override
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-            this.upgradeBlock(3);
+            this.upgradeBlock(4);
+            this.upgradeMagicNumber(2);
         }
     }
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        this.addToBot(new RapidShieldAction(this.block, 5));
+        this.addToBot(new RapidShieldAction(this.block, this.magicNumber));
     }
 }

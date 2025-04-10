@@ -73,7 +73,8 @@ public class Rest extends CustomCard {
 
     private boolean calcCanUse() {
         for (AbstractCard c : AbstractDungeon.actionManager.cardsPlayedThisTurn) {
-            if (!c.hasTag(MyCharacter.PlayerCardTags.HAT_MAGICIAN_SLEEP)) {
+//            if (!c.hasTag(MyCharacter.PlayerCardTags.HAT_MAGICIAN_SLEEP)) {
+            if (c.type == CardType.ATTACK) {
                 return false;
             }
         }

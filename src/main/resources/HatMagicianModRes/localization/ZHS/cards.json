@@ -65,7 +65,7 @@
   },
   "HatMagicianMod:OverloadForm": {
     "NAME": "超载形态",
-    "DESCRIPTION": "每当你 hatmagician:超载激活 时获得 [E] 。 NL 每回合开始时失去 [E] 。"
+    "DESCRIPTION": "每当你 hatmagician:超载激活 时获得 [E] 。"
   },
   "HatMagicianMod:BlankMemory": {
     "NAME": "空白记忆",
@@ -84,7 +84,7 @@
   },
   "HatMagicianMod:TriAttack": {
     "NAME": "三重攻击",
-    "DESCRIPTION": "造成 !D! 点伤害3次。 NL 随机赋予 !M! 个 hatmagician:印记 。"
+    "DESCRIPTION": "造成 !D! 点伤害3次。 NL 随机给予 !M! 个 hatmagician:印记 。"
   },
   "HatMagicianMod:Fusion": {
     "NAME": "调和",
@@ -92,7 +92,7 @@
   },
   "HatMagicianMod:Shield": {
     "NAME": "蜷缩",
-    "DESCRIPTION": "获得 !B! 点格挡。 NL 场上每存在1个 hatmagician:冰冻印记 ，额外获得 !M! 点。"
+    "DESCRIPTION": "获得 !B! 点格挡。 NL 随机给予 !M! 个 hatmagician:冰冻印记 。"
   },
   "HatMagicianMod:Bloom": {
     "NAME": "开幕",
@@ -101,7 +101,7 @@
   },
   "HatMagicianMod:DoubleStar": {
     "NAME": "星光",
-    "DESCRIPTION": " hatmagician:激活  NL 造成 !D! 点伤害2次。"
+    "DESCRIPTION": " hatmagician:激活  NL 造成 !D! 点伤害2次。 NL  hatmagician:困意 在这张卡上发挥相反效果。"
   },
   "HatMagicianMod:OverHeat": {
     "NAME": "燃尽",
@@ -118,7 +118,7 @@
   },
   "HatMagicianMod:Absorb": {
     "NAME": "掠夺",
-    "DESCRIPTION": "造成 !D! 点伤害。 NL 抽1张牌。 NL 该敌人每存在1种类 hatmagician:印记 使抽卡数+1。"
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 抽 !M! 张牌。 NL 该敌人每存在1种类 hatmagician:印记 使抽卡数+1。"
   },
   "HatMagicianMod:Haze": {
     "NAME": "黑雾",
@@ -197,7 +197,7 @@
   },
   "HatMagicianMod:RapidShield": {
     "NAME": "紧急防护",
-    "DESCRIPTION": " 消耗 一张牌。 NL 获得 !B! 点格挡。 NL 若消耗 hatmagician:印记牌 或 hatmagician:睡眠牌 ，额外获得5点格挡。"
+    "DESCRIPTION": " 消耗 一张牌。 NL 获得 !B! 点格挡。 NL 若消耗 hatmagician:印记牌 或 hatmagician:睡眠牌 ，额外获得 !M! 点格挡。"
   },
   "HatMagicianMod:Charge": {
     "NAME": "充电",
@@ -240,7 +240,7 @@
   },
   "HatMagicianMod:SleepTalk": {
     "NAME": "梦话",
-    "DESCRIPTION": "对所有敌人造成 !D! 点伤害。 NL  hatmagician:困意 在这张卡上发挥相反效果。"
+    "DESCRIPTION": "对所有敌人造成 !D! 点伤害，给予1层 虚弱 。 NL  hatmagician:困意 在这张卡上发挥相反效果。"
   },
   "HatMagicianMod:MorningAnger": {
     "NAME": "起床气",

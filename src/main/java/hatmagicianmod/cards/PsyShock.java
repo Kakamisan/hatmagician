@@ -9,6 +9,7 @@ import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 import hatmagicianmod.actions.ApplyBrandPowerAction;
+import hatmagicianmod.characters.MyCharacter;
 import hatmagicianmod.helpers.ModHelper;
 import hatmagicianmod.powers.BrandPower;
 
@@ -31,6 +32,7 @@ public class PsyShock extends BaseBrandAtk {
 
     public PsyShock() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.ALL_ENEMY);
+        this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND);
         this.baseDamage = 6;
         this.magicNumber = this.baseMagicNumber = 1;
         this.isMultiDamage = true;
@@ -41,7 +43,7 @@ public class PsyShock extends BaseBrandAtk {
         if (!this.upgraded) {
             this.upgradeName();
             this.upgradeDamage(3);
-//            this.upgradeMagicNumber(1);
+            this.upgradeMagicNumber(1);
         }
     }
 

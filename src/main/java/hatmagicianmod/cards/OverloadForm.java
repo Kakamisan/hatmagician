@@ -8,10 +8,8 @@ import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.watcher.EnergyDownPower;
 import com.megacrit.cardcrawl.vfx.combat.LightningEffect;
 import hatmagicianmod.helpers.ModHelper;
-import hatmagicianmod.powers.OverloadFormEnergyDownPower;
 import hatmagicianmod.powers.OverloadFormPower;
 
 public class OverloadForm extends CustomCard {
@@ -47,6 +45,6 @@ public class OverloadForm extends CustomCard {
         this.addToBot(new VFXAction(new LightningEffect(p.hb.cX, p.hb.cY), 0.0F));
         this.addToBot(new SFXAction("ORB_LIGHTNING_EVOKE"));
         this.addToBot(new ApplyPowerAction(p, p, new OverloadFormPower(p, this.magicNumber)));
-        this.addToBot(new ApplyPowerAction(p, p, new OverloadFormEnergyDownPower(p, 1)));
+//        this.addToBot(new ApplyPowerAction(p, p, new OverloadFormEnergyDownPower(p, 1)));
     }
 }

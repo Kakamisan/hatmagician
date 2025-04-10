@@ -57,7 +57,7 @@ public class Echo extends BaseBrandAtk {
     }
 
     private void updateDesc() {
-        this.magicNumber = this.curCnt();
+        this.magicNumber = this.baseMagicNumber = this.curCnt();
         this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
         this.initializeDescription();
     }

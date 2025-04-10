@@ -30,6 +30,7 @@ public class Absorb extends CustomCard {
     public Absorb() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.ENEMY);
         this.baseDamage = 9;
+        this.magicNumber = this.baseMagicNumber = 1;
     }
 
     @Override
@@ -41,15 +42,22 @@ public class Absorb extends CustomCard {
     }
 
     @Override
-    public void use(AbstractPlayer p, AbstractMonster m) {
+    public void calculateCardDamage(AbstractMonster mo) {
         int cnt = 1;
-        if (BrandPower.hasBrandPower(m, BrandPower.BRAND_TYPE.LIGHTNING))
+        if (BrandPower.hasBrandPower(mo, BrandPower.BRAND_TYPE.LIGHTNING))
             cnt++;
-        if (BrandPower.hasBrandPower(m, BrandPower.BRAND_TYPE.ICE))
+        if (BrandPower.hasBrandPower(mo, BrandPower.BRAND_TYPE.ICE))
             cnt++;
-        if (BrandPower.hasBrandPower(m, BrandPower.BRAND_TYPE.FIRE))
+        if (BrandPower.hasBrandPower(mo, BrandPower.BRAND_TYPE.FIRE))
             cnt++;
+        this.magicNumber = this.baseMagicNumber = cnt;
+        this.isMagicNumberModified = cnt != 1;
+        super.calculateCardDamage(mo);
+    }
+
+    @Override
+    public void use(AbstractPlayer p, AbstractMonster m) {
         this.addToBot(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.SLASH_DIAGONAL));
-        this.addToBot(new DrawCardAction(p, cnt));
+        this.addToBot(new DrawCardAction(p, this.magicNumber));
     }
 }
