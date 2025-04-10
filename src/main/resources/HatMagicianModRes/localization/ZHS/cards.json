@@ -188,10 +188,10 @@
   },
   "HatMagicianMod:RapidCold": {
     "NAME": "极速冷却",
-    "DESCRIPTION": " 消耗  NL 选择一张已 消耗 的 hatmagician:印记牌 或 hatmagician:睡眠牌 ，将其放入你的手牌。",
-    "UPGRADE_DESCRIPTION": "选择一张已 消耗 的 hatmagician:印记牌 或 hatmagician:睡眠牌 ，将其放入你的手牌。",
+    "DESCRIPTION": " 消耗  NL 选择一张已 消耗 的 hatmagician:印记牌 ，将其放入你的手牌。",
+    "UPGRADE_DESCRIPTION": "选择一张已 消耗 的 hatmagician:印记牌 ，将其放入你的手牌。",
     "EXTENDED_DESCRIPTION": [
-      "消耗堆中没有印记牌或睡眠牌。"
+      "消耗堆中没有印记牌。"
     ]
   },
   "HatMagicianMod:RapidShield": {
@@ -230,8 +230,8 @@
   },
   "HatMagicianMod:Rest": {
     "NAME": "睡觉",
-    "DESCRIPTION": " 虚无 ， 消耗  NL 这张卡只能 hatmagician:立即打出 。 NL 获得3点 hatmagician:困意 ，回复 !M! 点生命。",
-    "UPGRADE_DESCRIPTION": " 虚无 ， 消耗  NL 这张卡只能 hatmagician:立即打出 。 NL 获得3点 hatmagician:困意 ，回复 !M! 点生命。",
+    "DESCRIPTION": " hatmagician:沉睡  NL 这张卡只能 hatmagician:立即打出 。 NL 获得3点 hatmagician:困意 ，回复 !M! 点生命。",
+    "UPGRADE_DESCRIPTION": " hatmagician:沉睡  NL 这张卡只能 hatmagician:立即打出 。 NL 获得3点 hatmagician:困意 ，回复 !M! 点生命。",
     "EXTENDED_DESCRIPTION": [
       "现在无法入睡了。"
     ]

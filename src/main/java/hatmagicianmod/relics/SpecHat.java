@@ -47,7 +47,7 @@ public class SpecHat extends CustomRelic {
         // test
 //        this.addToBot(new MakeTempCardInHandAction(new BlankMemory()));
 //        this.addToBot(new MakeTempCardInHandAction(new Discharge()));
-//        this.addToBot(new MakeTempCardInHandAction(new Ice(), 3));
+//        this.addToBot(new MakeTempCardInHandAction(new Ice()));
 //        this.addToBot(new MakeTempCardInHandAction(new BrandScar()));
 //        this.addToBot(new MakeTempCardInHandAction(new BurningAbyss()));
 //        this.addToBot(new MakeTempCardInHandAction(new ElectricExchange()));
@@ -58,6 +58,8 @@ public class SpecHat extends CustomRelic {
 //        this.addToBot(new MakeTempCardInHandAction(new Rest()));
 //        this.addToBot(new MakeTempCardInHandAction(new SleepTalk()));
 //        this.addToBot(new MakeTempCardInHandAction(new MorningAnger()));
+//        this.addToBot(new MakeTempCardInHandAction(new ZzzWorld()));
+//        this.addToBot(new MakeTempCardInHandAction(new RapidCold()));
         // end of test
 
         this.exhaust_brand_tags = new ArrayList<>();

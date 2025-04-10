@@ -53,7 +53,7 @@
   "HatMagicianMod:ZzzWorldPower": {
     "NAME": "晚安，世界",
     "DESCRIPTIONS": [
-      "回合结束时，获得 #g%d 点格挡，若场上存在 #b冰冻印记 则额外获得1次。"
+      "回合结束时，获得 #g%d 点格挡与 #g%d 层困意，若场上存在 #b冰冻印记 则额外获得1次。"
     ]
   },
   "HatMagicianMod:FireWallPower": {

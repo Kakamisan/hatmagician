@@ -8,8 +8,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
-import hatmagicianmod.cards.Charge;
-import hatmagicianmod.characters.MyCharacter;
+import hatmagicianmod.cards.Melt;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -38,7 +37,7 @@ public class RapidColdAction extends AbstractGameAction {
             } else if (this.p.exhaustPile.isEmpty()) {
                 this.isDone = true;
             } else if (this.p.exhaustPile.size() == 1) {
-                if (!Charge.checkCardTag((AbstractCard)this.p.exhaustPile.group.get(0))) {
+                if (!Melt.checkCardTag((AbstractCard)this.p.exhaustPile.group.get(0))) {
                     this.isDone = true;
                 } else {
                     AbstractCard c = this.p.exhaustPile.getTopCard();
@@ -60,7 +59,7 @@ public class RapidColdAction extends AbstractGameAction {
 
                 while(c.hasNext()) {
                     AbstractCard cache_c = (AbstractCard)c.next();
-                    if (!Charge.checkCardTag(cache_c)) {
+                    if (!Melt.checkCardTag(cache_c)) {
                         c.remove();
                         this.cache_cards.add(cache_c);
                     }

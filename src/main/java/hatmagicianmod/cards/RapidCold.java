@@ -8,9 +8,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import hatmagicianmod.actions.RapidColdAction;
-import hatmagicianmod.characters.MyCharacter;
 import hatmagicianmod.helpers.ModHelper;
-import hatmagicianmod.powers.BrandPower;
 
 public class RapidCold extends CustomCard {
 
@@ -53,7 +51,7 @@ public class RapidCold extends CustomCard {
         if (canUse) {
 
             for (AbstractCard c : AbstractDungeon.player.exhaustPile.group) {
-                if (Charge.checkCardTag(c)) {
+                if (Melt.checkCardTag(c)) {
                     return true;
                 }
             }
@@ -67,7 +65,7 @@ public class RapidCold extends CustomCard {
         this.glowColor = AbstractCard.BLUE_BORDER_GLOW_COLOR.cpy();
 
         for (AbstractCard c : AbstractDungeon.player.exhaustPile.group) {
-            if (Charge.checkCardTag(c)) {
+            if (Melt.checkCardTag(c)) {
                 this.glowColor = AbstractCard.GOLD_BORDER_GLOW_COLOR.cpy();
                 break;
             }

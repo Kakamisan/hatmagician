@@ -1,12 +1,11 @@
 package hatmagicianmod.powers;
 
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import hatmagicianmod.actions.UpdatePowerDescAction;
 import hatmagicianmod.helpers.ModHelper;
 
 public class ZzzWorldPower extends AbstractPower {
@@ -14,6 +13,8 @@ public class ZzzWorldPower extends AbstractPower {
     private static final PowerStrings powerStrings;
     public static final String NAME;
     public static final String[] DESCRIPTIONS;
+
+    private int amount2;
 
     static {
         POWER_ID = ModHelper.makeID("ZzzWorldPower");
@@ -30,6 +31,7 @@ public class ZzzWorldPower extends AbstractPower {
 
         // 如果需要不能叠加的能力，只需将上面的Amount参数删掉，并把下面的Amount改成-1就行
         this.amount = Amount;
+        this.amount2 = 1;
 
 //        // 添加一大一小两张能力图
 //        String path128 = "HatMagicianModRes/img/powers/Example84.png";
@@ -46,18 +48,32 @@ public class ZzzWorldPower extends AbstractPower {
     // 能力在更新时如何修改描述
     public void updateDescription() {
 //        this.description = String.format(DESCRIPTIONS[0], this.amount + this.iceBrandAdd());
-        this.description = String.format(DESCRIPTIONS[0], this.amount);
+        this.description = String.format(DESCRIPTIONS[0], this.amount, this.amount2);
     }
 
     public void atEndOfTurnPreEndTurnCards(boolean isPlayer) {
         this.addToBot(new GainBlockAction(this.owner, this.amount + this.iceBrandAdd()));
+        this.addToBot(new ApplyPowerAction(this.owner, this.owner, new TempStrengthPower(this.owner, -this.amount2 + this.iceBrandAdd2())));
     }
 
     public int iceBrandAdd() {
-        if(BrandPower.hasAnyMonstersBrand(BrandPower.BRAND_TYPE.ICE)){
+        if (BrandPower.hasAnyMonstersBrand(BrandPower.BRAND_TYPE.ICE)) {
             return this.amount;
         }
         return 0;
+    }
+
+    public int iceBrandAdd2() {
+        if (BrandPower.hasAnyMonstersBrand(BrandPower.BRAND_TYPE.ICE)) {
+            return -this.amount2;
+        }
+        return 0;
+    }
+
+    @Override
+    public void stackPower(int stackAmount) {
+        super.stackPower(stackAmount);
+        this.amount2 += 1;
     }
 
     public static void onBrandPowerApplied() {
