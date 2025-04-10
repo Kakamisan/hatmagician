@@ -16,7 +16,7 @@ public class Charge extends CustomCard {
     public static final String ID;
     private static final CardStrings CARD_STRINGS;
     private static final String IMG_PATH;
-    private static final int COST = 1;
+    private static final int COST = 0;
     private static final CardType TYPE = CardType.SKILL;
 
     static {

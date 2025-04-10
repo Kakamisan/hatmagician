@@ -14,6 +14,7 @@
   "HatMagicianMod:Lightning": {
     "NAME": "灵光",
     "DESCRIPTION": "给予1个 hatmagician:闪电印记 。"
+    ,"UPGRADE_DESCRIPTION": " hatmagician:沉睡  NL 给予1个 hatmagician:闪电印记 。"
   },
   "HatMagicianMod:Fire": {
     "NAME": "点火",
@@ -42,7 +43,7 @@
   },
   "HatMagicianMod:FireWall": {
     "NAME": "火焰墙",
-    "DESCRIPTION": "获得 !B! 点格挡。 NL 本回合受到攻击时，给予1层 hatmagician:灼烧 。"
+    "DESCRIPTION": "获得 !B! 点格挡。 NL 本回合受到攻击时，给予 !M! 层 hatmagician:灼烧 。"
   },
   "HatMagicianMod:Wave": {
     "NAME": "心烦意乱",
@@ -79,7 +80,7 @@
   },
   "HatMagicianMod:BreakAttack": {
     "NAME": "破碎一击",
-    "DESCRIPTION": " hatmagician:激活 并 hatmagician:烙印  !M! 回合 NL 造成 !D! 点伤害。"
+    "DESCRIPTION": " hatmagician:激活 并 hatmagician:烙印  !M! 回合 NL 造成 !D! 点伤害。 NL 给予刚才激活的印记。"
   },
   "HatMagicianMod:TriAttack": {
     "NAME": "三重攻击",
@@ -169,7 +170,7 @@
   },
   "HatMagicianMod:PsyShock": {
     "NAME": "精神冲击",
-    "DESCRIPTION": " hatmagician:激活 并 hatmagician:烙印  !M! 回合 NL 对所有敌人造成 !D! 点伤害。"
+    "DESCRIPTION": " hatmagician:激活 并 hatmagician:烙印  !M! 回合 NL 对所有敌人造成 !D! 点伤害。 NL 给予刚才激活的印记。"
   },
   "HatMagicianMod:QuickIdea": {
     "NAME": "急中生智",
@@ -177,7 +178,7 @@
   },
   "HatMagicianMod:MagicMark": {
     "NAME": "魔力痕迹",
-    "DESCRIPTION": " 虚无 ， 消耗  NL hatmagician:激活 并 hatmagician:烙印  !M! 回合。",
+    "DESCRIPTION": " 虚无 ， 消耗  NL hatmagician:激活 并 hatmagician:烙印  !M! 回合。 NL 给予刚才激活的印记。",
     "EXTENDED_DESCRIPTION": [
       "敌人没有未激活的印记。"
     ]
@@ -207,7 +208,8 @@
   },
   "HatMagicianMod:ElectricExchange": {
     "NAME": "闪电交换",
-    "DESCRIPTION": "将弃牌堆中的 !M! 张牌加入手中。 NL 接着将1张牌放到抽牌堆底部。",
+    "DESCRIPTION": "生成1张 *沉睡灵光 。 NL 将弃牌堆中的 !M! 张牌加入手中。 NL 接着将1张牌放到抽牌堆底部。",
+    "UPGRADE_DESCRIPTION": "生成1张 *沉睡灵光+ 。 NL 将弃牌堆中的 !M! 张牌加入手中。 NL 接着将1张牌放到抽牌堆底部。",
     "EXTENDED_DESCRIPTION": [
       "弃牌堆是空的。"
     ]

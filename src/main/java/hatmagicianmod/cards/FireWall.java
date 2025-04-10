@@ -28,15 +28,17 @@ public class FireWall extends CustomCard {
     }
 
     public FireWall() {
-        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.RARE, CardTarget.SELF);
-        this.baseBlock = 16;
+        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.SELF);
+        this.baseBlock = 12;
+        this.magicNumber = this.baseMagicNumber = 1;
     }
 
     @Override
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-            this.upgradeBlock(8);
+            this.upgradeBlock(4);
+            this.upgradeMagicNumber(1);
         }
     }
 

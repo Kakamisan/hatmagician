@@ -52,15 +52,17 @@ public class BrandPower extends AbstractPower {
         public int overload_value1; // 超载1
         public int overload_value2; // 超载2
         public int curiosity_rate;  // 好奇心提供加成的倍率 *闪电为2倍，其他为1倍
-        public float charge_rate;     // 充电提供加成的倍率 *闪电为1.5倍，其他为1倍
+        public float charge_rate;   // 充电提供加成的倍率 *闪电为1.5倍，其他为1倍
+        public int base_scar;       // 基础烙印回合数
 
-        public BrandBaseClass(int passive_value, int evoke_value, int overload_value1, int overload_value2, int curiosity_rate, float charge_rate) {
+        public BrandBaseClass(int passive_value, int evoke_value, int overload_value1, int overload_value2, int curiosity_rate, float charge_rate, int base_scar) {
             this.passive_value = passive_value;
             this.evoke_value = evoke_value;
             this.overload_value1 = overload_value1;
             this.overload_value2 = overload_value2;
             this.curiosity_rate = curiosity_rate;
             this.charge_rate = charge_rate;
+            this.base_scar = base_scar;
         }
     }
 
@@ -73,9 +75,9 @@ public class BrandPower extends AbstractPower {
         DESCRIPTIONS = powerStrings.DESCRIPTIONS;
 
         BASE = new BrandBaseClass[3];
-        BASE[BRAND_TYPE.LIGHTNING.ordinal()] = new BrandBaseClass(3, 8, 8, 2, 2, 1.5F);
-        BASE[BRAND_TYPE.FIRE.ordinal()] = new BrandBaseClass(1, 1, 1, 1, 1, 1.0F);
-        BASE[BRAND_TYPE.ICE.ordinal()] = new BrandBaseClass(1, 3, 5, 2, 1, 1.0F);
+        BASE[BRAND_TYPE.LIGHTNING.ordinal()] = new BrandBaseClass(3, 8, 8, 2, 2, 1.5F, 0);
+        BASE[BRAND_TYPE.FIRE.ordinal()] = new BrandBaseClass(1, 1, 1, 1, 1, 1.0F, 2);
+        BASE[BRAND_TYPE.ICE.ordinal()] = new BrandBaseClass(2, 5, 8, 3, 1, 1.0F, 0);
     }
 
     public BrandPower(AbstractCreature owner, BRAND_TYPE type) {
@@ -300,7 +302,7 @@ public class BrandPower extends AbstractPower {
         this.useEvoke(source_type);
         this.evokeEnd();
         // 烙印能力 + 附加烙印
-        this.scar_turn = this.playerBrandScar() + scar_turn;
+        this.scar_turn = this.playerBrandScar() + scar_turn + this.baseBrandScar();
         // 相同烙印数的同属性印记叠加在一起
         if (this.scar_turn > 0) {
             this.amount = 1;
@@ -607,6 +609,11 @@ public class BrandPower extends AbstractPower {
             return 2;
         }
         return 1;
+    }
+
+    // 基础烙印层数
+    private int baseBrandScar() {
+        return BASE[this.brand_type.ordinal()].base_scar;
     }
 
     // 烙印的层数

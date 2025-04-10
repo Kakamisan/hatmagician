@@ -1,6 +1,8 @@
 package hatmagicianmod.cards;
 
 import basemod.abstracts.CustomCard;
+import com.megacrit.cardcrawl.actions.common.MakeTempCardInHandAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -27,18 +29,24 @@ public class ElectricExchange extends CustomCard {
     public ElectricExchange() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.SELF);
         this.magicNumber = this.baseMagicNumber = 1;
+        this.cardsToPreview = new Lightning(false);
     }
 
     @Override
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-            this.upgradeBaseCost(0);
+//            this.upgradeBaseCost(0);
+            this.cardsToPreview = new Lightning(true);
+            this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
+            this.initializeDescription();
         }
     }
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
+        AbstractCard c = this.cardsToPreview.makeCopy();
+        this.addToBot(new MakeTempCardInHandAction(c));
         this.addToBot(new ElectricExchangeAction(this.magicNumber, false, 1));
     }
 

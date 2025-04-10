@@ -32,7 +32,7 @@ public class IceBurn extends CustomCard {
     }
 
     public IceBurn() {
-        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.RARE, CardTarget.ENEMY);
+        super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.ENEMY);
         this.baseDamage = 12;
     }
 
