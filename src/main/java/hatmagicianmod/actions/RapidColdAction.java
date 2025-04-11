@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import hatmagicianmod.cards.Charge;
 import hatmagicianmod.cards.Melt;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class RapidColdAction extends AbstractGameAction {
             } else if (this.p.exhaustPile.isEmpty()) {
                 this.isDone = true;
             } else if (this.p.exhaustPile.size() == 1) {
-                if (!Melt.checkCardTag((AbstractCard)this.p.exhaustPile.group.get(0))) {
+                if (!Charge.checkCardTag((AbstractCard)this.p.exhaustPile.group.get(0))) {
                     this.isDone = true;
                 } else {
                     AbstractCard c = this.p.exhaustPile.getTopCard();
@@ -59,7 +60,7 @@ public class RapidColdAction extends AbstractGameAction {
 
                 while(c.hasNext()) {
                     AbstractCard cache_c = (AbstractCard)c.next();
-                    if (!Melt.checkCardTag(cache_c)) {
+                    if (!Charge.checkCardTag(cache_c)) {
                         c.remove();
                         this.cache_cards.add(cache_c);
                     }
@@ -117,8 +118,11 @@ public class RapidColdAction extends AbstractGameAction {
         }
 
         this.p.exhaustPile.removeCard(c);
-        if (this.upgrade && c.canUpgrade()) {
-            c.upgrade();
+//        if (this.upgrade && c.canUpgrade()) {
+//            c.upgrade();
+//        }
+        if (this.upgrade) {
+            c.setCostForTurn(-9);
         }
 
         c.unhover();

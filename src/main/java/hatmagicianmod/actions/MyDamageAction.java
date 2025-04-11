@@ -25,7 +25,7 @@ public class MyDamageAction extends AbstractGameAction {
 
     @Override
     public void update() {
-        ModHelper.log("[My单体伤害]addToTop");
+//        ModHelper.log("[My单体伤害]addToTop");
         this.addToTop(new DamageAction(this.m, new DamageInfo(this.p, this.damage, this.type), this.effect));
         this.isDone = true;
     }

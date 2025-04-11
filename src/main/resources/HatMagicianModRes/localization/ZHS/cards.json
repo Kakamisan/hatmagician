@@ -39,7 +39,8 @@
   },
   "HatMagicianMod:IceBurn": {
     "NAME": "冰焰",
-    "DESCRIPTION": "造成 !D! 点伤害。 NL 使其 hatmagician:灼烧 层数翻倍。"
+    "DESCRIPTION": "造成 !D! 点伤害。 NL 获得其 hatmagician:灼烧 层数相等的格挡。",
+    "UPGRADE_DESCRIPTION": "造成 !D! 点伤害。 NL 获得其 hatmagician:灼烧 层数+ !M! 的格挡。"
   },
   "HatMagicianMod:FireWall": {
     "NAME": "火焰墙",
@@ -189,10 +190,10 @@
   },
   "HatMagicianMod:RapidCold": {
     "NAME": "极速冷却",
-    "DESCRIPTION": " 消耗  NL 选择一张已 消耗 的 hatmagician:印记牌 ，将其放入你的手牌。",
-    "UPGRADE_DESCRIPTION": "选择一张已 消耗 的 hatmagician:印记牌 ，将其放入你的手牌。",
+    "DESCRIPTION": " 消耗  NL 选择一张已 消耗 的 hatmagician:印记牌 或 hatmagician:睡眠牌 ，将其放入你的手牌。",
+    "UPGRADE_DESCRIPTION": " 消耗  NL 选择一张已 消耗 的 hatmagician:印记牌 或 hatmagician:睡眠牌 ，将其放入你的手牌。 NL 这张牌在本回合耗能变为0。",
     "EXTENDED_DESCRIPTION": [
-      "消耗堆中没有印记牌。"
+      "消耗堆中没有印记牌或睡眠牌。"
     ]
   },
   "HatMagicianMod:RapidShield": {
@@ -228,19 +229,19 @@
   },
   "HatMagicianMod:Yawn": {
     "NAME": "哈欠",
-    "DESCRIPTION": " 消耗  NL 获得 !B! 点格挡。 NL 每当你获得 hatmagician:困意 ，回复与之相等的生命，该效果无法叠加。"
+    "DESCRIPTION": " 消耗  NL 获得 !B! 点格挡。 NL 在 !M! 回合内，每次获得 hatmagician:困意 时回复与之相等的生命。"
   },
   "HatMagicianMod:Rest": {
-    "NAME": "睡觉",
+    "NAME": "睡大觉",
     "DESCRIPTION": " hatmagician:沉睡  NL 这张卡只能 hatmagician:立即打出 。 NL 获得3点 hatmagician:困意 ，回复 !M! 点生命。",
     "UPGRADE_DESCRIPTION": " hatmagician:沉睡  NL 这张卡只能 hatmagician:立即打出 。 NL 获得3点 hatmagician:困意 ，回复 !M! 点生命。",
     "EXTENDED_DESCRIPTION": [
-      "现在无法入睡了。"
+      "现在没法睡大觉了。"
     ]
   },
   "HatMagicianMod:SleepTalk": {
     "NAME": "梦话",
-    "DESCRIPTION": "对所有敌人造成 !D! 点伤害，给予1层 虚弱 。 NL  hatmagician:困意 在这张卡上发挥相反效果。"
+    "DESCRIPTION": "对所有敌人造成 !D! 点伤害，给予 !M! 层 虚弱 。 NL  hatmagician:困意 在这张卡上发挥相反效果。"
   },
   "HatMagicianMod:MorningAnger": {
     "NAME": "起床气",
@@ -248,7 +249,7 @@
   },
   "HatMagicianMod:IsSleep": {
     "NAME": "睡眠",
-    "DESCRIPTION": " hatmagician:沉睡  NL 获得1点 hatmagician:困意 。"
+    "DESCRIPTION": " hatmagician:沉睡  NL 获得 !M! 点 hatmagician:困意 ，回复 !M! 点生命。"
   },
   "HatMagicianMod:Rolling": {
     "NAME": "打滚",

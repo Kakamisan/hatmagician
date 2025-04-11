@@ -1,6 +1,8 @@
 package hatmagicianmod.powers;
 
 import com.megacrit.cardcrawl.actions.common.HealAction;
+import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
+import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.PowerStrings;
@@ -42,17 +44,29 @@ public class YawnPower extends AbstractPower {
     }
 
     public void updateDescription() {
-        this.description = String.format(DESCRIPTIONS[0], this.amount);
+//        this.description = String.format(DESCRIPTIONS[0], this.amount);
+        this.description = DESCRIPTIONS[0];
     }
 
     @Override
     public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
         super.onApplyPower(power, target, source);
         if (power.amount < 0 && power.owner.isPlayer) {
-            if (power.ID.equals("Strength") || power.ID.equals(TempStrengthPower.POWER_ID)) {
+//            if (power.ID.equals("Strength") || power.ID.equals(TempStrengthPower.POWER_ID)) {
+            if (power.ID.equals(TempStrengthPower.POWER_ID)) {
                 this.flash();
                 this.addToTop(new HealAction(this.owner, this.owner, -power.amount));
             }
+        }
+    }
+
+    @Override
+    public void atEndOfRound() {
+        super.atEndOfRound();
+        if (this.amount == 0) {
+            this.addToBot(new RemoveSpecificPowerAction(this.owner, this.owner, this));
+        } else {
+            this.addToBot(new ReducePowerAction(this.owner, this.owner, this, 1));
         }
     }
 }

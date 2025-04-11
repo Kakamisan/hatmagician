@@ -93,6 +93,6 @@ public class MorningAnger extends CustomCard {
         this.addToBot(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.BLUNT_LIGHT));
         this.addToBot(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.BLUNT_LIGHT));
         this.addToBot(new ApplyPowerAction(m, p, new VulnerablePower(m, this.magicNumber, false)));
-        this.addToBot(new RemoveSpecificPowerAction(p, p, ModHelper.makeID("TempStrengthPower")));
+        this.addToBot(new RemoveSpecificPowerAction(p, p, TempStrengthPower.POWER_ID));
     }
 }

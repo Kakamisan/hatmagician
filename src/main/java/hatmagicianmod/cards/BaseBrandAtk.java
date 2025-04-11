@@ -6,7 +6,6 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 import hatmagicianmod.helpers.ModHelper;
 import hatmagicianmod.powers.BrandPower;
 
@@ -32,34 +31,26 @@ public class BaseBrandAtk extends CustomCard {
 
     @Override
     public void calculateCardDamage(AbstractMonster mo) {
-        ModHelper.log("[" + this.name + "]计算属性");
+//        ModHelper.log("[" + this.name + "]计算属性");
 
         // 临时把印记设置成激活状态
         ArrayList<BrandPower> tmp_pl = new ArrayList<>();
         if (!this.isMultiDamage && mo != null) {
-            for (AbstractPower p : mo.powers) {
-                if (BrandPower.isBrandPower(p, BrandPower.BRAND_TYPE.FIRE)) {
-                    BrandPower p2 = ((BrandPower) p);
-                    if (!p2.is_activated) {
-                        ModHelper.log("[" + p2.name + "]本次计算中激活");
-                        p2.is_evoking = true;
-                        tmp_pl.add(p2);
-                    }
-                }
+            BrandPower p = BrandPower.getCanEvokeBrandPower(mo);
+            if (p != null) {
+//                ModHelper.log("[" + p.name + "]本次计算中激活");
+                p.is_evoking = true;
+                tmp_pl.add(p);
             }
         } else {
             ArrayList<AbstractMonster> ms = AbstractDungeon.getCurrRoom().monsters.monsters;
             for (AbstractMonster m : ms) {
                 if (m.isDeadOrEscaped()) continue;
-                for (AbstractPower p : m.powers) {
-                    if (BrandPower.isBrandPower(p, BrandPower.BRAND_TYPE.FIRE)) {
-                        BrandPower p2 = ((BrandPower) p);
-                        if (!p2.is_activated) {
-                            ModHelper.log("[" + p2.name + "]本次计算中激活");
-                            p2.is_evoking = true;
-                            tmp_pl.add(p2);
-                        }
-                    }
+                BrandPower p = BrandPower.getCanEvokeBrandPower(m);
+                if (p != null) {
+//                    ModHelper.log("[" + p.name + "]本次计算中激活");
+                    p.is_evoking = true;
+                    tmp_pl.add(p);
                 }
             }
         }
@@ -68,7 +59,7 @@ public class BaseBrandAtk extends CustomCard {
 
         // 把印记复原
         for (BrandPower p : tmp_pl) {
-            ModHelper.log("[" + p.name + "]本次计算中还原");
+//            ModHelper.log("[" + p.name + "]本次计算中还原");
             p.is_evoking = false;
         }
     }

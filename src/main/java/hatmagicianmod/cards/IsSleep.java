@@ -2,6 +2,7 @@ package hatmagicianmod.cards;
 
 import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.actions.common.HealAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
@@ -27,6 +28,7 @@ public class IsSleep extends CustomCard {
 
     public IsSleep() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, CardColor.COLORLESS, CardRarity.SPECIAL, CardTarget.SELF);
+        this.magicNumber = this.baseMagicNumber = 1;
         this.isEthereal = true;
         this.exhaust = true;
         this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_SLEEP);
@@ -41,6 +43,7 @@ public class IsSleep extends CustomCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        this.addToBot(new ApplyPowerAction(p, p, new TempStrengthPower(p, -1)));
+        this.addToBot(new ApplyPowerAction(p, p, new TempStrengthPower(p, -this.magicNumber)));
+        this.addToBot(new HealAction(p, p, this.magicNumber));
     }
 }

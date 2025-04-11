@@ -34,7 +34,7 @@ public class RapidCold extends CustomCard {
     public void upgrade() {
         if (!this.upgraded) {
             this.upgradeName();
-            this.exhaust = false;
+//            this.exhaust = false;
             this.rawDescription = CARD_STRINGS.UPGRADE_DESCRIPTION;
             this.initializeDescription();
         }
@@ -42,7 +42,7 @@ public class RapidCold extends CustomCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
-        this.addToBot(new RapidColdAction(false));
+        this.addToBot(new RapidColdAction(this.upgraded));
     }
 
     @Override
@@ -51,7 +51,7 @@ public class RapidCold extends CustomCard {
         if (canUse) {
 
             for (AbstractCard c : AbstractDungeon.player.exhaustPile.group) {
-                if (Melt.checkCardTag(c)) {
+                if (Charge.checkCardTag(c)) {
                     return true;
                 }
             }
@@ -65,7 +65,7 @@ public class RapidCold extends CustomCard {
         this.glowColor = AbstractCard.BLUE_BORDER_GLOW_COLOR.cpy();
 
         for (AbstractCard c : AbstractDungeon.player.exhaustPile.group) {
-            if (Melt.checkCardTag(c)) {
+            if (Charge.checkCardTag(c)) {
                 this.glowColor = AbstractCard.GOLD_BORDER_GLOW_COLOR.cpy();
                 break;
             }

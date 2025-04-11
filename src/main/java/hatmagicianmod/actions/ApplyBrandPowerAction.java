@@ -25,7 +25,7 @@ public class ApplyBrandPowerAction extends AbstractGameAction {
 
     @Override
     public void update() {
-        ModHelper.log("[添加印记]addToTop");
+//        ModHelper.log("[添加印记]addToTop");
         this.addToTop(new ApplyPowerAction(this.target, AbstractDungeon.player, new BrandPower(this.target, this.type)));
         this.addToTop(new BrandEvokeAction(this.target, this.type, this.scar_turn));
         this.isDone = true;

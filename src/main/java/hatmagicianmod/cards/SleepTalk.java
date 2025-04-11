@@ -39,6 +39,7 @@ public class SleepTalk extends CustomCard {
     public SleepTalk() {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.COMMON, CardTarget.ALL_ENEMY);
         this.baseDamage = 6;
+        this.magicNumber = this.baseMagicNumber = 1;
         this.isMultiDamage = true;
         this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_SLEEP);
         this.cardsToPreview = new IsSleep();
@@ -49,6 +50,7 @@ public class SleepTalk extends CustomCard {
         if (!this.upgraded) {
             this.upgradeName();
             this.upgradeDamage(3);
+            this.upgradeMagicNumber(1);
         }
     }
 
@@ -96,7 +98,7 @@ public class SleepTalk extends CustomCard {
         this.addToBot(new VFXAction(p, new ShockWaveEffect(p.hb.cX, p.hb.cY, MY_COLOR, ShockWaveEffect.ShockWaveType.NORMAL), 0.3F));
         this.addToBot(new DamageAllEnemiesAction(p, this.multiDamage, this.damageTypeForTurn, AbstractGameAction.AttackEffect.BLUNT_LIGHT));
         for (AbstractMonster mo : ModHelper.getAliveMonsters()) {
-            this.addToTop(new ApplyPowerAction(mo, AbstractDungeon.player, new WeakPower(mo, 1, false)));
+            this.addToTop(new ApplyPowerAction(mo, AbstractDungeon.player, new WeakPower(mo, this.magicNumber, false)));
         }
     }
 }

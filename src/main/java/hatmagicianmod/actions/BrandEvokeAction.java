@@ -31,9 +31,13 @@ public class BrandEvokeAction extends AbstractGameAction {
     public void update() {
 
         if (this.target != null && !this.target.isDeadOrEscaped()) {
-            for(BrandPower p: BrandPower.getBrandPowers(this.target)) {
+            BrandPower p = BrandPower.getCanEvokeBrandPower(this.target);
+            if (p != null) {
                 p.evoke(this.source_type, this.scar_turn);
             }
+//            for(BrandPower p: BrandPower.getBrandPowers(this.target)) {
+//                p.evoke(this.source_type, this.scar_turn);
+//            }
         }
 
         this.isDone = true;

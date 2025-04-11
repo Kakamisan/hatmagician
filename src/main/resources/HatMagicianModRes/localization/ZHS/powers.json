@@ -105,6 +105,7 @@
   "HatMagicianMod:YawnPower": {
     "NAME": "哈欠",
     "DESCRIPTIONS": [
+      "每当你获得困意，回复与之相等的生命。",
       "每当你获得困意，回复与之相等的生命。 NL 已打 #g%d 个哈欠。"
     ]
   },

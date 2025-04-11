@@ -120,7 +120,7 @@ public class BrandPower extends AbstractPower {
         if (this.go_for_stack) {
             return;
         }
-        ModHelper.log("[" + this.name + "]更新了描述");
+//        ModHelper.log("[" + this.name + "]更新了描述");
         if (this.is_activated && this.scar_turn > 0) {
 //            this.description = DESCRIPTIONS[0] + this.getScarDesc();
             this.description = this.getScarDesc();
@@ -132,7 +132,7 @@ public class BrandPower extends AbstractPower {
     }
 
     public void updateDescription(int curiosity) {
-        ModHelper.log("[" + this.name + "]更新了描述");
+//        ModHelper.log("[" + this.name + "]更新了描述");
         this.curiosity = curiosity;
         this.updateDescription();
     }
@@ -170,14 +170,14 @@ public class BrandPower extends AbstractPower {
 
     // 火印记激活时，受到伤害变为2倍
     public float atDamageReceive(float damage, DamageInfo.DamageType type) {
-        ModHelper.log("[" + this.name + "]伤害变更计算");
+//        ModHelper.log("[" + this.name + "]伤害变更计算");
         if (type == DamageInfo.DamageType.NORMAL && !this.owner.isPlayer && this.brand_type == BRAND_TYPE.FIRE) {
             if (BrandPower.isBurning(this)) {
-                ModHelper.log("[" + this.name + "]伤害变更计算 √");
+//                ModHelper.log("[" + this.name + "]伤害变更计算 √");
                 return damage * 2.0F;
             }
         }
-        ModHelper.log("[" + this.name + "]伤害变更计算 ×");
+//        ModHelper.log("[" + this.name + "]伤害变更计算 ×");
         return damage;
     }
 
@@ -291,13 +291,13 @@ public class BrandPower extends AbstractPower {
     }
 
     public void evoke(BRAND_TYPE source_type, int scar_turn) {
-        ModHelper.log("[" + this.name + "]激活");
+//        ModHelper.log("[" + this.name + "]激活");
         if (this.is_activated) {
-            ModHelper.log("[" + this.name + "]激活 ×");
+//            ModHelper.log("[" + this.name + "]激活 ×");
             return;
         }
         this.is_evoking = true;
-        ModHelper.log("[" + this.name + "]激活 √");
+//        ModHelper.log("[" + this.name + "]激活 √");
         this.is_activated = true;
         this.useEvoke(source_type);
         this.evokeEnd();
@@ -451,7 +451,7 @@ public class BrandPower extends AbstractPower {
 
     // 是否印记能力
     public static boolean isBrandPower(AbstractPower p) {
-        return p.ID.contains(ModHelper.makeID("BrandPower"));
+        return p.ID.contains(POWER_ID);
     }
 
     // 是否印记能力
@@ -586,7 +586,7 @@ public class BrandPower extends AbstractPower {
         if (this.curiosity != 0) {
             return this.curiosity;
         }
-        AbstractPower p = AbstractDungeon.player.getPower(ModHelper.makeID("CuriosityPower"));
+        AbstractPower p = AbstractDungeon.player.getPower(CuriosityPower.POWER_ID);
         if (p != null) {
             return p.amount;
         }
@@ -595,7 +595,7 @@ public class BrandPower extends AbstractPower {
 
     // 充电的数值
     private float playerCharge() {
-        AbstractPower p = AbstractDungeon.player.getPower(ModHelper.makeID("ChargePower"));
+        AbstractPower p = AbstractDungeon.player.getPower(ChargePower.POWER_ID);
         if (p != null) {
             return BASE[this.brand_type.ordinal()].charge_rate;
         }
@@ -604,7 +604,7 @@ public class BrandPower extends AbstractPower {
 
     // 超世形态 *超载2倍效果
     private int playerOverWorld() {
-        AbstractPower p = AbstractDungeon.player.getPower(ModHelper.makeID("OverWorldPower"));
+        AbstractPower p = AbstractDungeon.player.getPower(OverWorldPower.POWER_ID);
         if (p != null) {
             return 2;
         }
@@ -618,7 +618,7 @@ public class BrandPower extends AbstractPower {
 
     // 烙印的层数
     private int playerBrandScar() {
-        AbstractPower p = AbstractDungeon.player.getPower(ModHelper.makeID("BrandScarPower"));
+        AbstractPower p = AbstractDungeon.player.getPower(BrandScarPower.POWER_ID);
         if (p != null) {
             return p.amount;
         }
@@ -627,7 +627,7 @@ public class BrandPower extends AbstractPower {
 
     // 超载时触发一些能力的效果
     private void onPlayerOverloadEvoke() {
-        OverloadFormPower p1 = (OverloadFormPower) AbstractDungeon.player.getPower(ModHelper.makeID("OverloadFormPower"));
+        OverloadFormPower p1 = (OverloadFormPower) AbstractDungeon.player.getPower(OverloadFormPower.POWER_ID);
         if (p1 != null) {
             p1.onOverloadEvoke();
         }

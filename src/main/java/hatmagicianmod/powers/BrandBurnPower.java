@@ -51,15 +51,15 @@ public class BrandBurnPower extends AbstractPower {
 
     // 火印记激活时，受到伤害增加对应数值
     public float atDamageReceive(float damage, DamageInfo.DamageType type) {
-        ModHelper.log("[" + this.name + "]伤害变更计算");
+//        ModHelper.log("[" + this.name + "]伤害变更计算");
         if (type == DamageInfo.DamageType.NORMAL && !this.owner.isPlayer) {
             AbstractMonster m = (AbstractMonster) this.owner;
             if (BrandPower.isBurning(m)) {
-                ModHelper.log("[" + this.name + "]伤害变更计算 √");
+//                ModHelper.log("[" + this.name + "]伤害变更计算 √");
                 return damage + this.amount;
             }
         }
-        ModHelper.log("[" + this.name + "]伤害变更计算 ×");
+//        ModHelper.log("[" + this.name + "]伤害变更计算 ×");
         return damage;
     }
 
