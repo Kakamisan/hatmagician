@@ -262,7 +262,7 @@
   },
   "HatMagicianMod:BlearyEyed": {
     "NAME": "睡眼惺忪",
-    "DESCRIPTION": "抽 !M! 张牌。 NL 如果抽到 hatmagician:睡眠牌 ，自己和所有敌人获得2点 hatmagician:困意 。"
+    "DESCRIPTION": "将1张 *睡眠 加入抽牌堆，抽 !M! 张牌。 NL 如果抽到 hatmagician:睡眠牌 ，自己和所有敌人获得2点 hatmagician:困意 。"
   },
   "HatMagicianMod:SweetDream": {
     "NAME": "好梦",

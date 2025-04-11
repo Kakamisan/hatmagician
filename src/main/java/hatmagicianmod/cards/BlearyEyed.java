@@ -2,6 +2,7 @@ package hatmagicianmod.cards;
 
 import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.actions.common.DrawCardAction;
+import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.CardStrings;
@@ -42,6 +43,7 @@ public class BlearyEyed extends CustomCard {
 
     @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
+        this.addToBot(new MakeTempCardInDrawPileAction(new IsSleep(), 1, true, true));
         this.addToBot(new DrawCardAction(this.magicNumber, new BlearyEyedAction(2)));
     }
 }

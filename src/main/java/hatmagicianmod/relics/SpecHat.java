@@ -60,6 +60,9 @@ public class SpecHat extends CustomRelic {
 //        this.addToBot(new MakeTempCardInHandAction(new MorningAnger()));
 //        this.addToBot(new MakeTempCardInHandAction(new ZzzWorld()));
 //        this.addToBot(new MakeTempCardInHandAction(new RapidCold()));
+//        AbstractCard c = new BlearyEyed();
+//        c.upgrade();
+//        this.addToBot(new MakeTempCardInHandAction(c));
         // end of test
 
         this.exhaust_brand_tags = new ArrayList<>();
