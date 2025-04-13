@@ -1,5 +1,6 @@
 package hatmagicianmod.powers;
 
+import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -13,6 +14,9 @@ public class BrandBurnPower extends AbstractPower {
     private static final PowerStrings powerStrings;
     public static final String NAME;
     public static final String[] DESCRIPTIONS;
+
+    private boolean is_damaging = false;
+    private boolean go_for_reduce = false;
 
     static {
         POWER_ID = ModHelper.makeID("BrandBurnPower");
@@ -30,7 +34,7 @@ public class BrandBurnPower extends AbstractPower {
         // 如果需要不能叠加的能力，只需将上面的Amount参数删掉，并把下面的Amount改成-1就行
         this.amount = Amount;
 
-        this.priority = 4;
+        this.priority = 6;
 
 //        // 添加一大一小两张能力图
 //        String path128 = "HatMagicianModRes/img/powers/Example84.png";
@@ -56,6 +60,7 @@ public class BrandBurnPower extends AbstractPower {
             AbstractMonster m = (AbstractMonster) this.owner;
             if (BrandPower.isBurning(m)) {
 //                ModHelper.log("[" + this.name + "]伤害变更计算 √");
+                this.is_damaging = true;
                 return damage + this.amount;
             }
         }
@@ -63,4 +68,20 @@ public class BrandBurnPower extends AbstractPower {
         return damage;
     }
 
+    @Override
+    public int onAttacked(DamageInfo info, int damageAmount) {
+
+        if (!this.go_for_reduce && this.is_damaging && info.output > 0) {
+//            ModHelper.log("灼烧准备减半层数");
+            this.go_for_reduce = true;
+            this.is_damaging = false;
+            ModHelper.addToBotAbstract(() -> {
+//                ModHelper.log("灼烧减半层数了");
+                this.go_for_reduce = false;
+                this.addToTop(new ReducePowerAction(this.owner, this.owner, this, Math.round(this.amount / 2.0F)));
+            });
+        }
+
+        return super.onAttacked(info, damageAmount);
+    }
 }

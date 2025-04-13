@@ -77,7 +77,7 @@ public class BrandPower extends AbstractPower {
         BASE = new BrandBaseClass[3];
         BASE[BRAND_TYPE.LIGHTNING.ordinal()] = new BrandBaseClass(3, 8, 8, 2, 2, 1.5F, 0);
         BASE[BRAND_TYPE.FIRE.ordinal()] = new BrandBaseClass(1, 1, 1, 1, 1, 1.0F, 2);
-        BASE[BRAND_TYPE.ICE.ordinal()] = new BrandBaseClass(2, 5, 8, 3, 1, 1.0F, 0);
+        BASE[BRAND_TYPE.ICE.ordinal()] = new BrandBaseClass(1, 4, 8, 5, 1, 1.0F, 0);
     }
 
     public BrandPower(AbstractCreature owner, BRAND_TYPE type) {

@@ -127,11 +127,12 @@
   },
   "HatMagicianMod:TrickBox": {
     "NAME": "玩具箱",
-    "DESCRIPTION": " 消耗  NL 目标有未激活的 hatmagician:印记 时才可打出。",
-    "UPGRADE_DESCRIPTION": "目标有未激活的 hatmagician:印记 时才可打出。",
+    "DESCRIPTION": " 消耗 ， hatmagician:烙印 3回合 NL 目标有未激活的 hatmagician:印记 时才可打出。",
+    "UPGRADE_DESCRIPTION": " hatmagician:烙印 3回合  NL 目标有未激活的 hatmagician:印记 时才可打出。",
     "EXTENDED_DESCRIPTION": [
       "敌人没有未激活的印记。",
-      " 消耗 。"
+      " 消耗 ， hatmagician:烙印 3回合",
+      " hatmagician:烙印 3回合"
     ]
   },
   "HatMagicianMod:BaseBrandQueue": {

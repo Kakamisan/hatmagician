@@ -33,7 +33,7 @@ public class PlayFire extends CustomCard {
         super(ID, CARD_STRINGS.NAME, IMG_PATH, COST, CARD_STRINGS.DESCRIPTION, TYPE, ModHelper.color(), CardRarity.UNCOMMON, CardTarget.ENEMY);
         this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND);
         this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND_FIRE);
-        this.magicNumber = this.baseMagicNumber = 2;
+        this.magicNumber = this.baseMagicNumber = 4;
         this.cardsToPreview = new Burn();
     }
 

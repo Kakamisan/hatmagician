@@ -33,7 +33,7 @@
   "HatMagicianMod:BrandBurnPower": {
     "NAME": "灼烧",
     "DESCRIPTIONS": [
-      " #y火焰印记 激活时，受到攻击伤害增加 #g%d 。"
+      " #y火焰印记 激活时，受到攻击伤害增加 #g%d ，然后层数减半。"
     ]
   },
   "HatMagicianMod:CuriosityPower": {

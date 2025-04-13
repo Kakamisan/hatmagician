@@ -26,6 +26,9 @@ public class BaseBrandQueue extends BaseBrandAtk {
     protected static final ArrayList<BrandPower.BRAND_TYPE> BRAND_LIST;
     protected static final ArrayList<BrandPower.BRAND_TYPE> REVERSE_BRAND_LIST;
 
+    // 烙印数
+    protected int scar_turn = 0;
+
     static {
         BASE_CARD_STRINGS = CardCrawlGame.languagePack.getCardStrings(ModHelper.makeID("BaseBrandQueue"));
         BRAND_LIST = new ArrayList<>();
@@ -61,14 +64,14 @@ public class BaseBrandQueue extends BaseBrandAtk {
             switch (e) {
                 case LIGHTNING:
 //                    this.addToBot(new VFXAction(new GenBrandLightningEffect(m)));
-                    this.addToBot(new ApplyBrandPowerAction(m, BrandPower.BRAND_TYPE.LIGHTNING));
+                    this.addToBot(new ApplyBrandPowerAction(m, BrandPower.BRAND_TYPE.LIGHTNING, this.scar_turn));
                     break;
                 case FIRE:
 //                    AbstractDungeon.effectList.add(new FlashAtkImgEffect(m.hb.cX, m.hb.cY, AbstractGameAction.AttackEffect.FIRE));
-                    this.addToBot(new ApplyBrandPowerAction(m, BrandPower.BRAND_TYPE.FIRE));
+                    this.addToBot(new ApplyBrandPowerAction(m, BrandPower.BRAND_TYPE.FIRE, this.scar_turn));
                     break;
                 case ICE:
-                    this.addToBot(new ApplyBrandPowerAction(m, BrandPower.BRAND_TYPE.ICE));
+                    this.addToBot(new ApplyBrandPowerAction(m, BrandPower.BRAND_TYPE.ICE, this.scar_turn));
                     break;
             }
         }

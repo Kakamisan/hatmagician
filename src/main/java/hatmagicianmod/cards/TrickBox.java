@@ -28,6 +28,7 @@ public class TrickBox extends BaseBrandQueue {
         this.tags.add(MyCharacter.PlayerCardTags.HAT_MAGICIAN_BRAND);
         this.magicNumber = this.baseMagicNumber = 3;
         this.exhaust = true;
+        this.scar_turn = 3;
     }
 
     @Override
@@ -69,7 +70,7 @@ public class TrickBox extends BaseBrandQueue {
     @Override
     protected String cardCalcDesc() {
         if (this.upgraded) {
-            return "";
+            return CARD_STRINGS.EXTENDED_DESCRIPTION[2];
         }
         return CARD_STRINGS.EXTENDED_DESCRIPTION[1];
     }
