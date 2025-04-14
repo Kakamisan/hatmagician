@@ -46,6 +46,6 @@ public class FireWall extends CustomCard {
     public void use(AbstractPlayer p, AbstractMonster m) {
         this.addToBot(new VFXAction(p, new FlameBarrierEffect(p.hb.cX, p.hb.cY), 0.1F));
         this.addToBot(new GainBlockAction(p, this.block));
-        this.addToBot(new ApplyPowerAction(p, p, new FireWallPower(p, 1)));
+        this.addToBot(new ApplyPowerAction(p, p, new FireWallPower(p, this.magicNumber)));
     }
 }
