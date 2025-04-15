@@ -1,6 +1,5 @@
 package hatmagicianmod.cards;
 
-import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
@@ -8,17 +7,16 @@ import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.VulnerablePower;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
 import hatmagicianmod.helpers.ModHelper;
 import hatmagicianmod.powers.TempStrengthPower;
+import hatmagicianmod.relics.MagicBook;
 
-import java.util.ArrayList;
-
-public class MorningAnger extends CustomCard {
+public class MorningAnger extends BaseSleepAtk {
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;
@@ -49,50 +47,21 @@ public class MorningAnger extends CustomCard {
     }
 
     @Override
-    public void calculateCardDamage(AbstractMonster mo) {
-        AbstractPlayer player = AbstractDungeon.player;
-        ArrayList<AbstractPower> tmp_list = new ArrayList<>();
-
-        for (AbstractPower p : player.powers) {
-            if (p.ID.equals(TempStrengthPower.POWER_ID)) {
-                p.amount = -p.amount;
-                tmp_list.add(p);
-            }
-        }
-
-        super.calculateCardDamage(mo);
-
-        for (AbstractPower p : tmp_list) {
-            p.amount = -p.amount;
-        }
-
-    }
-
-    @Override
-    public void applyPowers() {
-        AbstractPlayer player = AbstractDungeon.player;
-        ArrayList<AbstractPower> tmp_list = new ArrayList<>();
-
-        for (AbstractPower p : player.powers) {
-            if (p.ID.equals(TempStrengthPower.POWER_ID)) {
-                p.amount = -p.amount;
-                tmp_list.add(p);
-            }
-        }
-
-        super.applyPowers();
-
-        for (AbstractPower p : tmp_list) {
-            p.amount = -p.amount;
-        }
-
-    }
-
-    @Override
     public void use(AbstractPlayer p, AbstractMonster m) {
         this.addToBot(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.BLUNT_LIGHT));
         this.addToBot(new DamageAction(m, new DamageInfo(p, this.damage, this.damageTypeForTurn), AbstractGameAction.AttackEffect.BLUNT_LIGHT));
         this.addToBot(new ApplyPowerAction(m, p, new VulnerablePower(m, this.magicNumber, false)));
-        this.addToBot(new RemoveSpecificPowerAction(p, p, TempStrengthPower.POWER_ID));
+//        this.addToBot(new RemoveSpecificPowerAction(p, p, TempStrengthPower.POWER_ID));
+
+        AbstractPower power = p.getPower(TempStrengthPower.POWER_ID);
+        if (power != null) {
+            AbstractRelic relic = p.getRelic(MagicBook.ID);
+            if (relic != null && power.amount < -5) {
+                relic.flash();
+                this.addToBot(new ApplyPowerAction(p, p, power, 5));
+            } else {
+                this.addToBot(new RemoveSpecificPowerAction(p, p, power));
+            }
+        }
     }
 }

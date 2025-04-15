@@ -60,6 +60,16 @@ public class ModHelper {
         return ret_list;
     }
 
+    public static ArrayList<AbstractMonster> getAliveMonsters(AbstractMonster except) {
+        ArrayList<AbstractMonster> ret_list = new ArrayList<>();
+        for (AbstractMonster m : AbstractDungeon.getMonsters().monsters) {
+            if (!m.isDeadOrEscaped() && m != except) {
+                ret_list.add(m);
+            }
+        }
+        return ret_list;
+    }
+
     public interface Lambda extends Runnable {
     }
 

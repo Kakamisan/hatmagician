@@ -21,6 +21,7 @@ import hatmagicianmod.actions.DamageChainLightningEnemiesAction;
 import hatmagicianmod.cards.BaseOnOverloadEvoke;
 import hatmagicianmod.effects.AtkChainLightningEffect;
 import hatmagicianmod.helpers.ModHelper;
+import hatmagicianmod.relics.ReverseBook;
 
 import java.util.ArrayList;
 
@@ -242,7 +243,7 @@ public class BrandPower extends AbstractPower {
         // 超载效果
         if (source_type != null && source_type != this.brand_type) {
 
-            this.onPlayerOverloadEvoke();
+            this.onPlayerOverloadEvoke(source_type, this.brand_type);
 
             switch (this.brand_type) {
                 case LIGHTNING:
@@ -626,10 +627,15 @@ public class BrandPower extends AbstractPower {
     }
 
     // 超载时触发一些能力的效果
-    private void onPlayerOverloadEvoke() {
+    private void onPlayerOverloadEvoke(BRAND_TYPE source, BRAND_TYPE target) {
         OverloadFormPower p1 = (OverloadFormPower) AbstractDungeon.player.getPower(OverloadFormPower.POWER_ID);
         if (p1 != null) {
             p1.onOverloadEvoke();
+        }
+
+        ReverseBook reverseBook = (ReverseBook)AbstractDungeon.player.getRelic(ReverseBook.ID);
+        if (reverseBook != null) {
+            reverseBook.onOverloadEvoke(source, target);
         }
 
         for (AbstractCard card : AbstractDungeon.player.hand.group) {

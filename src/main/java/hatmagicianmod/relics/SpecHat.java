@@ -14,7 +14,7 @@ public class SpecHat extends CustomRelic {
     // 遗物ID（此处的ModHelper在“04 - 本地化”中提到）
     public static final String ID = ModHelper.makeID("SpecHat");
     // 图片路径（大小128x128，可参考同目录的图片）
-    private static final String IMG_PATH = "HatMagicianModRes/img/relics/MyRelic.png";
+    private static final String IMG_PATH = "HatMagicianModRes/img/relics/SpecHat.png";
     // 遗物未解锁时的轮廓。可以不使用。如果要使用，取消注释
     // private static final String OUTLINE_PATH = "HatMagicianModRes/img/relics/MyRelic_Outline.png";
     // 遗物类型
@@ -22,7 +22,7 @@ public class SpecHat extends CustomRelic {
     // 点击音效
     private static final LandingSound LANDING_SOUND = LandingSound.FLAT;
 
-    private ArrayList<AbstractCard.CardTags> exhaust_brand_tags;
+    private final ArrayList<AbstractCard.CardTags> exhaust_brand_tags = new ArrayList<>();
 
     public SpecHat() {
         super(ID, ImageMaster.loadImage(IMG_PATH), RELIC_TIER, LANDING_SOUND);
@@ -42,6 +42,7 @@ public class SpecHat extends CustomRelic {
     @Override
     public void atBattleStart() {
         super.atBattleStart();
+        this.flash();
         this.addToBot(new MakeTempCardInHandAction(new Prank()));
 
         // test
@@ -66,10 +67,12 @@ public class SpecHat extends CustomRelic {
 //        this.addToBot(new MakeTempCardInHandAction(new PlayFire()));
 //        this.addToBot(new MakeTempCardInHandAction(new Fire()));
 //        this.addToBot(new MakeTempCardInHandAction(new Ice()));
+//        this.addToBot(new MakeTempCardInHandAction(new Ice()));
+//        this.addToBot(new MakeTempCardInHandAction(new Lightning()));
 //        this.addToBot(new MakeTempCardInHandAction(new TrickBox()));
         // end of test
 
-        this.exhaust_brand_tags = new ArrayList<>();
+        this.exhaust_brand_tags.clear();
     }
 
     @Override
@@ -91,7 +94,7 @@ public class SpecHat extends CustomRelic {
                 if (!this.exhaust_brand_tags.contains(tag)) {
                     this.exhaust_brand_tags.add(tag);
                 } else {
-                    this.exhaust_brand_tags = new ArrayList<>();
+                    this.exhaust_brand_tags.clear();
                     this.exhaust_brand_tags.add(tag);
                 }
             } else {
@@ -100,7 +103,7 @@ public class SpecHat extends CustomRelic {
                     AbstractCard blank_memory = new BlankMemory();
                     this.addToTop(new MakeTempCardInHandAction(blank_memory));
                 } else {
-                    this.exhaust_brand_tags = new ArrayList<>();
+                    this.exhaust_brand_tags.clear();
                     this.exhaust_brand_tags.add(tag);
                 }
             }

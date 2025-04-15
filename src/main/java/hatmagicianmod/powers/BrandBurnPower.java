@@ -4,10 +4,12 @@ import com.megacrit.cardcrawl.actions.common.ReducePowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import hatmagicianmod.helpers.ModHelper;
+import hatmagicianmod.relics.WillOTheWish;
 
 public class BrandBurnPower extends AbstractPower {
     public static final String POWER_ID;
@@ -79,7 +81,12 @@ public class BrandBurnPower extends AbstractPower {
             ModHelper.addToBotAbstract(() -> {
 //                ModHelper.log("灼烧减半层数了");
                 this.go_for_reduce = false;
-                this.addToTop(new ReducePowerAction(this.owner, this.owner, this, Math.round(this.amount / 2.0F)));
+                int reduce = Math.round(this.amount / 2.0F);
+                this.addToTop(new ReducePowerAction(this.owner, this.owner, this, reduce));
+                WillOTheWish relic = (WillOTheWish)AbstractDungeon.player.getRelic(WillOTheWish.ID);
+                if (this.owner != null && !this.owner.isPlayer && relic != null) {
+                    relic.onBrandBurnPowerReduce(this.owner, reduce);
+                }
             });
         }
 

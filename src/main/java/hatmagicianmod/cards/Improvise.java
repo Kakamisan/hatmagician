@@ -70,6 +70,6 @@ public class Improvise extends CustomCard {
             }
         }
 
-        return (AbstractCard)list.get(AbstractDungeon.cardRandomRng.random(list.size() - 1));
+        return (AbstractCard)list.get(ModHelper.cardRand(list.size()));
     }
 }

@@ -51,11 +51,10 @@ public class DoubleStar extends BaseBrandAtk {
         AbstractPlayer player = AbstractDungeon.player;
         ArrayList<AbstractPower> tmp_list = new ArrayList<>();
 
-        for (AbstractPower p : player.powers) {
-            if (p.ID.equals(TempStrengthPower.POWER_ID)) {
-                p.amount = -p.amount;
-                tmp_list.add(p);
-            }
+        AbstractPower po = player.getPower(TempStrengthPower.POWER_ID);
+        if (po != null) {
+            po.amount = -po.amount;
+            tmp_list.add(po);
         }
 
         super.calculateCardDamage(mo);
@@ -71,11 +70,10 @@ public class DoubleStar extends BaseBrandAtk {
         AbstractPlayer player = AbstractDungeon.player;
         ArrayList<AbstractPower> tmp_list = new ArrayList<>();
 
-        for (AbstractPower p : player.powers) {
-            if (p.ID.equals(TempStrengthPower.POWER_ID)) {
-                p.amount = -p.amount;
-                tmp_list.add(p);
-            }
+        AbstractPower po = player.getPower(TempStrengthPower.POWER_ID);
+        if (po != null) {
+            po.amount = -po.amount;
+            tmp_list.add(po);
         }
 
         super.applyPowers();

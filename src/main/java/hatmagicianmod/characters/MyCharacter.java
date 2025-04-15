@@ -20,7 +20,7 @@ import com.megacrit.cardcrawl.screens.CharSelectInfo;
 import hatmagicianmod.cards.*;
 import hatmagicianmod.helpers.ModHelper;
 import hatmagicianmod.modcore.HatMagicianMod;
-import hatmagicianmod.relics.SpecHat;
+import hatmagicianmod.relics.*;
 
 import java.util.ArrayList;
 
@@ -102,6 +102,10 @@ public class MyCharacter extends CustomPlayer {
     public ArrayList<String> getStartingRelics() {
         ArrayList<String> retVal = new ArrayList<>();
         retVal.add(SpecHat.ID);
+//        retVal.add(DayDream.ID);
+//        retVal.add(ReverseBook.ID);
+//        retVal.add(Scratchers.ID);
+//        retVal.add(WillOTheWish.ID);
         return retVal;
     }
 

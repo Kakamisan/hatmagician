@@ -1,17 +1,18 @@
 package hatmagicianmod.powers;
 
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.common.RemoveSpecificPowerAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.PowerStrings;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
-import com.megacrit.cardcrawl.unlock.UnlockTracker;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
 import hatmagicianmod.helpers.ModHelper;
-
-import java.util.ArrayList;
+import hatmagicianmod.relics.DayDream;
+import hatmagicianmod.relics.MagicBook;
 
 public class TempStrengthPower extends AbstractPower {
     public static final String POWER_ID;
@@ -69,6 +70,11 @@ public class TempStrengthPower extends AbstractPower {
             this.amount = -999;
         }
 
+        DayDream relic = (DayDream) AbstractDungeon.player.getRelic(DayDream.ID);
+        if (this.owner != null && this.owner.isPlayer && relic != null) {
+            relic.onGainTempPower(-stackAmount);
+        }
+
     }
 
     public void reducePower(int reduceAmount) {
@@ -86,6 +92,20 @@ public class TempStrengthPower extends AbstractPower {
             this.amount = -999;
         }
 
+        DayDream relic = (DayDream) AbstractDungeon.player.getRelic(DayDream.ID);
+        if (this.owner != null && this.owner.isPlayer && relic != null) {
+            relic.onGainTempPower(reduceAmount);
+        }
+
+    }
+
+    @Override
+    public void onInitialApplication() {
+        super.onInitialApplication();
+        DayDream relic = (DayDream) AbstractDungeon.player.getRelic(DayDream.ID);
+        if (this.owner != null && this.owner.isPlayer && relic != null) {
+            relic.onGainTempPower(-this.amount);
+        }
     }
 
     public void updateDescription() {
@@ -101,11 +121,19 @@ public class TempStrengthPower extends AbstractPower {
     }
 
     public float atDamageGive(float damage, DamageInfo.DamageType type) {
-        return type == DamageInfo.DamageType.NORMAL ? damage + (float)this.amount : damage;
+        return type == DamageInfo.DamageType.NORMAL ? damage + (float) this.amount : damage;
     }
 
     @Override
     public void atEndOfTurn(boolean isPlayer) {
+        if (this.owner != null && this.owner.isPlayer && this.amount < -5) {
+            AbstractRelic relic = ((AbstractPlayer) this.owner).getRelic(MagicBook.ID);
+            if (relic != null) {
+                relic.flash();
+                this.addToTop(new ApplyPowerAction(this.owner, this.owner, this, 5));
+                return;
+            }
+        }
         this.addToTop(new RemoveSpecificPowerAction(this.owner, this.owner, POWER_ID));
     }
 }

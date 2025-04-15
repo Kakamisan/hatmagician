@@ -3,7 +3,49 @@
     "NAME": "奇怪的帽子",
     "FLAVOR": "奇怪的帽子，里面似乎藏着什么。",
     "DESCRIPTIONS": [
-      "每场战斗开始时，将1张 [#F9D22B]小恶作剧[] 加入手中。"
+      "每场战斗开始时，将1张 #y小恶作剧 加入手中。"
+    ]
+  },
+  "HatMagicianMod:DayDream": {
+    "NAME": "白日梦",
+    "FLAVOR": "人总有梦想，特别是白天。",
+    "DESCRIPTIONS": [
+      "每次获得困意时，获得相同的格挡。"
+    ]
+  },
+  "HatMagicianMod:Scratchers": {
+    "NAME": "猫抓板",
+    "FLAVOR": "应该没人会有抓两下的冲动吧……",
+    "DESCRIPTIONS": [
+      "每场战斗开始时，获得1点 #y好奇心 。"
+    ]
+  },
+  "HatMagicianMod:WillOTheWish": {
+    "NAME": "鬼火",
+    "FLAVOR": "一团小小的火焰，蕴含着世界的法则。",
+    "DESCRIPTIONS": [
+      " #y灼烧 被减半的层数将转移给其他随机敌人，并给予1个 #y火焰印记 。"
+    ]
+  },
+  "HatMagicianMod:ReverseBook": {
+    "NAME": "梦与现实逆转之书",
+    "FLAVOR": "写满了奇怪符号的书本。",
+    "DESCRIPTIONS": [
+      "每场战斗完成3次有序的 #y超载 时，仅1次获得如下效果 NL 序列:获得2层 #y无实体 ，将2张 #y睡眠 加入手中 NL 逆序列:获得 [E]  [E]  [E] ，抽3张牌。",
+      " NL ",
+      "序列:",
+      "逆序列:",
+      "->",
+      " #y电 ",
+      " #r火 ",
+      " #b冰 "
+    ]
+  },
+  "HatMagicianMod:MagicBook": {
+    "NAME": "魔法书",
+    "FLAVOR": "非常详细的魔法教学，一般人穷尽一生都无法习得。",
+    "DESCRIPTIONS": [
+      "你的 #y困意 不再移除，而是减少5层。"
     ]
   }
 }

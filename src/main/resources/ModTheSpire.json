@@ -3,7 +3,7 @@
   "name": "调和术士",
   "author_list": ["节奏UwU"],
   "description": "一位不知名的术士来到了尖塔，她将用魔力印记摧毁面前的一切。",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "sts_version": "12-22-2020",
   "mts_version": "3.23.2",
   "dependencies": ["basemod"]

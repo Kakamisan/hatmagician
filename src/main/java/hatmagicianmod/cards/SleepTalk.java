@@ -1,6 +1,5 @@
 package hatmagicianmod.cards;
 
-import basemod.abstracts.CustomCard;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.animations.VFXAction;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
@@ -10,18 +9,14 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.powers.WeakPower;
 import com.megacrit.cardcrawl.vfx.combat.ShockWaveEffect;
 import hatmagicianmod.characters.MyCharacter;
 import hatmagicianmod.helpers.ModHelper;
-import hatmagicianmod.powers.TempStrengthPower;
-
-import java.util.ArrayList;
 
 import static hatmagicianmod.modcore.HatMagicianMod.MY_COLOR;
 
-public class SleepTalk extends CustomCard {
+public class SleepTalk extends BaseSleepAtk {
 
     public static final String ID;
     private static final CardStrings CARD_STRINGS;
@@ -52,45 +47,6 @@ public class SleepTalk extends CustomCard {
             this.upgradeDamage(3);
             this.upgradeMagicNumber(1);
         }
-    }
-
-    @Override
-    public void calculateCardDamage(AbstractMonster mo) {
-        AbstractPlayer player = AbstractDungeon.player;
-        ArrayList<AbstractPower> tmp_list = new ArrayList<>();
-
-        for (AbstractPower p : player.powers) {
-            if (p.ID.equals(TempStrengthPower.POWER_ID)) {
-                p.amount = -p.amount;
-                tmp_list.add(p);
-            }
-        }
-
-        super.calculateCardDamage(mo);
-
-        for (AbstractPower p : tmp_list) {
-            p.amount = -p.amount;
-        }
-
-    }
-
-    public void applyPowers() {
-        AbstractPlayer player = AbstractDungeon.player;
-        ArrayList<AbstractPower> tmp_list = new ArrayList<>();
-
-        for (AbstractPower p : player.powers) {
-            if (p.ID.equals(TempStrengthPower.POWER_ID)) {
-                p.amount = -p.amount;
-                tmp_list.add(p);
-            }
-        }
-
-        super.applyPowers();
-
-        for (AbstractPower p : tmp_list) {
-            p.amount = -p.amount;
-        }
-
     }
 
     @Override

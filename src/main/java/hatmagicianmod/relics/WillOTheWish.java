@@ -1,0 +1,50 @@
+package hatmagicianmod.relics;
+
+import basemod.abstracts.CustomRelic;
+import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
+import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.ImageMaster;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import hatmagicianmod.actions.ApplyBrandPowerAction;
+import hatmagicianmod.helpers.ModHelper;
+import hatmagicianmod.powers.BrandBurnPower;
+import hatmagicianmod.powers.BrandPower;
+
+import java.util.ArrayList;
+
+public class WillOTheWish extends CustomRelic {
+    // 遗物ID（此处的ModHelper在“04 - 本地化”中提到）
+    public static final String ID = ModHelper.makeID("WillOTheWish");
+    // 图片路径（大小128x128，可参考同目录的图片）
+    private static final String IMG_PATH = "HatMagicianModRes/img/relics/WillOTheWish.png";
+    // 遗物未解锁时的轮廓。可以不使用。如果要使用，取消注释
+    // private static final String OUTLINE_PATH = "HatMagicianModRes/img/relics/MyRelic_Outline.png";
+    // 遗物类型
+    private static final RelicTier RELIC_TIER = RelicTier.RARE;
+    // 点击音效
+    private static final LandingSound LANDING_SOUND = LandingSound.FLAT;
+
+    public WillOTheWish() {
+        super(ID, ImageMaster.loadImage(IMG_PATH), RELIC_TIER, LANDING_SOUND);
+        // 如果你需要轮廓图，取消注释下面一行并注释上面一行，不需要就删除
+        // super(ID, ImageMaster.loadImage(IMG_PATH), ImageMaster.loadImage(OUTLINE_PATH), RELIC_TIER, LANDING_SOUND);
+    }
+
+    // 获取遗物描述，但原版游戏只在初始化和获取遗物时调用，故该方法等于初始描述
+    public String getUpdatedDescription() {
+        return this.DESCRIPTIONS[0];
+    }
+
+    public void onBrandBurnPowerReduce(AbstractCreature owner, int amount) {
+        if (amount > 0 && owner != null) {
+            ArrayList<AbstractMonster> list = ModHelper.getAliveMonsters((AbstractMonster) owner);
+            if (!list.isEmpty()) {
+                this.flash();
+                AbstractMonster m = list.get(ModHelper.cardRand(list.size()));
+                AbstractDungeon.actionManager.addToTop(new ApplyPowerAction(m, AbstractDungeon.player, new BrandBurnPower(m, amount)));
+                AbstractDungeon.actionManager.addToTop(new ApplyBrandPowerAction(m, BrandPower.BRAND_TYPE.FIRE));
+            }
+        }
+    }
+}
