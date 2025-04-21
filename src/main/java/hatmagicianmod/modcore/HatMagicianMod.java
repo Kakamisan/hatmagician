@@ -100,10 +100,11 @@ public class HatMagicianMod implements EditCardsSubscriber, EditStringsSubscribe
 //        BaseMod.addRelic(new SpecHat(), RelicType.SHARED); // RelicType表示是所有角色都能拿到的遗物，还是一个角色的独有遗物
         new AutoAdd("HatMagicianMod").packageFilter(SpecHat.class)
                 .any(CustomRelic.class, (info, relic) -> {
-                    BaseMod.addRelic(relic, RelicType.SHARED);
-                    if (info.seen) {
-                        UnlockTracker.markRelicAsSeen(relic.relicId);
-                    }
+//                    BaseMod.addRelic(relic, RelicType.SHARED);
+//                    if (info.seen) {
+//                        UnlockTracker.markRelicAsSeen(relic.relicId);
+//                    }
+                    BaseMod.addRelicToCustomPool(relic, HAT_MAGICIAN_YELLOW);
                 });
     }
 
